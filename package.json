@@ -1,0 +1,33 @@
+{
+  "name": "@refactr/api-client",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "files": [
+    "package.json",
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "format": "prettier -c --write src/"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "native-url": "^0.3.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@babel/runtime": "^7.11.2",
+    "@rollup/plugin-alias": "^3.1.1",
+    "@rollup/plugin-babel": "^5.1.0",
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
+    "prettier": "^2.0.5",
+    "rollup": "^2.23.0",
+    "typescript": "^3.9.7"
+  }
+}

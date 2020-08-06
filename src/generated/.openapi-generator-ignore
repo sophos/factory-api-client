@@ -1,0 +1,5 @@
+# Ignore generating of default OpenAPI generator metadata
+git_push.sh
+.gitignore
+.npmignore
+.openapi-generator-ignore
