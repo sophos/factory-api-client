@@ -722,10 +722,10 @@ export interface InlineResponse20013 {
 export interface InlineResponse20014 {
 	/**
 	 *
-	 * @type {Array<OrganizationInvite>}
+	 * @type {Array<Project>}
 	 * @memberof InlineResponse20014
 	 */
-	users?: Array<OrganizationInvite>;
+	jobs?: Array<Project>;
 }
 /**
  *
@@ -735,8 +735,21 @@ export interface InlineResponse20014 {
 export interface InlineResponse20015 {
 	/**
 	 *
-	 * @type {Array<UserGroup>}
+	 * @type {Array<OrganizationInvite>}
 	 * @memberof InlineResponse20015
+	 */
+	users?: Array<OrganizationInvite>;
+}
+/**
+ *
+ * @export
+ * @interface InlineResponse20016
+ */
+export interface InlineResponse20016 {
+	/**
+	 *
+	 * @type {Array<UserGroup>}
+	 * @memberof InlineResponse20016
 	 */
 	users?: Array<UserGroup>;
 }
@@ -884,7 +897,7 @@ export interface InlineResponse2009 {
 	 * @type {Array<Project>}
 	 * @memberof InlineResponse2009
 	 */
-	jobs?: Array<Project>;
+	projects?: Array<Project>;
 }
 /**
  *
@@ -9240,7 +9253,7 @@ export const ProjectsApiFp = function (configuration?: Configuration) {
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<InlineResponse2009>
+			) => AxiosPromise<InlineResponse20014>
 		> {
 			const localVarAxiosArgs = await ProjectsApiAxiosParamCreator(
 				configuration
@@ -9422,7 +9435,7 @@ export const ProjectsApiFactory = function (
 			offset?: number,
 			limit?: number,
 			options?: any
-		): AxiosPromise<InlineResponse2009> {
+		): AxiosPromise<InlineResponse20014> {
 			return ProjectsApiFp(configuration)
 				.listOrganizationProjects(
 					organizationId,
@@ -13082,7 +13095,7 @@ export const UsersApiFp = function (configuration?: Configuration) {
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<InlineResponse20015>
+			) => AxiosPromise<InlineResponse20016>
 		> {
 			const localVarAxiosArgs = await UsersApiAxiosParamCreator(
 				configuration
@@ -13112,7 +13125,7 @@ export const UsersApiFp = function (configuration?: Configuration) {
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<InlineResponse20014>
+			) => AxiosPromise<InlineResponse20015>
 		> {
 			const localVarAxiosArgs = await UsersApiAxiosParamCreator(
 				configuration
@@ -13786,7 +13799,7 @@ export const UsersApiFactory = function (
 		listOrganizationGroups(
 			organizationId: string,
 			options?: any
-		): AxiosPromise<InlineResponse20015> {
+		): AxiosPromise<InlineResponse20016> {
 			return UsersApiFp(configuration)
 				.listOrganizationGroups(organizationId, options)
 				.then((request) => request(axios, basePath));
@@ -13801,7 +13814,7 @@ export const UsersApiFactory = function (
 		listOrganizationInvites(
 			organizationId: string,
 			options?: any
-		): AxiosPromise<InlineResponse20014> {
+		): AxiosPromise<InlineResponse20015> {
 			return UsersApiFp(configuration)
 				.listOrganizationInvites(organizationId, options)
 				.then((request) => request(axios, basePath));
