@@ -670,10 +670,10 @@ export interface InlineResponse2001 {
 export interface InlineResponse20010 {
 	/**
 	 *
-	 * @type {Array<Job>}
+	 * @type {Array<Project>}
 	 * @memberof InlineResponse20010
 	 */
-	jobs?: Array<Job>;
+	projects?: Array<Project>;
 }
 /**
  *
@@ -683,10 +683,10 @@ export interface InlineResponse20010 {
 export interface InlineResponse20011 {
 	/**
 	 *
-	 * @type {Array<RunnerAgent>}
+	 * @type {Array<Job>}
 	 * @memberof InlineResponse20011
 	 */
-	runner_agents?: Array<RunnerAgent>;
+	jobs?: Array<Job>;
 }
 /**
  *
@@ -696,10 +696,10 @@ export interface InlineResponse20011 {
 export interface InlineResponse20012 {
 	/**
 	 *
-	 * @type {Array<Run>}
+	 * @type {Array<RunnerAgent>}
 	 * @memberof InlineResponse20012
 	 */
-	runs?: Array<Run>;
+	runner_agents?: Array<RunnerAgent>;
 }
 /**
  *
@@ -709,10 +709,10 @@ export interface InlineResponse20012 {
 export interface InlineResponse20013 {
 	/**
 	 *
-	 * @type {Array<Organization>}
+	 * @type {Array<Run>}
 	 * @memberof InlineResponse20013
 	 */
-	organizations?: Array<Organization>;
+	runs?: Array<Run>;
 }
 /**
  *
@@ -722,10 +722,10 @@ export interface InlineResponse20013 {
 export interface InlineResponse20014 {
 	/**
 	 *
-	 * @type {Array<Project>}
+	 * @type {Array<Organization>}
 	 * @memberof InlineResponse20014
 	 */
-	jobs?: Array<Project>;
+	organizations?: Array<Organization>;
 }
 /**
  *
@@ -735,10 +735,10 @@ export interface InlineResponse20014 {
 export interface InlineResponse20015 {
 	/**
 	 *
-	 * @type {Array<OrganizationInvite>}
+	 * @type {Array<Project>}
 	 * @memberof InlineResponse20015
 	 */
-	users?: Array<OrganizationInvite>;
+	jobs?: Array<Project>;
 }
 /**
  *
@@ -748,8 +748,21 @@ export interface InlineResponse20015 {
 export interface InlineResponse20016 {
 	/**
 	 *
-	 * @type {Array<UserGroup>}
+	 * @type {Array<OrganizationInvite>}
 	 * @memberof InlineResponse20016
+	 */
+	users?: Array<OrganizationInvite>;
+}
+/**
+ *
+ * @export
+ * @interface InlineResponse20017
+ */
+export interface InlineResponse20017 {
+	/**
+	 *
+	 * @type {Array<UserGroup>}
+	 * @memberof InlineResponse20017
 	 */
 	users?: Array<UserGroup>;
 }
@@ -868,10 +881,10 @@ export interface InlineResponse2006 {
 export interface InlineResponse2007 {
 	/**
 	 *
-	 * @type {Array<CatalogPipeline>}
+	 * @type {Array<PipelineRevision>}
 	 * @memberof InlineResponse2007
 	 */
-	pipelines?: Array<CatalogPipeline>;
+	pipelines?: Array<PipelineRevision>;
 }
 /**
  *
@@ -881,10 +894,10 @@ export interface InlineResponse2007 {
 export interface InlineResponse2008 {
 	/**
 	 *
-	 * @type {Array<Credential>}
+	 * @type {Array<CatalogPipeline>}
 	 * @memberof InlineResponse2008
 	 */
-	pipelines?: Array<Credential>;
+	pipelines?: Array<CatalogPipeline>;
 }
 /**
  *
@@ -894,10 +907,10 @@ export interface InlineResponse2008 {
 export interface InlineResponse2009 {
 	/**
 	 *
-	 * @type {Array<Project>}
+	 * @type {Array<Credential>}
 	 * @memberof InlineResponse2009
 	 */
-	projects?: Array<Project>;
+	pipelines?: Array<Credential>;
 }
 /**
  *
@@ -2938,7 +2951,7 @@ export const AgentsApiFp = function (configuration?: Configuration) {
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<InlineResponse20011>
+			) => AxiosPromise<InlineResponse20012>
 		> {
 			const localVarAxiosArgs = await AgentsApiAxiosParamCreator(
 				configuration
@@ -2968,7 +2981,7 @@ export const AgentsApiFp = function (configuration?: Configuration) {
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<InlineResponse20011>
+			) => AxiosPromise<InlineResponse20012>
 		> {
 			const localVarAxiosArgs = await AgentsApiAxiosParamCreator(
 				configuration
@@ -3181,7 +3194,7 @@ export const AgentsApiFactory = function (
 		listOrganizationRunnerAgents(
 			organizationId: string,
 			options?: any
-		): AxiosPromise<InlineResponse20011> {
+		): AxiosPromise<InlineResponse20012> {
 			return AgentsApiFp(configuration)
 				.listOrganizationRunnerAgents(organizationId, options)
 				.then((request) => request(axios, basePath));
@@ -3196,7 +3209,7 @@ export const AgentsApiFactory = function (
 		listProjectRunnerAgents(
 			projectId: string,
 			options?: any
-		): AxiosPromise<InlineResponse20011> {
+		): AxiosPromise<InlineResponse20012> {
 			return AgentsApiFp(configuration)
 				.listProjectRunnerAgents(projectId, options)
 				.then((request) => request(axios, basePath));
@@ -4225,7 +4238,7 @@ export const CatalogApiFp = function (configuration?: Configuration) {
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<InlineResponse2007>
+			) => AxiosPromise<InlineResponse2008>
 		> {
 			const localVarAxiosArgs = await CatalogApiAxiosParamCreator(
 				configuration
@@ -4393,7 +4406,7 @@ export const CatalogApiFactory = function (
 			sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc',
 			search?: string,
 			options?: any
-		): AxiosPromise<InlineResponse2007> {
+		): AxiosPromise<InlineResponse2008> {
 			return CatalogApiFp(configuration)
 				.listCatalogPipelines(tags, sort, search, options)
 				.then((request) => request(axios, basePath));
@@ -5142,7 +5155,7 @@ export const CredentialsApiFp = function (configuration?: Configuration) {
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<InlineResponse2008>
+			) => AxiosPromise<InlineResponse2009>
 		> {
 			const localVarAxiosArgs = await CredentialsApiAxiosParamCreator(
 				configuration
@@ -5282,7 +5295,7 @@ export const CredentialsApiFactory = function (
 			offset?: number,
 			limit?: number,
 			options?: any
-		): AxiosPromise<InlineResponse2008> {
+		): AxiosPromise<InlineResponse2009> {
 			return CredentialsApiFp(configuration)
 				.listCredentials(projectId, type, sort, offset, limit, options)
 				.then((request) => request(axios, basePath));
@@ -6085,7 +6098,7 @@ export const JobsApiFp = function (configuration?: Configuration) {
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<InlineResponse20010>
+			) => AxiosPromise<InlineResponse20011>
 		> {
 			const localVarAxiosArgs = await JobsApiAxiosParamCreator(
 				configuration
@@ -6254,7 +6267,7 @@ export const JobsApiFactory = function (
 			offset?: number,
 			fields?: Array<'pipeline' | 'pipeline_revision'>,
 			options?: any
-		): AxiosPromise<InlineResponse20010> {
+		): AxiosPromise<InlineResponse20011> {
 			return JobsApiFp(configuration)
 				.listJobs(projectId, sort, limit, offset, fields, options)
 				.then((request) => request(axios, basePath));
@@ -6686,7 +6699,7 @@ export const OrganizationsApiFp = function (configuration?: Configuration) {
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<InlineResponse20013>
+			) => AxiosPromise<InlineResponse20014>
 		> {
 			const localVarAxiosArgs = await OrganizationsApiAxiosParamCreator(
 				configuration
@@ -6768,7 +6781,7 @@ export const OrganizationsApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		listOrganizations(options?: any): AxiosPromise<InlineResponse20013> {
+		listOrganizations(options?: any): AxiosPromise<InlineResponse20014> {
 			return OrganizationsApiFp(configuration)
 				.listOrganizations(options)
 				.then((request) => request(axios, basePath));
@@ -7282,6 +7295,102 @@ export const PipelinesApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @summary List pipeline revisions included in the steps of a given pipeline revision
+		 * @param {string} projectId Project ID
+		 * @param {string} id Pipeline ID
+		 * @param {number} revision Revision number
+		 * @param {Array<'variables' | 'outputs' | 'steps' | 'layout'>} [fields] Additional fields to return
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getPipelineRevisionPipelineRevisions: async (
+			projectId: string,
+			id: string,
+			revision: number,
+			fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>,
+			options: any = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'projectId' is not null or undefined
+			if (projectId === null || projectId === undefined) {
+				throw new RequiredError(
+					'projectId',
+					'Required parameter projectId was null or undefined when calling getPipelineRevisionPipelineRevisions.'
+				);
+			}
+			// verify required parameter 'id' is not null or undefined
+			if (id === null || id === undefined) {
+				throw new RequiredError(
+					'id',
+					'Required parameter id was null or undefined when calling getPipelineRevisionPipelineRevisions.'
+				);
+			}
+			// verify required parameter 'revision' is not null or undefined
+			if (revision === null || revision === undefined) {
+				throw new RequiredError(
+					'revision',
+					'Required parameter revision was null or undefined when calling getPipelineRevisionPipelineRevisions.'
+				);
+			}
+			const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision}/revisions`
+				.replace(
+					`{${'project_id'}}`,
+					encodeURIComponent(String(projectId))
+				)
+				.replace(`{${'_id'}}`, encodeURIComponent(String(id)))
+				.replace(
+					`{${'revision'}}`,
+					encodeURIComponent(String(revision))
+				);
+			const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication BearerAuth required
+			// http bearer authentication required
+			if (configuration && configuration.accessToken) {
+				const accessToken =
+					typeof configuration.accessToken === 'function'
+						? configuration.accessToken()
+						: configuration.accessToken;
+				localVarHeaderParameter['Authorization'] =
+					'Bearer ' + accessToken;
+			}
+
+			if (fields) {
+				localVarQueryParameter['fields'] = fields;
+			}
+
+			localVarUrlObj.query = {
+				...localVarUrlObj.query,
+				...localVarQueryParameter,
+				...options.query
+			};
+			// fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+			delete localVarUrlObj.search;
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: globalImportUrl.format(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
 		 * @summary List pipelines included in the steps of a given pipeline revision
 		 * @param {string} projectId Project ID
 		 * @param {string} id Pipeline ID
@@ -7375,7 +7484,7 @@ export const PipelinesApiAxiosParamCreator = function (
 		 * @summary Get pipeline revisions
 		 * @param {string} projectId Project ID
 		 * @param {string} id Pipeline ID
-		 * @param {Array<'variables'>} [fields] Additional fields to return
+		 * @param {Array<'variables' | 'user'>} [fields] Additional fields to return
 		 * @param {number} [limit]
 		 * @param {number} [offset]
 		 * @param {*} [options] Override http request option.
@@ -7384,7 +7493,7 @@ export const PipelinesApiAxiosParamCreator = function (
 		getPipelineRevisions: async (
 			projectId: string,
 			id: string,
-			fields?: Array<'variables'>,
+			fields?: Array<'variables' | 'user'>,
 			limit?: number,
 			offset?: number,
 			options: any = {}
@@ -7926,6 +8035,48 @@ export const PipelinesApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
+		 * @summary List pipeline revisions included in the steps of a given pipeline revision
+		 * @param {string} projectId Project ID
+		 * @param {string} id Pipeline ID
+		 * @param {number} revision Revision number
+		 * @param {Array<'variables' | 'outputs' | 'steps' | 'layout'>} [fields] Additional fields to return
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getPipelineRevisionPipelineRevisions(
+			projectId: string,
+			id: string,
+			revision: number,
+			fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>,
+			options?: any
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string
+			) => AxiosPromise<InlineResponse2007>
+		> {
+			const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(
+				configuration
+			).getPipelineRevisionPipelineRevisions(
+				projectId,
+				id,
+				revision,
+				fields,
+				options
+			);
+			return (
+				axios: AxiosInstance = globalAxios,
+				basePath: string = BASE_PATH
+			) => {
+				const axiosRequestArgs = {
+					...localVarAxiosArgs.options,
+					url: basePath + localVarAxiosArgs.url
+				};
+				return axios.request(axiosRequestArgs);
+			};
+		},
+		/**
+		 *
 		 * @summary List pipelines included in the steps of a given pipeline revision
 		 * @param {string} projectId Project ID
 		 * @param {string} id Pipeline ID
@@ -7963,7 +8114,7 @@ export const PipelinesApiFp = function (configuration?: Configuration) {
 		 * @summary Get pipeline revisions
 		 * @param {string} projectId Project ID
 		 * @param {string} id Pipeline ID
-		 * @param {Array<'variables'>} [fields] Additional fields to return
+		 * @param {Array<'variables' | 'user'>} [fields] Additional fields to return
 		 * @param {number} [limit]
 		 * @param {number} [offset]
 		 * @param {*} [options] Override http request option.
@@ -7972,7 +8123,7 @@ export const PipelinesApiFp = function (configuration?: Configuration) {
 		async getPipelineRevisions(
 			projectId: string,
 			id: string,
-			fields?: Array<'variables'>,
+			fields?: Array<'variables' | 'user'>,
 			limit?: number,
 			offset?: number,
 			options?: any
@@ -8217,6 +8368,33 @@ export const PipelinesApiFactory = function (
 		},
 		/**
 		 *
+		 * @summary List pipeline revisions included in the steps of a given pipeline revision
+		 * @param {string} projectId Project ID
+		 * @param {string} id Pipeline ID
+		 * @param {number} revision Revision number
+		 * @param {Array<'variables' | 'outputs' | 'steps' | 'layout'>} [fields] Additional fields to return
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getPipelineRevisionPipelineRevisions(
+			projectId: string,
+			id: string,
+			revision: number,
+			fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>,
+			options?: any
+		): AxiosPromise<InlineResponse2007> {
+			return PipelinesApiFp(configuration)
+				.getPipelineRevisionPipelineRevisions(
+					projectId,
+					id,
+					revision,
+					fields,
+					options
+				)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 *
 		 * @summary List pipelines included in the steps of a given pipeline revision
 		 * @param {string} projectId Project ID
 		 * @param {string} id Pipeline ID
@@ -8239,7 +8417,7 @@ export const PipelinesApiFactory = function (
 		 * @summary Get pipeline revisions
 		 * @param {string} projectId Project ID
 		 * @param {string} id Pipeline ID
-		 * @param {Array<'variables'>} [fields] Additional fields to return
+		 * @param {Array<'variables' | 'user'>} [fields] Additional fields to return
 		 * @param {number} [limit]
 		 * @param {number} [offset]
 		 * @param {*} [options] Override http request option.
@@ -8248,7 +8426,7 @@ export const PipelinesApiFactory = function (
 		getPipelineRevisions(
 			projectId: string,
 			id: string,
-			fields?: Array<'variables'>,
+			fields?: Array<'variables' | 'user'>,
 			limit?: number,
 			offset?: number,
 			options?: any
@@ -8430,6 +8608,35 @@ export class PipelinesApi extends BaseAPI {
 
 	/**
 	 *
+	 * @summary List pipeline revisions included in the steps of a given pipeline revision
+	 * @param {string} projectId Project ID
+	 * @param {string} id Pipeline ID
+	 * @param {number} revision Revision number
+	 * @param {Array<'variables' | 'outputs' | 'steps' | 'layout'>} [fields] Additional fields to return
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof PipelinesApi
+	 */
+	public getPipelineRevisionPipelineRevisions(
+		projectId: string,
+		id: string,
+		revision: number,
+		fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>,
+		options?: any
+	) {
+		return PipelinesApiFp(this.configuration)
+			.getPipelineRevisionPipelineRevisions(
+				projectId,
+				id,
+				revision,
+				fields,
+				options
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
 	 * @summary List pipelines included in the steps of a given pipeline revision
 	 * @param {string} projectId Project ID
 	 * @param {string} id Pipeline ID
@@ -8454,7 +8661,7 @@ export class PipelinesApi extends BaseAPI {
 	 * @summary Get pipeline revisions
 	 * @param {string} projectId Project ID
 	 * @param {string} id Pipeline ID
-	 * @param {Array<'variables'>} [fields] Additional fields to return
+	 * @param {Array<'variables' | 'user'>} [fields] Additional fields to return
 	 * @param {number} [limit]
 	 * @param {number} [offset]
 	 * @param {*} [options] Override http request option.
@@ -8464,7 +8671,7 @@ export class PipelinesApi extends BaseAPI {
 	public getPipelineRevisions(
 		projectId: string,
 		id: string,
-		fields?: Array<'variables'>,
+		fields?: Array<'variables' | 'user'>,
 		limit?: number,
 		offset?: number,
 		options?: any
@@ -9253,7 +9460,7 @@ export const ProjectsApiFp = function (configuration?: Configuration) {
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<InlineResponse20014>
+			) => AxiosPromise<InlineResponse20015>
 		> {
 			const localVarAxiosArgs = await ProjectsApiAxiosParamCreator(
 				configuration
@@ -9298,7 +9505,7 @@ export const ProjectsApiFp = function (configuration?: Configuration) {
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<InlineResponse2009>
+			) => AxiosPromise<InlineResponse20010>
 		> {
 			const localVarAxiosArgs = await ProjectsApiAxiosParamCreator(
 				configuration
@@ -9435,7 +9642,7 @@ export const ProjectsApiFactory = function (
 			offset?: number,
 			limit?: number,
 			options?: any
-		): AxiosPromise<InlineResponse20014> {
+		): AxiosPromise<InlineResponse20015> {
 			return ProjectsApiFp(configuration)
 				.listOrganizationProjects(
 					organizationId,
@@ -9465,7 +9672,7 @@ export const ProjectsApiFactory = function (
 			offset?: number,
 			fields?: Array<'organization'>,
 			options?: any
-		): AxiosPromise<InlineResponse2009> {
+		): AxiosPromise<InlineResponse20010> {
 			return ProjectsApiFp(configuration)
 				.listProjects(sort, search, limit, offset, fields, options)
 				.then((request) => request(axios, basePath));
@@ -10175,7 +10382,7 @@ export const RunsApiFp = function (configuration?: Configuration) {
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<InlineResponse20012>
+			) => AxiosPromise<InlineResponse20013>
 		> {
 			const localVarAxiosArgs = await RunsApiAxiosParamCreator(
 				configuration
@@ -10334,7 +10541,7 @@ export const RunsApiFactory = function (
 			offset?: number,
 			fields?: Array<'job' | 'pipeline' | 'runner_agent'>,
 			options?: any
-		): AxiosPromise<InlineResponse20012> {
+		): AxiosPromise<InlineResponse20013> {
 			return RunsApiFp(configuration)
 				.listProjectRuns(
 					projectId,
@@ -13095,7 +13302,7 @@ export const UsersApiFp = function (configuration?: Configuration) {
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<InlineResponse20016>
+			) => AxiosPromise<InlineResponse20017>
 		> {
 			const localVarAxiosArgs = await UsersApiAxiosParamCreator(
 				configuration
@@ -13125,7 +13332,7 @@ export const UsersApiFp = function (configuration?: Configuration) {
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<InlineResponse20015>
+			) => AxiosPromise<InlineResponse20016>
 		> {
 			const localVarAxiosArgs = await UsersApiAxiosParamCreator(
 				configuration
@@ -13799,7 +14006,7 @@ export const UsersApiFactory = function (
 		listOrganizationGroups(
 			organizationId: string,
 			options?: any
-		): AxiosPromise<InlineResponse20016> {
+		): AxiosPromise<InlineResponse20017> {
 			return UsersApiFp(configuration)
 				.listOrganizationGroups(organizationId, options)
 				.then((request) => request(axios, basePath));
@@ -13814,7 +14021,7 @@ export const UsersApiFactory = function (
 		listOrganizationInvites(
 			organizationId: string,
 			options?: any
-		): AxiosPromise<InlineResponse20015> {
+		): AxiosPromise<InlineResponse20016> {
 			return UsersApiFp(configuration)
 				.listOrganizationInvites(organizationId, options)
 				.then((request) => request(axios, basePath));
