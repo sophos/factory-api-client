@@ -8,10 +8,6 @@
     "package.json",
     "dist"
   ],
-  "scripts": {
-    "build": "rollup -c",
-    "format": "prettier -c --write src/"
-  },
   "dependencies": {
     "axios": "^0.19.2",
     "native-url": "^0.3.4"
@@ -29,5 +25,9 @@
     "prettier": "^2.0.5",
     "rollup": "^2.23.0",
     "typescript": "^3.9.7"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "format": "prettier -c --write src/"
   }
 }

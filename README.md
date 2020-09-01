@@ -1,4 +1,33 @@
-This repository is for active development of the Refactr API client for JavScript (NodeJS & Browser).
+# Refactr JavaScript API Client Library
 
-The generated client is localed at `src/generated` and re-generates from https://api.refactr.it/v1/spec if the
-spec. is changed, then a new PR is send.
+This is the official Refactr API client library for JavaScript.
+
+**Note:** This project is under active development, and the interface may change in the future.
+
+### Examples
+
+To list projects:
+
+```
+const { ProjectsApi, Configuration } = require('@refactr/api-client');
+
+const accessToken = '<your api token here>';
+
+const config = new Configuration({
+    accessToken: accessToken
+});
+const client = new ProjectsApi(config);
+
+(async () => {
+    const res = await client.listProjects();
+    console.info(res.data);
+})().catch(e => {
+    console.error(`Request failed with status code: ${e.response.status}`);
+    console.error('Response body:');
+    console.error(e.response.data);
+});
+```
+
+### Other
+
+This library is generated from the OpenAPI schema at https://api.refactr.it/v1
