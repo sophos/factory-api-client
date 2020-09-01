@@ -1,7 +1,7 @@
 {
   "name": "@refactr/api-client",
   "version": "0.1.0",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "files": [
