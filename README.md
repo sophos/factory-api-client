@@ -2,9 +2,9 @@
 
 This is the official Refactr API client library for JavaScript.
 
-**Note:** This project is under active development, and the interface may change in the future.
+**Note:** This project is under active development, and the interface will change in the future.
 
-### Examples
+### Usage
 
 To list projects:
 
@@ -22,8 +22,7 @@ const client = new ProjectsApi(config);
     const res = await client.listProjects();
     console.info(res.data);
 })().catch(e => {
-    console.error(`Request failed with status code: ${e.response.status}`);
-    console.error('Response body:');
+    console.error(`Request failed with status code: ${e.response.status}. Response body:`);
     console.error(e.response.data);
 });
 ```
