@@ -29,7 +29,7 @@
   "scripts": {
     "build": "rollup -c",
     "format": "prettier -c --write src/",
-    "fetch": "mkdir -p spec && curl https://api.refactr.it/v1/spec -o ./spec/schema.json",
+    "fetch": "mkdir -p spec && curl -s https://api.refactr.it/v1/spec | jq '.' > ./spec/schema.json",
     "generate": "openapi-generator generate -i ./spec/schema.json -g typescript-axios -o ./src/generated"
   }
 }
