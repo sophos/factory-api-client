@@ -26,10 +26,13 @@
     "rollup": "^2.23.0",
     "typescript": "^3.9.7"
   },
+  "peerDependencies": {
+    "@openapitools/openapi-generator-cli": "^2"
+  },
   "scripts": {
     "build": "rollup -c",
     "format": "prettier -c --write src/",
     "fetch": "mkdir -p spec && curl https://api.refactr.it/v1/spec -o ./spec/schema.json",
-    "generate": "openapi-generator generate -i ./spec/schema.json -g typescript-axios -o ./src/generated"
+    "generate": "openapi-generator-cli generate -i ./spec/schema.json -g typescript-axios -o ./src/generated"
   }
 }
