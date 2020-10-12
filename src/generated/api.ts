@@ -1049,6 +1049,12 @@ export interface Job {
 	suppress_events?: boolean;
 	/**
 	 *
+	 * @type {boolean}
+	 * @memberof Job
+	 */
+	disable_on_failure?: boolean;
+	/**
+	 *
 	 * @type {object}
 	 * @memberof Job
 	 */
