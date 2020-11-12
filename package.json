@@ -1,6 +1,6 @@
 {
   "name": "@refactr/api-client",
-  "version": "0.1.2",
+  "version": "0.3.0",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
