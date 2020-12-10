@@ -2408,6 +2408,7 @@
                   "username_password",
                   "ssh_key",
                   "bearer_token",
+                  "api_token",
                   "azure_service_principal",
                   "google_service_account",
                   "aws_access_key"
@@ -5066,28 +5067,36 @@
             "type": "string"
           },
           "address": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "city": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "state": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "zip": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "contact_name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "contact_email": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
+          },
+          "plan_quotas": {
+            "type": "object",
+            "properties": {
+              "project_count": {
+                "type": "integer"
+              },
+              "user_count": {
+                "type": "integer"
+              },
+              "agent_count": {
+                "type": "integer"
+              }
+            }
           }
         }
       },
@@ -5394,6 +5403,7 @@
               "username_password",
               "ssh_key",
               "bearer_token",
+              "api_token",
               "azure_service_principal",
               "google_service_account",
               "aws_access_key"
