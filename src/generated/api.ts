@@ -177,6 +177,7 @@ export enum CredentialTypeEnum {
 	UsernamePassword = 'username_password',
 	SshKey = 'ssh_key',
 	BearerToken = 'bearer_token',
+	ApiToken = 'api_token',
 	AzureServicePrincipal = 'azure_service_principal',
 	GoogleServiceAccount = 'google_service_account',
 	AwsAccessKey = 'aws_access_key'
@@ -1180,37 +1181,43 @@ export interface Organization {
 	 * @type {string}
 	 * @memberof Organization
 	 */
-	address?: string | null;
+	address?: string;
 	/**
 	 *
 	 * @type {string}
 	 * @memberof Organization
 	 */
-	city?: string | null;
+	city?: string;
 	/**
 	 *
 	 * @type {string}
 	 * @memberof Organization
 	 */
-	state?: string | null;
+	state?: string;
 	/**
 	 *
 	 * @type {string}
 	 * @memberof Organization
 	 */
-	zip?: string | null;
+	zip?: string;
 	/**
 	 *
 	 * @type {string}
 	 * @memberof Organization
 	 */
-	contact_name?: string | null;
+	contact_name?: string;
 	/**
 	 *
 	 * @type {string}
 	 * @memberof Organization
 	 */
-	contact_email?: string | null;
+	contact_email?: string;
+	/**
+	 *
+	 * @type {OrganizationPlanQuotas}
+	 * @memberof Organization
+	 */
+	plan_quotas?: OrganizationPlanQuotas;
 }
 /**
  *
@@ -1248,6 +1255,31 @@ export interface OrganizationInvite {
 	 * @memberof OrganizationInvite
 	 */
 	expires_at?: string;
+}
+/**
+ *
+ * @export
+ * @interface OrganizationPlanQuotas
+ */
+export interface OrganizationPlanQuotas {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof OrganizationPlanQuotas
+	 */
+	project_count?: number;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof OrganizationPlanQuotas
+	 */
+	user_count?: number;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof OrganizationPlanQuotas
+	 */
+	agent_count?: number;
 }
 /**
  *
@@ -4838,7 +4870,7 @@ export const CredentialsApiAxiosParamCreator = function (
 		 *
 		 * @summary List credentials
 		 * @param {string} projectId Project ID
-		 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
+		 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
 		 * @param {'created_asc' | 'created_desc'} [sort]
 		 * @param {number} [offset]
 		 * @param {number} [limit]
@@ -4852,6 +4884,7 @@ export const CredentialsApiAxiosParamCreator = function (
 				| 'username_password'
 				| 'ssh_key'
 				| 'bearer_token'
+				| 'api_token'
 				| 'azure_service_principal'
 				| 'google_service_account'
 				| 'aws_access_key'
@@ -5135,7 +5168,7 @@ export const CredentialsApiFp = function (configuration?: Configuration) {
 		 *
 		 * @summary List credentials
 		 * @param {string} projectId Project ID
-		 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
+		 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
 		 * @param {'created_asc' | 'created_desc'} [sort]
 		 * @param {number} [offset]
 		 * @param {number} [limit]
@@ -5149,6 +5182,7 @@ export const CredentialsApiFp = function (configuration?: Configuration) {
 				| 'username_password'
 				| 'ssh_key'
 				| 'bearer_token'
+				| 'api_token'
 				| 'azure_service_principal'
 				| 'google_service_account'
 				| 'aws_access_key'
@@ -5279,7 +5313,7 @@ export const CredentialsApiFactory = function (
 		 *
 		 * @summary List credentials
 		 * @param {string} projectId Project ID
-		 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
+		 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
 		 * @param {'created_asc' | 'created_desc'} [sort]
 		 * @param {number} [offset]
 		 * @param {number} [limit]
@@ -5293,6 +5327,7 @@ export const CredentialsApiFactory = function (
 				| 'username_password'
 				| 'ssh_key'
 				| 'bearer_token'
+				| 'api_token'
 				| 'azure_service_principal'
 				| 'google_service_account'
 				| 'aws_access_key'
@@ -5388,7 +5423,7 @@ export class CredentialsApi extends BaseAPI {
 	 *
 	 * @summary List credentials
 	 * @param {string} projectId Project ID
-	 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
+	 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
 	 * @param {'created_asc' | 'created_desc'} [sort]
 	 * @param {number} [offset]
 	 * @param {number} [limit]
@@ -5403,6 +5438,7 @@ export class CredentialsApi extends BaseAPI {
 			| 'username_password'
 			| 'ssh_key'
 			| 'bearer_token'
+			| 'api_token'
 			| 'azure_service_principal'
 			| 'google_service_account'
 			| 'aws_access_key'
