@@ -1,18 +1,23 @@
 {
   "name": "@refactr/api-client",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
+  "types": "./types",
   "files": [
     "package.json",
-    "dist"
+    "dist",
+    "types",
+    "LICENSE",
+    "README.md"
   ],
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "native-url": "^0.3.4"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2",
     "@babel/core": "^7.11.1",
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
@@ -22,16 +27,11 @@
     "@rollup/plugin-babel": "^5.1.0",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
-    "prettier": "^2.0.5",
     "rollup": "^2.23.0",
     "typescript": "^3.9.7"
   },
-  "peerDependencies": {
-    "@openapitools/openapi-generator-cli": "^2"
-  },
   "scripts": {
-    "build": "rollup -c",
-    "format": "prettier -c --write src/",
+    "build": "rollup -c && tsc",
     "fetch": "mkdir -p spec && curl -s https://api.refactr.it/v1/spec | jq '.' > ./spec/schema.json",
     "generate": "openapi-generator-cli generate -i ./spec/schema.json -g typescript-axios -o ./src/generated"
   }
