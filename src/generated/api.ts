@@ -180,7 +180,8 @@ export enum CredentialTypeEnum {
 	ApiToken = 'api_token',
 	AzureServicePrincipal = 'azure_service_principal',
 	GoogleServiceAccount = 'google_service_account',
-	AwsAccessKey = 'aws_access_key'
+	AwsAccessKey = 'aws_access_key',
+	VaultAppRole = 'vault_app_role'
 }
 
 /**
@@ -1361,6 +1362,12 @@ export interface Pipeline {
 	 * @memberof Pipeline
 	 */
 	name?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Pipeline
+	 */
+	summary?: string | null;
 	/**
 	 *
 	 * @type {string}
@@ -4870,7 +4877,7 @@ export const CredentialsApiAxiosParamCreator = function (
 		 *
 		 * @summary List credentials
 		 * @param {string} projectId Project ID
-		 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
+		 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>} [type] Credential types filter
 		 * @param {'created_asc' | 'created_desc'} [sort]
 		 * @param {number} [offset]
 		 * @param {number} [limit]
@@ -4888,6 +4895,7 @@ export const CredentialsApiAxiosParamCreator = function (
 				| 'azure_service_principal'
 				| 'google_service_account'
 				| 'aws_access_key'
+				| 'vault_app_role'
 			>,
 			sort?: 'created_asc' | 'created_desc',
 			offset?: number,
@@ -5168,7 +5176,7 @@ export const CredentialsApiFp = function (configuration?: Configuration) {
 		 *
 		 * @summary List credentials
 		 * @param {string} projectId Project ID
-		 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
+		 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>} [type] Credential types filter
 		 * @param {'created_asc' | 'created_desc'} [sort]
 		 * @param {number} [offset]
 		 * @param {number} [limit]
@@ -5186,6 +5194,7 @@ export const CredentialsApiFp = function (configuration?: Configuration) {
 				| 'azure_service_principal'
 				| 'google_service_account'
 				| 'aws_access_key'
+				| 'vault_app_role'
 			>,
 			sort?: 'created_asc' | 'created_desc',
 			offset?: number,
@@ -5313,7 +5322,7 @@ export const CredentialsApiFactory = function (
 		 *
 		 * @summary List credentials
 		 * @param {string} projectId Project ID
-		 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
+		 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>} [type] Credential types filter
 		 * @param {'created_asc' | 'created_desc'} [sort]
 		 * @param {number} [offset]
 		 * @param {number} [limit]
@@ -5331,6 +5340,7 @@ export const CredentialsApiFactory = function (
 				| 'azure_service_principal'
 				| 'google_service_account'
 				| 'aws_access_key'
+				| 'vault_app_role'
 			>,
 			sort?: 'created_asc' | 'created_desc',
 			offset?: number,
@@ -5423,7 +5433,7 @@ export class CredentialsApi extends BaseAPI {
 	 *
 	 * @summary List credentials
 	 * @param {string} projectId Project ID
-	 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
+	 * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>} [type] Credential types filter
 	 * @param {'created_asc' | 'created_desc'} [sort]
 	 * @param {number} [offset]
 	 * @param {number} [limit]
@@ -5442,6 +5452,7 @@ export class CredentialsApi extends BaseAPI {
 			| 'azure_service_principal'
 			| 'google_service_account'
 			| 'aws_access_key'
+			| 'vault_app_role'
 		>,
 		sort?: 'created_asc' | 'created_desc',
 		offset?: number,

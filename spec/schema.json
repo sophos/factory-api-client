@@ -2411,7 +2411,8 @@
                   "api_token",
                   "azure_service_principal",
                   "google_service_account",
-                  "aws_access_key"
+                  "aws_access_key",
+                  "vault_app_role"
                 ]
               }
             }
@@ -5223,6 +5224,10 @@
           "name": {
             "type": "string"
           },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          },
           "description": {
             "type": "string",
             "nullable": true
@@ -5406,7 +5411,8 @@
               "api_token",
               "azure_service_principal",
               "google_service_account",
-              "aws_access_key"
+              "aws_access_key",
+              "vault_app_role"
             ]
           },
           "data": {
