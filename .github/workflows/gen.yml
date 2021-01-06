@@ -64,9 +64,6 @@ jobs:
       - name: Generating OpenAPI client
         run: npm run generate
 
-      - name: Reformatting codebase
-        run: npm run format
-
       - name: Making a pull request
         uses: peter-evans/create-pull-request@v3
         with:
