@@ -17,12 +17,12 @@
     "native-url": "^0.3.4"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2",
     "@babel/core": "^7.11.1",
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-typescript": "^7.10.4",
     "@babel/runtime": "^7.11.2",
+    "@openapitools/openapi-generator-cli": "^2.1.16",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-babel": "^5.1.0",
     "@rollup/plugin-commonjs": "^14.0.0",

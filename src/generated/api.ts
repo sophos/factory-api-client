@@ -175,7 +175,8 @@ export enum CredentialTypeEnum {
     ApiToken = 'api_token',
     AzureServicePrincipal = 'azure_service_principal',
     GoogleServiceAccount = 'google_service_account',
-    AwsAccessKey = 'aws_access_key'
+    AwsAccessKey = 'aws_access_key',
+    VaultAppRole = 'vault_app_role'
 }
 
 /**
@@ -1356,6 +1357,12 @@ export interface Pipeline {
      * @memberof Pipeline
      */
     name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Pipeline
+     */
+    summary?: string | null;
     /**
      * 
      * @type {string}
@@ -3873,14 +3880,14 @@ export const CredentialsApiAxiosParamCreator = function (configuration?: Configu
          * 
          * @summary List credentials
          * @param {string} projectId Project ID
-         * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
+         * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>} [type] Credential types filter
          * @param {'created_asc' | 'created_desc'} [sort] 
          * @param {number} [offset] 
          * @param {number} [limit] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCredentials: async (projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options: any = {}): Promise<RequestArgs> => {
+        listCredentials: async (projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             if (projectId === null || projectId === undefined) {
                 throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling listCredentials.');
@@ -4052,14 +4059,14 @@ export const CredentialsApiFp = function(configuration?: Configuration) {
          * 
          * @summary List credentials
          * @param {string} projectId Project ID
-         * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
+         * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>} [type] Credential types filter
          * @param {'created_asc' | 'created_desc'} [sort] 
          * @param {number} [offset] 
          * @param {number} [limit] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
+        async listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
             const localVarAxiosArgs = await CredentialsApiAxiosParamCreator(configuration).listCredentials(projectId, type, sort, offset, limit, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -4128,14 +4135,14 @@ export const CredentialsApiFactory = function (configuration?: Configuration, ba
          * 
          * @summary List credentials
          * @param {string} projectId Project ID
-         * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
+         * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>} [type] Credential types filter
          * @param {'created_asc' | 'created_desc'} [sort] 
          * @param {number} [offset] 
          * @param {number} [limit] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options?: any): AxiosPromise<InlineResponse2009> {
+        listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options?: any): AxiosPromise<InlineResponse2009> {
             return CredentialsApiFp(configuration).listCredentials(projectId, type, sort, offset, limit, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4203,7 +4210,7 @@ export class CredentialsApi extends BaseAPI {
      * 
      * @summary List credentials
      * @param {string} projectId Project ID
-     * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>} [type] Credential types filter
+     * @param {Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>} [type] Credential types filter
      * @param {'created_asc' | 'created_desc'} [sort] 
      * @param {number} [offset] 
      * @param {number} [limit] 
@@ -4211,7 +4218,7 @@ export class CredentialsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof CredentialsApi
      */
-    public listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options?: any) {
+    public listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options?: any) {
         return CredentialsApiFp(this.configuration).listCredentials(projectId, type, sort, offset, limit, options).then((request) => request(this.axios, this.basePath));
     }
 
