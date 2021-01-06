@@ -19,6 +19,7 @@ node_modules
 
 # Dist
 dist
+types
 
 # Ignore generating of default OpenAPI generator metadata
 src/generated/git_push.sh
