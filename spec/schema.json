@@ -1549,7 +1549,22 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "revision": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
           },
           "400": {
             "description": "Invalid input"
@@ -2456,7 +2471,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "pipelines": {
+                    "credentials": {
                       "type": "array",
                       "items": {
                         "$ref": "#/components/schemas/Credential"
@@ -3010,7 +3025,8 @@
                 "type": "string",
                 "enum": [
                   "pipeline",
-                  "pipeline_revision"
+                  "pipeline_revision",
+                  "webhook_token"
                 ]
               }
             }
@@ -3099,6 +3115,53 @@
         "summary": "Delete job",
         "description": "",
         "operationId": "deleteJob",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Job ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/projects/{project_id}/jobs/{_id}/webhook/token": {
+      "post": {
+        "tags": [
+          "jobs"
+        ],
+        "summary": "Regenerate job webhook token.",
+        "description": "",
+        "operationId": "regenerateJobToken",
         "parameters": [
           {
             "name": "project_id",
@@ -3827,7 +3890,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "jobs": {
+                    "projects": {
                       "type": "array",
                       "items": {
                         "$ref": "#/components/schemas/Project"
@@ -4934,6 +4997,9 @@
         }
       },
       "parameters": []
+    },
+    "/projects/{project_id}/jobs/{_id}/webhook/events": {
+      "parameters": []
     }
   },
   "components": {
@@ -5083,6 +5149,9 @@
             "type": "string"
           },
           "contact_email": {
+            "type": "string"
+          },
+          "image_id": {
             "type": "string"
           },
           "plan_quotas": {
@@ -5453,6 +5522,10 @@
           "name": {
             "type": "string"
           },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
           "number": {
             "type": "integer",
             "readOnly": true
@@ -5464,13 +5537,13 @@
             "type": "string",
             "enum": [
               "manual",
-              "scheduled"
+              "scheduled",
+              "webhook"
             ]
           },
           "schedule": {
             "type": "object",
             "additionalProperties": false,
-            "nullable": true,
             "properties": {
               "start_day": {
                 "type": "string"
@@ -5494,6 +5567,47 @@
                   "week",
                   "month"
                 ]
+              }
+            }
+          },
+          "webhook_token": {
+            "type": "string",
+            "readOnly": true
+          },
+          "webhook": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "vars_transform": {
+                "type": "string",
+                "nullable": true
+              },
+              "validator": {
+                "type": "string",
+                "nullable": true
+              },
+              "condition": {
+                "type": "string",
+                "nullable": true
+              },
+              "status_code": {
+                "type": "number",
+                "nullable": true
+              },
+              "ip_whitelist": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "credential": {
+                "type": "string",
+                "nullable": true
+              },
+              "ignore_errors": {
+                "type": "boolean",
+                "nullable": true
               }
             }
           },

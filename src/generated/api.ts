@@ -667,10 +667,10 @@ export interface InlineResponse2001 {
 export interface InlineResponse20010 {
     /**
      * 
-     * @type {Array<Project>}
+     * @type {Array<Credential>}
      * @memberof InlineResponse20010
      */
-    projects?: Array<Project>;
+    credentials?: Array<Credential>;
 }
 /**
  * 
@@ -680,10 +680,10 @@ export interface InlineResponse20010 {
 export interface InlineResponse20011 {
     /**
      * 
-     * @type {Array<Job>}
+     * @type {Array<Project>}
      * @memberof InlineResponse20011
      */
-    jobs?: Array<Job>;
+    projects?: Array<Project>;
 }
 /**
  * 
@@ -693,10 +693,10 @@ export interface InlineResponse20011 {
 export interface InlineResponse20012 {
     /**
      * 
-     * @type {Array<RunnerAgent>}
+     * @type {Array<Job>}
      * @memberof InlineResponse20012
      */
-    runner_agents?: Array<RunnerAgent>;
+    jobs?: Array<Job>;
 }
 /**
  * 
@@ -706,10 +706,10 @@ export interface InlineResponse20012 {
 export interface InlineResponse20013 {
     /**
      * 
-     * @type {Array<Run>}
+     * @type {Array<RunnerAgent>}
      * @memberof InlineResponse20013
      */
-    runs?: Array<Run>;
+    runner_agents?: Array<RunnerAgent>;
 }
 /**
  * 
@@ -719,10 +719,10 @@ export interface InlineResponse20013 {
 export interface InlineResponse20014 {
     /**
      * 
-     * @type {Array<Organization>}
+     * @type {Array<Run>}
      * @memberof InlineResponse20014
      */
-    organizations?: Array<Organization>;
+    runs?: Array<Run>;
 }
 /**
  * 
@@ -732,10 +732,10 @@ export interface InlineResponse20014 {
 export interface InlineResponse20015 {
     /**
      * 
-     * @type {Array<Project>}
+     * @type {Array<Organization>}
      * @memberof InlineResponse20015
      */
-    jobs?: Array<Project>;
+    organizations?: Array<Organization>;
 }
 /**
  * 
@@ -878,10 +878,16 @@ export interface InlineResponse2006 {
 export interface InlineResponse2007 {
     /**
      * 
-     * @type {Array<PipelineRevision>}
+     * @type {string}
      * @memberof InlineResponse2007
      */
-    pipelines?: Array<PipelineRevision>;
+    id?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse2007
+     */
+    revision?: number;
 }
 /**
  * 
@@ -891,10 +897,10 @@ export interface InlineResponse2007 {
 export interface InlineResponse2008 {
     /**
      * 
-     * @type {Array<CatalogPipeline>}
+     * @type {Array<PipelineRevision>}
      * @memberof InlineResponse2008
      */
-    pipelines?: Array<CatalogPipeline>;
+    pipelines?: Array<PipelineRevision>;
 }
 /**
  * 
@@ -904,10 +910,10 @@ export interface InlineResponse2008 {
 export interface InlineResponse2009 {
     /**
      * 
-     * @type {Array<Credential>}
+     * @type {Array<CatalogPipeline>}
      * @memberof InlineResponse2009
      */
-    pipelines?: Array<Credential>;
+    pipelines?: Array<CatalogPipeline>;
 }
 /**
  * 
@@ -1004,6 +1010,12 @@ export interface Job {
     name: string;
     /**
      * 
+     * @type {string}
+     * @memberof Job
+     */
+    description?: string | null;
+    /**
+     * 
      * @type {number}
      * @memberof Job
      */
@@ -1025,7 +1037,19 @@ export interface Job {
      * @type {JobSchedule}
      * @memberof Job
      */
-    schedule?: JobSchedule | null;
+    schedule?: JobSchedule;
+    /**
+     * 
+     * @type {string}
+     * @memberof Job
+     */
+    webhook_token?: string;
+    /**
+     * 
+     * @type {JobWebhook}
+     * @memberof Job
+     */
+    webhook?: JobWebhook;
     /**
      * 
      * @type {boolean}
@@ -1064,7 +1088,8 @@ export interface Job {
     */
 export enum JobTriggerTypeEnum {
     Manual = 'manual',
-    Scheduled = 'scheduled'
+    Scheduled = 'scheduled',
+    Webhook = 'webhook'
 }
 
 /**
@@ -1117,6 +1142,55 @@ export enum JobScheduleIntervalTypeEnum {
     Month = 'month'
 }
 
+/**
+ * 
+ * @export
+ * @interface JobWebhook
+ */
+export interface JobWebhook {
+    /**
+     * 
+     * @type {string}
+     * @memberof JobWebhook
+     */
+    vars_transform?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof JobWebhook
+     */
+    validator?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof JobWebhook
+     */
+    condition?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof JobWebhook
+     */
+    status_code?: number | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof JobWebhook
+     */
+    ip_whitelist?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof JobWebhook
+     */
+    credential?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof JobWebhook
+     */
+    ignore_errors?: boolean | null;
+}
 /**
  * 
  * @export
@@ -1208,6 +1282,12 @@ export interface Organization {
      * @memberof Organization
      */
     contact_email?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Organization
+     */
+    image_id?: string;
     /**
      * 
      * @type {OrganizationPlanQuotas}
@@ -2694,7 +2774,7 @@ export const AgentsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizationRunnerAgents(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20012>> {
+        async listOrganizationRunnerAgents(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20013>> {
             const localVarAxiosArgs = await AgentsApiAxiosParamCreator(configuration).listOrganizationRunnerAgents(organizationId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2708,7 +2788,7 @@ export const AgentsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listProjectRunnerAgents(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20012>> {
+        async listProjectRunnerAgents(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20013>> {
             const localVarAxiosArgs = await AgentsApiAxiosParamCreator(configuration).listProjectRunnerAgents(projectId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2826,7 +2906,7 @@ export const AgentsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizationRunnerAgents(organizationId: string, options?: any): AxiosPromise<InlineResponse20012> {
+        listOrganizationRunnerAgents(organizationId: string, options?: any): AxiosPromise<InlineResponse20013> {
             return AgentsApiFp(configuration).listOrganizationRunnerAgents(organizationId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2836,7 +2916,7 @@ export const AgentsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjectRunnerAgents(projectId: string, options?: any): AxiosPromise<InlineResponse20012> {
+        listProjectRunnerAgents(projectId: string, options?: any): AxiosPromise<InlineResponse20013> {
             return AgentsApiFp(configuration).listProjectRunnerAgents(projectId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3496,7 +3576,7 @@ export const CatalogApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCatalogPipelines(tags?: Array<'ChatOps' | 'Cloud Infrastructure' | 'DevOps' | 'ITOps' | 'Network Automation' | 'Security Automation'>, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2008>> {
+        async listCatalogPipelines(tags?: Array<'ChatOps' | 'Cloud Infrastructure' | 'DevOps' | 'ITOps' | 'Network Automation' | 'Security Automation'>, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
             const localVarAxiosArgs = await CatalogApiAxiosParamCreator(configuration).listCatalogPipelines(tags, sort, search, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -3593,7 +3673,7 @@ export const CatalogApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCatalogPipelines(tags?: Array<'ChatOps' | 'Cloud Infrastructure' | 'DevOps' | 'ITOps' | 'Network Automation' | 'Security Automation'>, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, options?: any): AxiosPromise<InlineResponse2008> {
+        listCatalogPipelines(tags?: Array<'ChatOps' | 'Cloud Infrastructure' | 'DevOps' | 'ITOps' | 'Network Automation' | 'Security Automation'>, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, options?: any): AxiosPromise<InlineResponse2009> {
             return CatalogApiFp(configuration).listCatalogPipelines(tags, sort, search, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4066,7 +4146,7 @@ export const CredentialsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
+        async listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20010>> {
             const localVarAxiosArgs = await CredentialsApiAxiosParamCreator(configuration).listCredentials(projectId, type, sort, offset, limit, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -4142,7 +4222,7 @@ export const CredentialsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options?: any): AxiosPromise<InlineResponse2009> {
+        listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options?: any): AxiosPromise<InlineResponse20010> {
             return CredentialsApiFp(configuration).listCredentials(projectId, type, sort, offset, limit, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4355,11 +4435,11 @@ export const JobsApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary Get job
          * @param {string} projectId Project ID
          * @param {string} id Job ID
-         * @param {Array<'pipeline' | 'pipeline_revision'>} [fields] Additional fields to return
+         * @param {Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJob: async (projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision'>, options: any = {}): Promise<RequestArgs> => {
+        getJob: async (projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             if (projectId === null || projectId === undefined) {
                 throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling getJob.');
@@ -4456,6 +4536,57 @@ export const JobsApiAxiosParamCreator = function (configuration?: Configuration)
 
             if (fields) {
                 localVarQueryParameter['fields'] = fields;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Regenerate job webhook token.
+         * @param {string} projectId Project ID
+         * @param {string} id Job ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        regenerateJobToken: async (projectId: string, id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            if (projectId === null || projectId === undefined) {
+                throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling regenerateJobToken.');
+            }
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling regenerateJobToken.');
+            }
+            const localVarPath = `/projects/{project_id}/jobs/{_id}/webhook/token`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
             }
 
 
@@ -4635,11 +4766,11 @@ export const JobsApiFp = function(configuration?: Configuration) {
          * @summary Get job
          * @param {string} projectId Project ID
          * @param {string} id Job ID
-         * @param {Array<'pipeline' | 'pipeline_revision'>} [fields] Additional fields to return
+         * @param {Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getJob(projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Job>> {
+        async getJob(projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Job>> {
             const localVarAxiosArgs = await JobsApiAxiosParamCreator(configuration).getJob(projectId, id, fields, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -4657,8 +4788,23 @@ export const JobsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20011>> {
+        async listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20012>> {
             const localVarAxiosArgs = await JobsApiAxiosParamCreator(configuration).listJobs(projectId, sort, limit, offset, fields, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Regenerate job webhook token.
+         * @param {string} projectId Project ID
+         * @param {string} id Job ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async regenerateJobToken(projectId: string, id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await JobsApiAxiosParamCreator(configuration).regenerateJobToken(projectId, id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -4732,11 +4878,11 @@ export const JobsApiFactory = function (configuration?: Configuration, basePath?
          * @summary Get job
          * @param {string} projectId Project ID
          * @param {string} id Job ID
-         * @param {Array<'pipeline' | 'pipeline_revision'>} [fields] Additional fields to return
+         * @param {Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJob(projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision'>, options?: any): AxiosPromise<Job> {
+        getJob(projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>, options?: any): AxiosPromise<Job> {
             return JobsApiFp(configuration).getJob(projectId, id, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4750,8 +4896,19 @@ export const JobsApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, options?: any): AxiosPromise<InlineResponse20011> {
+        listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, options?: any): AxiosPromise<InlineResponse20012> {
             return JobsApiFp(configuration).listJobs(projectId, sort, limit, offset, fields, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Regenerate job webhook token.
+         * @param {string} projectId Project ID
+         * @param {string} id Job ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        regenerateJobToken(projectId: string, id: string, options?: any): AxiosPromise<void> {
+            return JobsApiFp(configuration).regenerateJobToken(projectId, id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4818,12 +4975,12 @@ export class JobsApi extends BaseAPI {
      * @summary Get job
      * @param {string} projectId Project ID
      * @param {string} id Job ID
-     * @param {Array<'pipeline' | 'pipeline_revision'>} [fields] Additional fields to return
+     * @param {Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>} [fields] Additional fields to return
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof JobsApi
      */
-    public getJob(projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision'>, options?: any) {
+    public getJob(projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>, options?: any) {
         return JobsApiFp(this.configuration).getJob(projectId, id, fields, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -4841,6 +4998,19 @@ export class JobsApi extends BaseAPI {
      */
     public listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, options?: any) {
         return JobsApiFp(this.configuration).listJobs(projectId, sort, limit, offset, fields, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Regenerate job webhook token.
+     * @param {string} projectId Project ID
+     * @param {string} id Job ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof JobsApi
+     */
+    public regenerateJobToken(projectId: string, id: string, options?: any) {
+        return JobsApiFp(this.configuration).regenerateJobToken(projectId, id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5047,7 +5217,7 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizations(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20014>> {
+        async listOrganizations(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20015>> {
             const localVarAxiosArgs = await OrganizationsApiAxiosParamCreator(configuration).listOrganizations(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -5094,7 +5264,7 @@ export const OrganizationsApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizations(options?: any): AxiosPromise<InlineResponse20014> {
+        listOrganizations(options?: any): AxiosPromise<InlineResponse20015> {
             return OrganizationsApiFp(configuration).listOrganizations(options).then((request) => request(axios, basePath));
         },
         /**
@@ -5845,7 +6015,7 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createPipelineRevision(projectId: string, id: string, pipelineRevision: PipelineRevision, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async createPipelineRevision(projectId: string, id: string, pipelineRevision: PipelineRevision, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2007>> {
             const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).createPipelineRevision(projectId, id, pipelineRevision, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -5908,7 +6078,7 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPipelineRevisionPipelineRevisions(projectId: string, id: string, revision: number, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2007>> {
+        async getPipelineRevisionPipelineRevisions(projectId: string, id: string, revision: number, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2008>> {
             const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).getPipelineRevisionPipelineRevisions(projectId, id, revision, fields, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -6029,7 +6199,7 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createPipelineRevision(projectId: string, id: string, pipelineRevision: PipelineRevision, options?: any): AxiosPromise<void> {
+        createPipelineRevision(projectId: string, id: string, pipelineRevision: PipelineRevision, options?: any): AxiosPromise<InlineResponse2007> {
             return PipelinesApiFp(configuration).createPipelineRevision(projectId, id, pipelineRevision, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6076,7 +6246,7 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPipelineRevisionPipelineRevisions(projectId: string, id: string, revision: number, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): AxiosPromise<InlineResponse2007> {
+        getPipelineRevisionPipelineRevisions(projectId: string, id: string, revision: number, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): AxiosPromise<InlineResponse2008> {
             return PipelinesApiFp(configuration).getPipelineRevisionPipelineRevisions(projectId, id, revision, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6716,7 +6886,7 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizationProjects(organizationId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, offset?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20015>> {
+        async listOrganizationProjects(organizationId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, offset?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20011>> {
             const localVarAxiosArgs = await ProjectsApiAxiosParamCreator(configuration).listOrganizationProjects(organizationId, sort, search, offset, limit, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -6734,7 +6904,7 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listProjects(sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, fields?: Array<'organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20010>> {
+        async listProjects(sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, fields?: Array<'organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20011>> {
             const localVarAxiosArgs = await ProjectsApiAxiosParamCreator(configuration).listProjects(sort, search, limit, offset, fields, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -6808,7 +6978,7 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizationProjects(organizationId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, offset?: number, limit?: number, options?: any): AxiosPromise<InlineResponse20015> {
+        listOrganizationProjects(organizationId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, offset?: number, limit?: number, options?: any): AxiosPromise<InlineResponse20011> {
             return ProjectsApiFp(configuration).listOrganizationProjects(organizationId, sort, search, offset, limit, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6822,7 +6992,7 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjects(sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, fields?: Array<'organization'>, options?: any): AxiosPromise<InlineResponse20010> {
+        listProjects(sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, fields?: Array<'organization'>, options?: any): AxiosPromise<InlineResponse20011> {
             return ProjectsApiFp(configuration).listProjects(sort, search, limit, offset, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -7284,7 +7454,7 @@ export const RunsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20013>> {
+        async listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20014>> {
             const localVarAxiosArgs = await RunsApiAxiosParamCreator(configuration).listProjectRuns(projectId, pipelineId, jobId, sort, limit, offset, fields, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -7367,7 +7537,7 @@ export const RunsApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any): AxiosPromise<InlineResponse20013> {
+        listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any): AxiosPromise<InlineResponse20014> {
             return RunsApiFp(configuration).listProjectRuns(projectId, pipelineId, jobId, sort, limit, offset, fields, options).then((request) => request(axios, basePath));
         },
         /**
