@@ -20,8 +20,8 @@
       "description": "Manage runner agents"
     },
     {
-      "name": "catalog",
-      "description": "Query and manage published pipelines"
+      "name": "catalogs",
+      "description": "Manage catalogs"
     },
     {
       "name": "credentials",
@@ -1476,6 +1476,15 @@
               "type": "integer",
               "minimum": 0
             }
+          },
+          {
+            "name": "published",
+            "in": "query",
+            "description": "Filter pipelines by published status",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -1582,7 +1591,7 @@
       },
       "parameters": []
     },
-    "/projects/{project_id}/pipelines/{_id}/revisions/{revision}": {
+    "/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}": {
       "get": {
         "tags": [
           "pipelines"
@@ -1612,12 +1621,22 @@
             }
           },
           {
-            "name": "revision",
+            "name": "revision_id",
             "in": "path",
-            "description": "Revision number",
+            "description": "Pipeline revision ID",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "oneOf": [
+                {
+                  "format": "resource-id"
+                },
+                {
+                  "enum": [
+                    "latest"
+                  ]
+                }
+              ]
             }
           }
         ],
@@ -1645,7 +1664,67 @@
       },
       "parameters": []
     },
-    "/projects/{project_id}/pipelines/{_id}/revisions/{revision}/revisions": {
+    "/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}/publish": {
+      "post": {
+        "tags": [
+          "pipelines"
+        ],
+        "summary": "Publish a pipeline revision",
+        "description": "",
+        "operationId": "publishPipelineRevision",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Pipeline ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "revision_id",
+            "in": "path",
+            "description": "Pipeline revision ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}/revisions": {
       "get": {
         "tags": [
           "pipelines"
@@ -1675,12 +1754,22 @@
             }
           },
           {
-            "name": "revision",
+            "name": "revision_id",
             "in": "path",
-            "description": "Revision number",
+            "description": "Revision revision ID",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "oneOf": [
+                {
+                  "format": "resource-id"
+                },
+                {
+                  "enum": [
+                    "latest"
+                  ]
+                }
+              ]
             }
           },
           {
@@ -1734,19 +1823,19 @@
       },
       "parameters": []
     },
-    "/projects/{project_id}/pipelines/{_id}/revisions/{revision}/pipelines": {
+    "/catalogs/{catalog_id}": {
       "get": {
         "tags": [
-          "pipelines"
+          "catalogs"
         ],
-        "summary": "List pipelines included in the steps of a given pipeline revision",
+        "summary": "Get catalog",
         "description": "",
-        "operationId": "getPipelineRevisionPipelines",
+        "operationId": "getCatalog",
         "parameters": [
           {
-            "name": "project_id",
+            "name": "catalog_id",
             "in": "path",
-            "description": "Project ID",
+            "description": "Catalog ID",
             "required": true,
             "schema": {
               "type": "string",
@@ -1754,7 +1843,73 @@
             }
           },
           {
-            "name": "_id",
+            "name": "fields",
+            "in": "query",
+            "description": "Additional fields to return",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "organization"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "projects": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Project"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}": {
+      "get": {
+        "tags": [
+          "pipelines"
+        ],
+        "summary": "Get catalog pipeline revision",
+        "operationId": "getCatalogPipelineRevision",
+        "parameters": [
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "description": "Catalog ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "pipeline_id",
             "in": "path",
             "description": "Pipeline ID",
             "required": true,
@@ -1764,12 +1919,95 @@
             }
           },
           {
-            "name": "revision",
+            "name": "revision_id",
             "in": "path",
-            "description": "Revision number",
+            "description": "Pipeline revision ID",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "oneOf": [
+                {
+                  "format": "resource-id"
+                },
+                {
+                  "enum": [
+                    "latest"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PipelineRevision"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}/pipelines": {
+      "get": {
+        "tags": [
+          "pipelines"
+        ],
+        "summary": "List catalog pipelines included in the steps of a given catalog pipeline revision",
+        "description": "",
+        "operationId": "getCatalogPipelineRevisionPipelines",
+        "parameters": [
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "description": "Catalog ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "pipeline_id",
+            "in": "path",
+            "description": "Pipeline ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "revision_id",
+            "in": "path",
+            "description": "Pipeline revision ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "oneOf": [
+                {
+                  "format": "resource-id"
+                },
+                {
+                  "enum": [
+                    "latest"
+                  ]
+                }
+              ]
             }
           }
         ],
@@ -1805,19 +2043,19 @@
       },
       "parameters": []
     },
-    "/projects/{project_id}/pipelines/{_id}/revisions/{revision}/clone": {
-      "post": {
+    "/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}/revisions": {
+      "get": {
         "tags": [
-          "catalog"
+          "pipelines"
         ],
-        "summary": "Clone pipeline",
+        "summary": "List catalog pipeline revisions included in the steps of a given catalog pipeline pipeline revision",
         "description": "",
-        "operationId": "clonePipeline",
+        "operationId": "getCatalogPipelineRevisionPipelineRevisions",
         "parameters": [
           {
-            "name": "project_id",
+            "name": "catalog_id",
             "in": "path",
-            "description": "Project ID",
+            "description": "Catalog ID",
             "required": true,
             "schema": {
               "type": "string",
@@ -1825,7 +2063,7 @@
             }
           },
           {
-            "name": "_id",
+            "name": "pipeline_id",
             "in": "path",
             "description": "Pipeline ID",
             "required": true,
@@ -1835,12 +2073,121 @@
             }
           },
           {
-            "name": "revision",
+            "name": "revision_id",
             "in": "path",
-            "description": "Pipeline revision",
+            "description": "Pipeline revision ID",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "oneOf": [
+                {
+                  "format": "resource-id"
+                },
+                {
+                  "enum": [
+                    "latest"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Additional fields to return",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "variables",
+                  "outputs",
+                  "steps",
+                  "layout"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "pipelines": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PipelineRevision"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}/clone": {
+      "post": {
+        "tags": [
+          "pipelines"
+        ],
+        "summary": "Clone catalog pipeline",
+        "description": "",
+        "operationId": "cloneCatalogPipeline",
+        "parameters": [
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "description": "Catalog ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "pipeline_id",
+            "in": "path",
+            "description": "Pipeline ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "revision_id",
+            "in": "path",
+            "description": "Pipeline revision ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "oneOf": [
+                {
+                  "format": "resource-id"
+                },
+                {
+                  "enum": [
+                    "latest"
+                  ]
+                }
+              ]
             }
           }
         ],
@@ -1897,292 +2244,52 @@
       },
       "parameters": []
     },
-    "/catalog/pipelines": {
-      "get": {
+    "/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}/run": {
+      "post": {
         "tags": [
-          "catalog"
+          "catalogs"
         ],
-        "summary": "List published pipelines",
+        "summary": "Run catalog pipeline",
         "description": "",
-        "operationId": "listCatalogPipelines",
+        "operationId": "runCatalogPipeline",
         "parameters": [
           {
-            "name": "tags",
-            "in": "query",
+            "name": "catalog_id",
+            "in": "path",
+            "description": "Catalog ID",
+            "required": true,
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "ChatOps",
-                  "Cloud Infrastructure",
-                  "DevOps",
-                  "ITOps",
-                  "Network Automation",
-                  "Security Automation"
-                ]
-              }
+              "type": "string",
+              "format": "resource-id"
             }
           },
           {
-            "name": "sort",
-            "in": "query",
+            "name": "pipeline_id",
+            "in": "path",
+            "description": "Pipeline ID",
+            "required": true,
             "schema": {
               "type": "string",
-              "enum": [
-                "modified_asc",
-                "modified_desc",
-                "name_asc",
-                "name_desc"
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "revision_id",
+            "in": "path",
+            "description": "Pipeline revision ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "oneOf": [
+                {
+                  "format": "resource-id"
+                },
+                {
+                  "enum": [
+                    "latest"
+                  ]
+                }
               ]
-            }
-          },
-          {
-            "name": "search",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "pipelines": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/CatalogPipeline"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid input"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          }
-        }
-      },
-      "parameters": []
-    },
-    "/catalog/pipelines/{_id}": {
-      "get": {
-        "tags": [
-          "catalog"
-        ],
-        "summary": "Get pipeline",
-        "description": "",
-        "operationId": "getCatalogPipeline",
-        "parameters": [
-          {
-            "name": "_id",
-            "in": "path",
-            "description": "Pipeline ID",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "resource-id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pipeline"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid input"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          }
-        }
-      },
-      "parameters": []
-    },
-    "/catalog/pipelines/{_id}/versions": {
-      "post": {
-        "tags": [
-          "catalog"
-        ],
-        "summary": "Publish pipeline revision",
-        "description": "",
-        "operationId": "publishPipelineRevision",
-        "parameters": [
-          {
-            "name": "_id",
-            "in": "path",
-            "description": "Pipeline ID to publish",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "resource-id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "revision": {
-                    "type": "integer"
-                  },
-                  "notes": {
-                    "type": "string"
-                  },
-                  "tags": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "enum": [
-                        "ChatOps",
-                        "Cloud Infrastructure",
-                        "DevOps",
-                        "ITOps",
-                        "Network Automation",
-                        "Security Automation"
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid input"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          }
-        }
-      },
-      "parameters": []
-    },
-    "/catalog/pipelines/{_id}/versions/{version}": {
-      "get": {
-        "tags": [
-          "catalog"
-        ],
-        "summary": "Get pipeline version",
-        "description": "",
-        "operationId": "getCatalogPipelineVersion",
-        "parameters": [
-          {
-            "name": "_id",
-            "in": "path",
-            "description": "Pipeline ID",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "resource-id"
-            }
-          },
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Published version of the pipeline",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PipelineRevision"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid input"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          }
-        }
-      },
-      "parameters": []
-    },
-    "/catalog/pipelines/{_id}/versions/{version}/clone": {
-      "post": {
-        "tags": [
-          "catalog"
-        ],
-        "summary": "Clone catalog pipeline",
-        "description": "",
-        "operationId": "cloneCatalogPipeline",
-        "parameters": [
-          {
-            "name": "_id",
-            "in": "path",
-            "description": "Pipeline ID",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "resource-id"
-            }
-          },
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Published version of the pipeline",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "minimum": 1
             }
           }
         ],
@@ -2194,95 +2301,9 @@
                 "type": "object",
                 "properties": {
                   "project_id": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "resource-id"
                   },
-                  "name": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string"
-                    },
-                    "revision": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid input"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          }
-        }
-      },
-      "parameters": []
-    },
-    "/projects/{project_id}/pipelines/{_id}/revisions/{revision}/run": {
-      "post": {
-        "tags": [
-          "pipelines"
-        ],
-        "summary": "Run pipeline",
-        "description": "",
-        "operationId": "runPipeline",
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "description": "Project ID",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "resource-id"
-            }
-          },
-          {
-            "name": "_id",
-            "in": "path",
-            "description": "Pipeline ID",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "resource-id"
-            }
-          },
-          {
-            "name": "revision",
-            "in": "path",
-            "description": "Pipeline revision",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "minimum": 1
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
                   "variables": {
                     "type": "object"
                   },
@@ -2329,15 +2350,25 @@
       },
       "parameters": []
     },
-    "/catalog/pipelines/{_id}/versions/{version}/pipelines": {
+    "/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}/pipelines": {
       "get": {
         "tags": [
-          "catalog"
+          "pipelines"
         ],
         "summary": "List pipelines included in the steps of a given pipeline revision",
         "description": "",
-        "operationId": "getCatalogPipelineVersionPipelines",
+        "operationId": "getPipelineRevisionPipelines",
         "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
           {
             "name": "_id",
             "in": "path",
@@ -2349,12 +2380,22 @@
             }
           },
           {
-            "name": "version",
+            "name": "revision_id",
             "in": "path",
-            "description": "Version number",
+            "description": "Revision revision ID",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "oneOf": [
+                {
+                  "format": "resource-id"
+                },
+                {
+                  "enum": [
+                    "latest"
+                  ]
+                }
+              ]
             }
           }
         ],
@@ -2371,6 +2412,200 @@
                       "items": {
                         "$ref": "#/components/schemas/Pipeline"
                       }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}/clone": {
+      "post": {
+        "tags": [
+          "pipelines"
+        ],
+        "summary": "Clone pipeline",
+        "description": "",
+        "operationId": "clonePipeline",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Pipeline ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "revision_id",
+            "in": "path",
+            "description": "Pipeline revision ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "oneOf": [
+                {
+                  "format": "resource-id"
+                },
+                {
+                  "enum": [
+                    "latest"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "project_id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "recursive": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "revision": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}/run": {
+      "post": {
+        "tags": [
+          "pipelines"
+        ],
+        "summary": "Run pipeline",
+        "description": "",
+        "operationId": "runPipeline",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Pipeline ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "revision_id",
+            "in": "path",
+            "description": "Pipeline revision ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "variables": {
+                    "type": "object"
+                  },
+                  "suppress_vars": {
+                    "type": "boolean"
+                  },
+                  "suppress_events": {
+                    "type": "boolean"
+                  },
+                  "suppress_outputs": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
                     }
                   }
                 }
@@ -2807,6 +3042,297 @@
                       "type": "array",
                       "items": {
                         "$ref": "#/components/schemas/Project"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/catalogs/organizations": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "List organizations with publicly available catalogs.",
+        "description": "",
+        "operationId": "listSharingCatalogsOrganizations",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "projects": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "image_id": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/catalogs/{catalog_id}/pipelines": {
+      "get": {
+        "tags": [
+          "pipelines"
+        ],
+        "summary": "List catalog pipelines",
+        "description": "",
+        "operationId": "listCatalogPipelines",
+        "parameters": [
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "description": "Catalog ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "modified_asc",
+                "modified_desc",
+                "name_asc",
+                "name_desc"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "pipelines": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Pipeline"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/catalogs/{catalog_id}/pipelines/{pipeline_id}": {
+      "get": {
+        "tags": [
+          "pipelines"
+        ],
+        "summary": "Get catalog pipeline",
+        "description": "",
+        "operationId": "getCatalogPipeline",
+        "parameters": [
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "description": "Catalog ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "pipeline_id",
+            "in": "path",
+            "description": "Pipeline ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pipeline"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions": {
+      "get": {
+        "tags": [
+          "pipelines"
+        ],
+        "summary": "Get catalog pipeline versions",
+        "description": "",
+        "operationId": "getCatalogPipelineRevisions",
+        "parameters": [
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "description": "Catalog ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "pipeline_id",
+            "in": "path",
+            "description": "Pipeline ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Additional fields to return",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "variables"
+                ]
+              }
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "pipeline_revisions": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PipelineRevision"
                       }
                     }
                   }
@@ -3496,7 +4022,8 @@
                 "enum": [
                   "job",
                   "pipeline",
-                  "runner_agent"
+                  "runner_agent",
+                  "pipeline_revision"
                 ]
               }
             }
@@ -3674,6 +4201,61 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/projects/{project_id}/publish": {
+      "post": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Publish project catalog",
+        "description": "",
+        "operationId": "publishProjectCatalog",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "catalog": {
+                    "type": "boolean"
+                  },
+                  "catalog_scope": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
           },
           "400": {
             "description": "Invalid input"
@@ -3956,6 +4538,537 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/organizations/{organization_id}/catalogs/shared": {
+      "get": {
+        "tags": [
+          "catalogs"
+        ],
+        "summary": "List shared catalogs available to organization",
+        "description": "",
+        "operationId": "listOrganizationSharedCatalogs",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Owner Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "name_asc",
+                "name_desc"
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "owner_organization_id",
+            "in": "query",
+            "description": "Owner Organization ID",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "Catalog tags filter",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CatalogTags"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Additional fields to return",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "organization",
+                  "pending_access_request"
+                ]
+              }
+            }
+          },
+          {
+            "name": "scope",
+            "in": "query",
+            "description": "Access scope of catalogs to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "all",
+                "accessible"
+              ]
+            }
+          },
+          {
+            "name": "draft",
+            "in": "query",
+            "description": "Include draft catalogs",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "projects": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Project"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/organizations/{organization_id}/catalogs/shared/access_requests": {
+      "get": {
+        "tags": [
+          "catalogs"
+        ],
+        "summary": "List pending outgoing access requests for an organization",
+        "description": "",
+        "operationId": "listOrganizationSharedCatalogAccessRequests",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CatalogAccessRequest"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/organizations/{organization_id}/catalogs/{catalog_id}/access": {
+      "get": {
+        "tags": [
+          "catalogs"
+        ],
+        "summary": "List organizations with access to the given catalog.",
+        "description": "",
+        "operationId": "listCatalogOrganizationAccess",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "description": "Catalog ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Additional fields to return",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "shared_organization"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "catalog_access": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CatalogAccess"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/organizations/{organization_id}/catalogs/{catalog_id}/access/{shared_organization_id}": {
+      "delete": {
+        "tags": [
+          "catalogs"
+        ],
+        "summary": "Revoke an organization's access to a catalog.",
+        "description": "",
+        "operationId": "removeCatalogAccess",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "description": "Catalog ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "shared_organization_id",
+            "in": "path",
+            "description": "Shared Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/organizations/{organization_id}/catalogs/{catalog_id}/access_requests": {
+      "get": {
+        "tags": [
+          "catalogs"
+        ],
+        "summary": "List catalog access requests",
+        "description": "",
+        "operationId": "listCatalogAccessRequests",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "description": "Catalog ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CatalogAccessRequest"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "catalogs"
+        ],
+        "summary": "Create a catalog access request",
+        "description": "",
+        "operationId": "createCatalogAccessRequest",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "description": "Catalog ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "shared_organization_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/organizations/{organization_id}/catalogs/{catalog_id}/access_requests/{access_request_id}": {
+      "post": {
+        "tags": [
+          "catalogs"
+        ],
+        "summary": "Update catalog access request (approve or deny).",
+        "description": "",
+        "operationId": "updateCatalogAccessRequest",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "description": "Catalog ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "access_request_id",
+            "in": "path",
+            "description": "Access Request ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK"
           },
           "400": {
             "description": "Invalid input"
@@ -5221,6 +6334,9 @@
           "name": {
             "type": "string"
           },
+          "summary": {
+            "type": "string"
+          },
           "description": {
             "type": "string"
           },
@@ -5238,6 +6354,99 @@
             "type": "array",
             "items": {
               "type": "object"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CatalogTags"
+            }
+          },
+          "published_pipeline_count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "product_link": {
+            "type": "string"
+          },
+          "support_link": {
+            "type": "string"
+          },
+          "license_link": {
+            "type": "string"
+          },
+          "policy_link": {
+            "type": "string"
+          },
+          "catalog": {
+            "type": "boolean"
+          },
+          "catalog_scope": {
+            "type": "string"
+          },
+          "shared": {
+            "type": "boolean"
+          },
+          "pending_access_request": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        }
+      },
+      "CatalogAccessRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "organization_id": {
+            "type": "string"
+          },
+          "catalog_id": {
+            "type": "string"
+          },
+          "shared_organization_id": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "CatalogAccess": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "organization_id": {
+            "type": "string"
+          },
+          "shared_organization_id": {
+            "type": "string"
+          },
+          "catalog_id": {
+            "type": "string"
+          },
+          "organization": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "image_id": {
+                "type": "string"
+              }
             }
           }
         }
@@ -5338,9 +6547,8 @@
             "type": "integer",
             "readOnly": true
           },
-          "public": {
-            "type": "boolean",
-            "readOnly": true
+          "published": {
+            "type": "boolean"
           },
           "version": {
             "type": "integer",
@@ -5391,63 +6599,6 @@
           },
           "layout": {
             "type": "object"
-          }
-        }
-      },
-      "CatalogPipeline": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "_id": {
-            "type": "string",
-            "readOnly": true
-          },
-          "pipeline_id": {
-            "type": "string",
-            "readOnly": true
-          },
-          "created": {
-            "type": "string",
-            "format": "date-time",
-            "readOnly": true
-          },
-          "modified": {
-            "type": "string",
-            "format": "date-time",
-            "readOnly": true
-          },
-          "name": {
-            "type": "string",
-            "readOnly": true
-          },
-          "description": {
-            "type": "string",
-            "readOnly": true
-          },
-          "image_id": {
-            "type": "string"
-          },
-          "icon_name": {
-            "type": "string"
-          },
-          "versions": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "_id": {
-                  "type": "string",
-                  "readOnly": true
-                },
-                "version": {
-                  "type": "number"
-                },
-                "notes": {
-                  "type": "string"
-                }
-              }
-            },
-            "readOnly": true
           }
         }
       },
@@ -5509,7 +6660,8 @@
             "type": "string"
           },
           "pipeline_revision_id": {
-            "type": "integer"
+            "type": "string",
+            "format": "resource-id"
           },
           "pipeline_version_id": {
             "type": "integer"
@@ -5610,6 +6762,9 @@
                 "nullable": true
               }
             }
+          },
+          "pipeline_catalog_id": {
+            "type": "string"
           },
           "suppress_outputs": {
             "type": "boolean"
@@ -5899,7 +7054,8 @@
           "DevOps",
           "ITOps",
           "Network Automation",
-          "Security Automation"
+          "Security Automation",
+          "MLOps"
         ]
       },
       "Error": {
