@@ -1,28 +1,15 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
+import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
 const extensions = ['.js', '.ts'];
 const external = Object.keys(pkg.dependencies);
 
-const config = {
+export default {
 	input: 'src/index.ts',
 	external,
-
-	plugins: [
-		resolve({ extensions }),
-		babel({
-			extensions,
-			exclude: 'node_modules/**',
-			babelHelpers: 'bundled'
-		}),
-		commonjs()
-	]
-};
-
-export default {
-	...config,
 	output: [{
 		file: pkg.module,
 		format: 'esm',
@@ -31,5 +18,15 @@ export default {
 		file: pkg.main,
 		format: 'cjs',
 		sourcemap: true
-	}]
+	}],
+	plugins: [
+		resolve({ extensions }),
+		babel({
+			extensions,
+			exclude: 'node_modules/**',
+			babelHelpers: 'bundled'
+		}),
+		commonjs(),
+		terser()
+	],
 };
