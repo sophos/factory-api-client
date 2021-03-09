@@ -22,88 +22,82 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
- * @interface CatalogPipeline
+ * @interface CatalogAccess
  */
-export interface CatalogPipeline {
+export interface CatalogAccess {
     /**
      * 
      * @type {string}
-     * @memberof CatalogPipeline
+     * @memberof CatalogAccess
      */
     _id?: string;
     /**
      * 
      * @type {string}
-     * @memberof CatalogPipeline
+     * @memberof CatalogAccess
      */
-    pipeline_id?: string;
+    organization_id?: string;
     /**
      * 
      * @type {string}
-     * @memberof CatalogPipeline
+     * @memberof CatalogAccess
+     */
+    shared_organization_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CatalogAccess
+     */
+    catalog_id?: string;
+    /**
+     * 
+     * @type {InlineResponse20011Projects}
+     * @memberof CatalogAccess
+     */
+    organization?: InlineResponse20011Projects;
+}
+/**
+ * 
+ * @export
+ * @interface CatalogAccessRequest
+ */
+export interface CatalogAccessRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CatalogAccessRequest
+     */
+    _id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CatalogAccessRequest
+     */
+    organization_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CatalogAccessRequest
+     */
+    catalog_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CatalogAccessRequest
+     */
+    shared_organization_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CatalogAccessRequest
      */
     created?: string;
     /**
      * 
      * @type {string}
-     * @memberof CatalogPipeline
+     * @memberof CatalogAccessRequest
      */
-    modified?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogPipeline
-     */
-    name?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogPipeline
-     */
-    description?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogPipeline
-     */
-    image_id?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogPipeline
-     */
-    icon_name?: string;
-    /**
-     * 
-     * @type {Array<CatalogPipelineVersions>}
-     * @memberof CatalogPipeline
-     */
-    versions?: Array<CatalogPipelineVersions>;
-}
-/**
- * 
- * @export
- * @interface CatalogPipelineVersions
- */
-export interface CatalogPipelineVersions {
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogPipelineVersions
-     */
-    _id?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof CatalogPipelineVersions
-     */
-    version?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogPipelineVersions
-     */
-    notes?: string;
+    status?: string;
 }
 /**
  * 
@@ -116,7 +110,8 @@ export enum CatalogTags {
     DevOps = 'DevOps',
     ITOps = 'ITOps',
     NetworkAutomation = 'Network Automation',
-    SecurityAutomation = 'Security Automation'
+    SecurityAutomation = 'Security Automation',
+    MLOps = 'MLOps'
 }
 
 /**
@@ -336,16 +331,16 @@ export interface InlineObject13 {
 export interface InlineObject14 {
     /**
      * 
+     * @type {boolean}
+     * @memberof InlineObject14
+     */
+    catalog?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof InlineObject14
      */
-    email?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject14
-     */
-    group_ids?: Array<string>;
+    catalog_scope?: string;
 }
 /**
  * 
@@ -355,10 +350,10 @@ export interface InlineObject14 {
 export interface InlineObject15 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof InlineObject15
      */
-    group_ids?: Array<string>;
+    shared_organization_id?: string;
 }
 /**
  * 
@@ -371,19 +366,7 @@ export interface InlineObject16 {
      * @type {string}
      * @memberof InlineObject16
      */
-    name?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject16
-     */
-    type?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject16
-     */
-    project_ids?: Array<string>;
+    status?: string;
 }
 /**
  * 
@@ -396,13 +379,51 @@ export interface InlineObject17 {
      * @type {string}
      * @memberof InlineObject17
      */
+    email?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject17
+     */
+    group_ids?: Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface InlineObject18
+ */
+export interface InlineObject18 {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject18
+     */
+    group_ids?: Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface InlineObject19
+ */
+export interface InlineObject19 {
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject19
+     */
     name?: string;
     /**
      * 
-     * @type {OrganizationsOrganizationIdAgentsIdOptions}
-     * @memberof InlineObject17
+     * @type {string}
+     * @memberof InlineObject19
      */
-    options?: OrganizationsOrganizationIdAgentsIdOptions;
+    type?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject19
+     */
+    project_ids?: Array<string>;
 }
 /**
  * 
@@ -428,6 +449,25 @@ export interface InlineObject2 {
      * @memberof InlineObject2
      */
     confirm_password?: string;
+}
+/**
+ * 
+ * @export
+ * @interface InlineObject20
+ */
+export interface InlineObject20 {
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject20
+     */
+    name?: string;
+    /**
+     * 
+     * @type {OrganizationsOrganizationIdAgentsIdOptions}
+     * @memberof InlineObject20
+     */
+    options?: OrganizationsOrganizationIdAgentsIdOptions;
 }
 /**
  * 
@@ -583,37 +623,35 @@ export interface InlineObject7 {
 export interface InlineObject8 {
     /**
      * 
-     * @type {number}
-     * @memberof InlineObject8
-     */
-    revision?: number;
-    /**
-     * 
      * @type {string}
      * @memberof InlineObject8
      */
-    notes?: string;
+    project_id?: string;
     /**
      * 
-     * @type {Array<string>}
+     * @type {object}
      * @memberof InlineObject8
      */
-    tags?: Array<InlineObject8TagsEnum>;
+    variables?: object;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject8
+     */
+    suppress_vars?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject8
+     */
+    suppress_events?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject8
+     */
+    suppress_outputs?: boolean;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject8TagsEnum {
-    ChatOps = 'ChatOps',
-    CloudInfrastructure = 'Cloud Infrastructure',
-    DevOps = 'DevOps',
-    ITOps = 'ITOps',
-    NetworkAutomation = 'Network Automation',
-    SecurityAutomation = 'Security Automation'
-}
-
 /**
  * 
  * @export
@@ -632,6 +670,12 @@ export interface InlineObject9 {
      * @memberof InlineObject9
      */
     name?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject9
+     */
+    recursive?: boolean;
 }
 /**
  * 
@@ -680,10 +724,35 @@ export interface InlineResponse20010 {
 export interface InlineResponse20011 {
     /**
      * 
-     * @type {Array<Project>}
+     * @type {Array<InlineResponse20011Projects>}
      * @memberof InlineResponse20011
      */
-    projects?: Array<Project>;
+    projects?: Array<InlineResponse20011Projects>;
+}
+/**
+ * 
+ * @export
+ * @interface InlineResponse20011Projects
+ */
+export interface InlineResponse20011Projects {
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20011Projects
+     */
+    _id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20011Projects
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20011Projects
+     */
+    image_id?: string;
 }
 /**
  * 
@@ -745,10 +814,10 @@ export interface InlineResponse20015 {
 export interface InlineResponse20016 {
     /**
      * 
-     * @type {Array<OrganizationInvite>}
+     * @type {Array<CatalogAccessRequest>}
      * @memberof InlineResponse20016
      */
-    users?: Array<OrganizationInvite>;
+    users?: Array<CatalogAccessRequest>;
 }
 /**
  * 
@@ -758,8 +827,34 @@ export interface InlineResponse20016 {
 export interface InlineResponse20017 {
     /**
      * 
-     * @type {Array<UserGroup>}
+     * @type {Array<CatalogAccess>}
      * @memberof InlineResponse20017
+     */
+    catalog_access?: Array<CatalogAccess>;
+}
+/**
+ * 
+ * @export
+ * @interface InlineResponse20018
+ */
+export interface InlineResponse20018 {
+    /**
+     * 
+     * @type {Array<OrganizationInvite>}
+     * @memberof InlineResponse20018
+     */
+    users?: Array<OrganizationInvite>;
+}
+/**
+ * 
+ * @export
+ * @interface InlineResponse20019
+ */
+export interface InlineResponse20019 {
+    /**
+     * 
+     * @type {Array<UserGroup>}
+     * @memberof InlineResponse20019
      */
     users?: Array<UserGroup>;
 }
@@ -910,10 +1005,10 @@ export interface InlineResponse2008 {
 export interface InlineResponse2009 {
     /**
      * 
-     * @type {Array<CatalogPipeline>}
+     * @type {Array<Project>}
      * @memberof InlineResponse2009
      */
-    pipelines?: Array<CatalogPipeline>;
+    projects?: Array<Project>;
 }
 /**
  * 
@@ -986,10 +1081,10 @@ export interface Job {
     pipeline_id: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof Job
      */
-    pipeline_revision_id?: number;
+    pipeline_revision_id?: string;
     /**
      * 
      * @type {number}
@@ -1050,6 +1145,12 @@ export interface Job {
      * @memberof Job
      */
     webhook?: JobWebhook;
+    /**
+     * 
+     * @type {string}
+     * @memberof Job
+     */
+    pipeline_catalog_id?: string;
     /**
      * 
      * @type {boolean}
@@ -1509,7 +1610,7 @@ export interface PipelineRevision {
      * @type {boolean}
      * @memberof PipelineRevision
      */
-    _public?: boolean;
+    published?: boolean;
     /**
      * 
      * @type {number}
@@ -1638,6 +1739,12 @@ export interface Project {
      * @type {string}
      * @memberof Project
      */
+    summary?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
     description?: string;
     /**
      * 
@@ -1663,6 +1770,66 @@ export interface Project {
      * @memberof Project
      */
     variables?: Array<object>;
+    /**
+     * 
+     * @type {Array<CatalogTags>}
+     * @memberof Project
+     */
+    tags?: Array<CatalogTags>;
+    /**
+     * 
+     * @type {number}
+     * @memberof Project
+     */
+    published_pipeline_count?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    product_link?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    support_link?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    license_link?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    policy_link?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Project
+     */
+    catalog?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    catalog_scope?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Project
+     */
+    shared?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Project
+     */
+    pending_access_request?: boolean;
 }
 /**
  * 
@@ -2252,18 +2419,18 @@ export const AgentsApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary Create runner agent
          * @param {string} organizationId Organization ID
-         * @param {InlineObject16} inlineObject16 
+         * @param {InlineObject19} inlineObject19 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createRunnerAgent: async (organizationId: string, inlineObject16: InlineObject16, options: any = {}): Promise<RequestArgs> => {
+        createRunnerAgent: async (organizationId: string, inlineObject19: InlineObject19, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationId' is not null or undefined
             if (organizationId === null || organizationId === undefined) {
                 throw new RequiredError('organizationId','Required parameter organizationId was null or undefined when calling createRunnerAgent.');
             }
-            // verify required parameter 'inlineObject16' is not null or undefined
-            if (inlineObject16 === null || inlineObject16 === undefined) {
-                throw new RequiredError('inlineObject16','Required parameter inlineObject16 was null or undefined when calling createRunnerAgent.');
+            // verify required parameter 'inlineObject19' is not null or undefined
+            if (inlineObject19 === null || inlineObject19 === undefined) {
+                throw new RequiredError('inlineObject19','Required parameter inlineObject19 was null or undefined when calling createRunnerAgent.');
             }
             const localVarPath = `/organizations/{organization_id}/agents`
                 .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
@@ -2294,8 +2461,8 @@ export const AgentsApiAxiosParamCreator = function (configuration?: Configuratio
             delete localVarUrlObj.search;
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof inlineObject16 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject16 !== undefined ? inlineObject16 : {}) : (inlineObject16 || "");
+            const needsSerialization = (typeof inlineObject19 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject19 !== undefined ? inlineObject19 : {}) : (inlineObject19 || "");
 
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -2657,11 +2824,11 @@ export const AgentsApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary Update runner agent
          * @param {string} organizationId Organization ID
          * @param {string} id Agent ID
-         * @param {InlineObject17} inlineObject17 
+         * @param {InlineObject20} inlineObject20 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateRunnerAgent: async (organizationId: string, id: string, inlineObject17: InlineObject17, options: any = {}): Promise<RequestArgs> => {
+        updateRunnerAgent: async (organizationId: string, id: string, inlineObject20: InlineObject20, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationId' is not null or undefined
             if (organizationId === null || organizationId === undefined) {
                 throw new RequiredError('organizationId','Required parameter organizationId was null or undefined when calling updateRunnerAgent.');
@@ -2670,9 +2837,9 @@ export const AgentsApiAxiosParamCreator = function (configuration?: Configuratio
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling updateRunnerAgent.');
             }
-            // verify required parameter 'inlineObject17' is not null or undefined
-            if (inlineObject17 === null || inlineObject17 === undefined) {
-                throw new RequiredError('inlineObject17','Required parameter inlineObject17 was null or undefined when calling updateRunnerAgent.');
+            // verify required parameter 'inlineObject20' is not null or undefined
+            if (inlineObject20 === null || inlineObject20 === undefined) {
+                throw new RequiredError('inlineObject20','Required parameter inlineObject20 was null or undefined when calling updateRunnerAgent.');
             }
             const localVarPath = `/organizations/{organization_id}/agents/{_id}`
                 .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
@@ -2704,8 +2871,8 @@ export const AgentsApiAxiosParamCreator = function (configuration?: Configuratio
             delete localVarUrlObj.search;
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof inlineObject17 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject17 !== undefined ? inlineObject17 : {}) : (inlineObject17 || "");
+            const needsSerialization = (typeof inlineObject20 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject20 !== undefined ? inlineObject20 : {}) : (inlineObject20 || "");
 
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -2725,12 +2892,12 @@ export const AgentsApiFp = function(configuration?: Configuration) {
          * 
          * @summary Create runner agent
          * @param {string} organizationId Organization ID
-         * @param {InlineObject16} inlineObject16 
+         * @param {InlineObject19} inlineObject19 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createRunnerAgent(organizationId: string, inlineObject16: InlineObject16, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await AgentsApiAxiosParamCreator(configuration).createRunnerAgent(organizationId, inlineObject16, options);
+        async createRunnerAgent(organizationId: string, inlineObject19: InlineObject19, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await AgentsApiAxiosParamCreator(configuration).createRunnerAgent(organizationId, inlineObject19, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2845,12 +3012,12 @@ export const AgentsApiFp = function(configuration?: Configuration) {
          * @summary Update runner agent
          * @param {string} organizationId Organization ID
          * @param {string} id Agent ID
-         * @param {InlineObject17} inlineObject17 
+         * @param {InlineObject20} inlineObject20 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateRunnerAgent(organizationId: string, id: string, inlineObject17: InlineObject17, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await AgentsApiAxiosParamCreator(configuration).updateRunnerAgent(organizationId, id, inlineObject17, options);
+        async updateRunnerAgent(organizationId: string, id: string, inlineObject20: InlineObject20, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await AgentsApiAxiosParamCreator(configuration).updateRunnerAgent(organizationId, id, inlineObject20, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2869,12 +3036,12 @@ export const AgentsApiFactory = function (configuration?: Configuration, basePat
          * 
          * @summary Create runner agent
          * @param {string} organizationId Organization ID
-         * @param {InlineObject16} inlineObject16 
+         * @param {InlineObject19} inlineObject19 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createRunnerAgent(organizationId: string, inlineObject16: InlineObject16, options?: any): AxiosPromise<void> {
-            return AgentsApiFp(configuration).createRunnerAgent(organizationId, inlineObject16, options).then((request) => request(axios, basePath));
+        createRunnerAgent(organizationId: string, inlineObject19: InlineObject19, options?: any): AxiosPromise<void> {
+            return AgentsApiFp(configuration).createRunnerAgent(organizationId, inlineObject19, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2957,12 +3124,12 @@ export const AgentsApiFactory = function (configuration?: Configuration, basePat
          * @summary Update runner agent
          * @param {string} organizationId Organization ID
          * @param {string} id Agent ID
-         * @param {InlineObject17} inlineObject17 
+         * @param {InlineObject20} inlineObject20 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateRunnerAgent(organizationId: string, id: string, inlineObject17: InlineObject17, options?: any): AxiosPromise<void> {
-            return AgentsApiFp(configuration).updateRunnerAgent(organizationId, id, inlineObject17, options).then((request) => request(axios, basePath));
+        updateRunnerAgent(organizationId: string, id: string, inlineObject20: InlineObject20, options?: any): AxiosPromise<void> {
+            return AgentsApiFp(configuration).updateRunnerAgent(organizationId, id, inlineObject20, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2978,13 +3145,13 @@ export class AgentsApi extends BaseAPI {
      * 
      * @summary Create runner agent
      * @param {string} organizationId Organization ID
-     * @param {InlineObject16} inlineObject16 
+     * @param {InlineObject19} inlineObject19 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AgentsApi
      */
-    public createRunnerAgent(organizationId: string, inlineObject16: InlineObject16, options?: any) {
-        return AgentsApiFp(this.configuration).createRunnerAgent(organizationId, inlineObject16, options).then((request) => request(this.axios, this.basePath));
+    public createRunnerAgent(organizationId: string, inlineObject19: InlineObject19, options?: any) {
+        return AgentsApiFp(this.configuration).createRunnerAgent(organizationId, inlineObject19, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3082,49 +3249,49 @@ export class AgentsApi extends BaseAPI {
      * @summary Update runner agent
      * @param {string} organizationId Organization ID
      * @param {string} id Agent ID
-     * @param {InlineObject17} inlineObject17 
+     * @param {InlineObject20} inlineObject20 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AgentsApi
      */
-    public updateRunnerAgent(organizationId: string, id: string, inlineObject17: InlineObject17, options?: any) {
-        return AgentsApiFp(this.configuration).updateRunnerAgent(organizationId, id, inlineObject17, options).then((request) => request(this.axios, this.basePath));
+    public updateRunnerAgent(organizationId: string, id: string, inlineObject20: InlineObject20, options?: any) {
+        return AgentsApiFp(this.configuration).updateRunnerAgent(organizationId, id, inlineObject20, options).then((request) => request(this.axios, this.basePath));
     }
 
 }
 
 
 /**
- * CatalogApi - axios parameter creator
+ * CatalogsApi - axios parameter creator
  * @export
  */
-export const CatalogApiAxiosParamCreator = function (configuration?: Configuration) {
+export const CatalogsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Clone catalog pipeline
-         * @param {string} id Pipeline ID
-         * @param {number} version Published version of the pipeline
-         * @param {InlineObject9} inlineObject9 
+         * @summary Create a catalog access request
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
+         * @param {InlineObject15} inlineObject15 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cloneCatalogPipeline: async (id: string, version: number, inlineObject9: InlineObject9, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling cloneCatalogPipeline.');
+        createCatalogAccessRequest: async (organizationId: string, catalogId: string, inlineObject15: InlineObject15, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            if (organizationId === null || organizationId === undefined) {
+                throw new RequiredError('organizationId','Required parameter organizationId was null or undefined when calling createCatalogAccessRequest.');
             }
-            // verify required parameter 'version' is not null or undefined
-            if (version === null || version === undefined) {
-                throw new RequiredError('version','Required parameter version was null or undefined when calling cloneCatalogPipeline.');
+            // verify required parameter 'catalogId' is not null or undefined
+            if (catalogId === null || catalogId === undefined) {
+                throw new RequiredError('catalogId','Required parameter catalogId was null or undefined when calling createCatalogAccessRequest.');
             }
-            // verify required parameter 'inlineObject9' is not null or undefined
-            if (inlineObject9 === null || inlineObject9 === undefined) {
-                throw new RequiredError('inlineObject9','Required parameter inlineObject9 was null or undefined when calling cloneCatalogPipeline.');
+            // verify required parameter 'inlineObject15' is not null or undefined
+            if (inlineObject15 === null || inlineObject15 === undefined) {
+                throw new RequiredError('inlineObject15','Required parameter inlineObject15 was null or undefined when calling createCatalogAccessRequest.');
             }
-            const localVarPath = `/catalog/pipelines/{_id}/versions/{version}/clone`
-                .replace(`{${"_id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
+            const localVarPath = `/organizations/{organization_id}/catalogs/{catalog_id}/access_requests`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -3152,8 +3319,8 @@ export const CatalogApiAxiosParamCreator = function (configuration?: Configurati
             delete localVarUrlObj.search;
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof inlineObject9 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject9 !== undefined ? inlineObject9 : {}) : (inlineObject9 || "");
+            const needsSerialization = (typeof inlineObject15 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject15 !== undefined ? inlineObject15 : {}) : (inlineObject15 || "");
 
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -3162,41 +3329,25 @@ export const CatalogApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Clone pipeline
-         * @param {string} projectId Project ID
-         * @param {string} id Pipeline ID
-         * @param {number} revision Pipeline revision
-         * @param {InlineObject7} inlineObject7 
+         * @summary Get catalog
+         * @param {string} catalogId Catalog ID
+         * @param {Array<'organization'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clonePipeline: async (projectId: string, id: string, revision: number, inlineObject7: InlineObject7, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'projectId' is not null or undefined
-            if (projectId === null || projectId === undefined) {
-                throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling clonePipeline.');
+        getCatalog: async (catalogId: string, fields?: Array<'organization'>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'catalogId' is not null or undefined
+            if (catalogId === null || catalogId === undefined) {
+                throw new RequiredError('catalogId','Required parameter catalogId was null or undefined when calling getCatalog.');
             }
-            // verify required parameter 'id' is not null or undefined
-            if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling clonePipeline.');
-            }
-            // verify required parameter 'revision' is not null or undefined
-            if (revision === null || revision === undefined) {
-                throw new RequiredError('revision','Required parameter revision was null or undefined when calling clonePipeline.');
-            }
-            // verify required parameter 'inlineObject7' is not null or undefined
-            if (inlineObject7 === null || inlineObject7 === undefined) {
-                throw new RequiredError('inlineObject7','Required parameter inlineObject7 was null or undefined when calling clonePipeline.');
-            }
-            const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision}/clone`
-                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
-                .replace(`{${"_id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"revision"}}`, encodeURIComponent(String(revision)));
+            const localVarPath = `/catalogs/{catalog_id}`
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -3209,17 +3360,17 @@ export const CatalogApiAxiosParamCreator = function (configuration?: Configurati
                 localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
             }
 
+            if (fields) {
+                localVarQueryParameter['fields'] = fields;
+            }
+
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof inlineObject7 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject7 !== undefined ? inlineObject7 : {}) : (inlineObject7 || "");
 
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -3228,18 +3379,24 @@ export const CatalogApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Get pipeline
-         * @param {string} id Pipeline ID
+         * @summary List catalog access requests
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogPipeline: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling getCatalogPipeline.');
+        listCatalogAccessRequests: async (organizationId: string, catalogId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            if (organizationId === null || organizationId === undefined) {
+                throw new RequiredError('organizationId','Required parameter organizationId was null or undefined when calling listCatalogAccessRequests.');
             }
-            const localVarPath = `/catalog/pipelines/{_id}`
-                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
+            // verify required parameter 'catalogId' is not null or undefined
+            if (catalogId === null || catalogId === undefined) {
+                throw new RequiredError('catalogId','Required parameter catalogId was null or undefined when calling listCatalogAccessRequests.');
+            }
+            const localVarPath = `/organizations/{organization_id}/catalogs/{catalog_id}/access_requests`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -3273,24 +3430,74 @@ export const CatalogApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Get pipeline version
-         * @param {string} id Pipeline ID
-         * @param {number} version Published version of the pipeline
+         * @summary List organizations with access to the given catalog.
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
+         * @param {Array<'shared_organization'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogPipelineVersion: async (id: string, version: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling getCatalogPipelineVersion.');
+        listCatalogOrganizationAccess: async (organizationId: string, catalogId: string, fields?: Array<'shared_organization'>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            if (organizationId === null || organizationId === undefined) {
+                throw new RequiredError('organizationId','Required parameter organizationId was null or undefined when calling listCatalogOrganizationAccess.');
             }
-            // verify required parameter 'version' is not null or undefined
-            if (version === null || version === undefined) {
-                throw new RequiredError('version','Required parameter version was null or undefined when calling getCatalogPipelineVersion.');
+            // verify required parameter 'catalogId' is not null or undefined
+            if (catalogId === null || catalogId === undefined) {
+                throw new RequiredError('catalogId','Required parameter catalogId was null or undefined when calling listCatalogOrganizationAccess.');
             }
-            const localVarPath = `/catalog/pipelines/{_id}/versions/{version}`
-                .replace(`{${"_id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
+            const localVarPath = `/organizations/{organization_id}/catalogs/{catalog_id}/access`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (fields) {
+                localVarQueryParameter['fields'] = fields;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List pending outgoing access requests for an organization
+         * @param {string} organizationId Organization ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listOrganizationSharedCatalogAccessRequests: async (organizationId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            if (organizationId === null || organizationId === undefined) {
+                throw new RequiredError('organizationId','Required parameter organizationId was null or undefined when calling listOrganizationSharedCatalogAccessRequests.');
+            }
+            const localVarPath = `/organizations/{organization_id}/catalogs/shared/access_requests`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -3324,66 +3531,31 @@ export const CatalogApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary List pipelines included in the steps of a given pipeline revision
-         * @param {string} id Pipeline ID
-         * @param {number} version Version number
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getCatalogPipelineVersionPipelines: async (id: string, version: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling getCatalogPipelineVersionPipelines.');
-            }
-            // verify required parameter 'version' is not null or undefined
-            if (version === null || version === undefined) {
-                throw new RequiredError('version','Required parameter version was null or undefined when calling getCatalogPipelineVersionPipelines.');
-            }
-            const localVarPath = `/catalog/pipelines/{_id}/versions/{version}/pipelines`
-                .replace(`{${"_id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken()
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary List published pipelines
-         * @param {Array<'ChatOps' | 'Cloud Infrastructure' | 'DevOps' | 'ITOps' | 'Network Automation' | 'Security Automation'>} [tags] 
-         * @param {'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc'} [sort] 
+         * @summary List shared catalogs available to organization
+         * @param {string} organizationId Owner Organization ID
+         * @param {'all' | 'accessible'} scope Access scope of catalogs to return
+         * @param {'name_asc' | 'name_desc'} [sort] 
          * @param {string} [search] 
+         * @param {number} [limit] 
+         * @param {number} [offset] 
+         * @param {string} [ownerOrganizationId] Owner Organization ID
+         * @param {Array<CatalogTags>} [tags] Catalog tags filter
+         * @param {Array<'organization' | 'pending_access_request'>} [fields] Additional fields to return
+         * @param {boolean} [draft] Include draft catalogs
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCatalogPipelines: async (tags?: Array<'ChatOps' | 'Cloud Infrastructure' | 'DevOps' | 'ITOps' | 'Network Automation' | 'Security Automation'>, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/catalog/pipelines`;
+        listOrganizationSharedCatalogs: async (organizationId: string, scope: 'all' | 'accessible', sort?: 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, ownerOrganizationId?: string, tags?: Array<CatalogTags>, fields?: Array<'organization' | 'pending_access_request'>, draft?: boolean, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            if (organizationId === null || organizationId === undefined) {
+                throw new RequiredError('organizationId','Required parameter organizationId was null or undefined when calling listOrganizationSharedCatalogs.');
+            }
+            // verify required parameter 'scope' is not null or undefined
+            if (scope === null || scope === undefined) {
+                throw new RequiredError('scope','Required parameter scope was null or undefined when calling listOrganizationSharedCatalogs.');
+            }
+            const localVarPath = `/organizations/{organization_id}/catalogs/shared`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -3400,10 +3572,6 @@ export const CatalogApiAxiosParamCreator = function (configuration?: Configurati
                     ? configuration.accessToken()
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-            if (tags) {
-                localVarQueryParameter['tags'] = tags;
             }
 
             if (sort !== undefined) {
@@ -3414,6 +3582,34 @@ export const CatalogApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['search'] = search;
             }
 
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (ownerOrganizationId !== undefined) {
+                localVarQueryParameter['owner_organization_id'] = ownerOrganizationId;
+            }
+
+            if (tags) {
+                localVarQueryParameter['tags'] = tags;
+            }
+
+            if (fields) {
+                localVarQueryParameter['fields'] = fields;
+            }
+
+            if (scope !== undefined) {
+                localVarQueryParameter['scope'] = scope;
+            }
+
+            if (draft !== undefined) {
+                localVarQueryParameter['draft'] = draft;
+            }
+
 
     
             localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
@@ -3429,23 +3625,92 @@ export const CatalogApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Publish pipeline revision
-         * @param {string} id Pipeline ID to publish
+         * @summary Revoke an organization\'s access to a catalog.
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
+         * @param {string} sharedOrganizationId Shared Organization ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeCatalogAccess: async (organizationId: string, catalogId: string, sharedOrganizationId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            if (organizationId === null || organizationId === undefined) {
+                throw new RequiredError('organizationId','Required parameter organizationId was null or undefined when calling removeCatalogAccess.');
+            }
+            // verify required parameter 'catalogId' is not null or undefined
+            if (catalogId === null || catalogId === undefined) {
+                throw new RequiredError('catalogId','Required parameter catalogId was null or undefined when calling removeCatalogAccess.');
+            }
+            // verify required parameter 'sharedOrganizationId' is not null or undefined
+            if (sharedOrganizationId === null || sharedOrganizationId === undefined) {
+                throw new RequiredError('sharedOrganizationId','Required parameter sharedOrganizationId was null or undefined when calling removeCatalogAccess.');
+            }
+            const localVarPath = `/organizations/{organization_id}/catalogs/{catalog_id}/access/{shared_organization_id}`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)))
+                .replace(`{${"shared_organization_id"}}`, encodeURIComponent(String(sharedOrganizationId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Run catalog pipeline
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
          * @param {InlineObject8} inlineObject8 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publishPipelineRevision: async (id: string, inlineObject8: InlineObject8, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling publishPipelineRevision.');
+        runCatalogPipeline: async (catalogId: string, pipelineId: string, revisionId: AnyType | string, inlineObject8: InlineObject8, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'catalogId' is not null or undefined
+            if (catalogId === null || catalogId === undefined) {
+                throw new RequiredError('catalogId','Required parameter catalogId was null or undefined when calling runCatalogPipeline.');
+            }
+            // verify required parameter 'pipelineId' is not null or undefined
+            if (pipelineId === null || pipelineId === undefined) {
+                throw new RequiredError('pipelineId','Required parameter pipelineId was null or undefined when calling runCatalogPipeline.');
+            }
+            // verify required parameter 'revisionId' is not null or undefined
+            if (revisionId === null || revisionId === undefined) {
+                throw new RequiredError('revisionId','Required parameter revisionId was null or undefined when calling runCatalogPipeline.');
             }
             // verify required parameter 'inlineObject8' is not null or undefined
             if (inlineObject8 === null || inlineObject8 === undefined) {
-                throw new RequiredError('inlineObject8','Required parameter inlineObject8 was null or undefined when calling publishPipelineRevision.');
+                throw new RequiredError('inlineObject8','Required parameter inlineObject8 was null or undefined when calling runCatalogPipeline.');
             }
-            const localVarPath = `/catalog/pipelines/{_id}/versions`
-                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
+            const localVarPath = `/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}/run`
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)))
+                .replace(`{${"pipeline_id"}}`, encodeURIComponent(String(pipelineId)))
+                .replace(`{${"revision_id"}}`, encodeURIComponent(String(revisionId)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -3481,314 +3746,491 @@ export const CatalogApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
-    }
-};
+        /**
+         * 
+         * @summary Update catalog access request (approve or deny).
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
+         * @param {string} accessRequestId Access Request ID
+         * @param {InlineObject16} inlineObject16 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCatalogAccessRequest: async (organizationId: string, catalogId: string, accessRequestId: string, inlineObject16: InlineObject16, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            if (organizationId === null || organizationId === undefined) {
+                throw new RequiredError('organizationId','Required parameter organizationId was null or undefined when calling updateCatalogAccessRequest.');
+            }
+            // verify required parameter 'catalogId' is not null or undefined
+            if (catalogId === null || catalogId === undefined) {
+                throw new RequiredError('catalogId','Required parameter catalogId was null or undefined when calling updateCatalogAccessRequest.');
+            }
+            // verify required parameter 'accessRequestId' is not null or undefined
+            if (accessRequestId === null || accessRequestId === undefined) {
+                throw new RequiredError('accessRequestId','Required parameter accessRequestId was null or undefined when calling updateCatalogAccessRequest.');
+            }
+            // verify required parameter 'inlineObject16' is not null or undefined
+            if (inlineObject16 === null || inlineObject16 === undefined) {
+                throw new RequiredError('inlineObject16','Required parameter inlineObject16 was null or undefined when calling updateCatalogAccessRequest.');
+            }
+            const localVarPath = `/organizations/{organization_id}/catalogs/{catalog_id}/access_requests/{access_request_id}`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)))
+                .replace(`{${"access_request_id"}}`, encodeURIComponent(String(accessRequestId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
-/**
- * CatalogApi - functional programming interface
- * @export
- */
-export const CatalogApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @summary Clone catalog pipeline
-         * @param {string} id Pipeline ID
-         * @param {number} version Published version of the pipeline
-         * @param {InlineObject9} inlineObject9 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async cloneCatalogPipeline(id: string, version: number, inlineObject9: InlineObject9, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2011>> {
-            const localVarAxiosArgs = await CatalogApiAxiosParamCreator(configuration).cloneCatalogPipeline(id, version, inlineObject9, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Clone pipeline
-         * @param {string} projectId Project ID
-         * @param {string} id Pipeline ID
-         * @param {number} revision Pipeline revision
-         * @param {InlineObject7} inlineObject7 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async clonePipeline(projectId: string, id: string, revision: number, inlineObject7: InlineObject7, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2011>> {
-            const localVarAxiosArgs = await CatalogApiAxiosParamCreator(configuration).clonePipeline(projectId, id, revision, inlineObject7, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Get pipeline
-         * @param {string} id Pipeline ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getCatalogPipeline(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Pipeline>> {
-            const localVarAxiosArgs = await CatalogApiAxiosParamCreator(configuration).getCatalogPipeline(id, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Get pipeline version
-         * @param {string} id Pipeline ID
-         * @param {number} version Published version of the pipeline
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getCatalogPipelineVersion(id: string, version: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PipelineRevision>> {
-            const localVarAxiosArgs = await CatalogApiAxiosParamCreator(configuration).getCatalogPipelineVersion(id, version, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary List pipelines included in the steps of a given pipeline revision
-         * @param {string} id Pipeline ID
-         * @param {number} version Version number
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getCatalogPipelineVersionPipelines(id: string, version: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
-            const localVarAxiosArgs = await CatalogApiAxiosParamCreator(configuration).getCatalogPipelineVersionPipelines(id, version, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary List published pipelines
-         * @param {Array<'ChatOps' | 'Cloud Infrastructure' | 'DevOps' | 'ITOps' | 'Network Automation' | 'Security Automation'>} [tags] 
-         * @param {'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc'} [sort] 
-         * @param {string} [search] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async listCatalogPipelines(tags?: Array<'ChatOps' | 'Cloud Infrastructure' | 'DevOps' | 'ITOps' | 'Network Automation' | 'Security Automation'>, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
-            const localVarAxiosArgs = await CatalogApiAxiosParamCreator(configuration).listCatalogPipelines(tags, sort, search, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Publish pipeline revision
-         * @param {string} id Pipeline ID to publish
-         * @param {InlineObject8} inlineObject8 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async publishPipelineRevision(id: string, inlineObject8: InlineObject8, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
-            const localVarAxiosArgs = await CatalogApiAxiosParamCreator(configuration).publishPipelineRevision(id, inlineObject8, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof inlineObject16 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject16 !== undefined ? inlineObject16 : {}) : (inlineObject16 || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
     }
 };
 
 /**
- * CatalogApi - factory interface
+ * CatalogsApi - functional programming interface
  * @export
  */
-export const CatalogApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+export const CatalogsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Clone catalog pipeline
-         * @param {string} id Pipeline ID
-         * @param {number} version Published version of the pipeline
-         * @param {InlineObject9} inlineObject9 
+         * @summary Create a catalog access request
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
+         * @param {InlineObject15} inlineObject15 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cloneCatalogPipeline(id: string, version: number, inlineObject9: InlineObject9, options?: any): AxiosPromise<InlineResponse2011> {
-            return CatalogApiFp(configuration).cloneCatalogPipeline(id, version, inlineObject9, options).then((request) => request(axios, basePath));
+        async createCatalogAccessRequest(organizationId: string, catalogId: string, inlineObject15: InlineObject15, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await CatalogsApiAxiosParamCreator(configuration).createCatalogAccessRequest(organizationId, catalogId, inlineObject15, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
         },
         /**
          * 
-         * @summary Clone pipeline
-         * @param {string} projectId Project ID
-         * @param {string} id Pipeline ID
-         * @param {number} revision Pipeline revision
-         * @param {InlineObject7} inlineObject7 
+         * @summary Get catalog
+         * @param {string} catalogId Catalog ID
+         * @param {Array<'organization'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clonePipeline(projectId: string, id: string, revision: number, inlineObject7: InlineObject7, options?: any): AxiosPromise<InlineResponse2011> {
-            return CatalogApiFp(configuration).clonePipeline(projectId, id, revision, inlineObject7, options).then((request) => request(axios, basePath));
+        async getCatalog(catalogId: string, fields?: Array<'organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
+            const localVarAxiosArgs = await CatalogsApiAxiosParamCreator(configuration).getCatalog(catalogId, fields, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
         },
         /**
          * 
-         * @summary Get pipeline
-         * @param {string} id Pipeline ID
+         * @summary List catalog access requests
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogPipeline(id: string, options?: any): AxiosPromise<Pipeline> {
-            return CatalogApiFp(configuration).getCatalogPipeline(id, options).then((request) => request(axios, basePath));
+        async listCatalogAccessRequests(organizationId: string, catalogId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20016>> {
+            const localVarAxiosArgs = await CatalogsApiAxiosParamCreator(configuration).listCatalogAccessRequests(organizationId, catalogId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
         },
         /**
          * 
-         * @summary Get pipeline version
-         * @param {string} id Pipeline ID
-         * @param {number} version Published version of the pipeline
+         * @summary List organizations with access to the given catalog.
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
+         * @param {Array<'shared_organization'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogPipelineVersion(id: string, version: number, options?: any): AxiosPromise<PipelineRevision> {
-            return CatalogApiFp(configuration).getCatalogPipelineVersion(id, version, options).then((request) => request(axios, basePath));
+        async listCatalogOrganizationAccess(organizationId: string, catalogId: string, fields?: Array<'shared_organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20017>> {
+            const localVarAxiosArgs = await CatalogsApiAxiosParamCreator(configuration).listCatalogOrganizationAccess(organizationId, catalogId, fields, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
         },
         /**
          * 
-         * @summary List pipelines included in the steps of a given pipeline revision
-         * @param {string} id Pipeline ID
-         * @param {number} version Version number
+         * @summary List pending outgoing access requests for an organization
+         * @param {string} organizationId Organization ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogPipelineVersionPipelines(id: string, version: number, options?: any): AxiosPromise<InlineResponse2005> {
-            return CatalogApiFp(configuration).getCatalogPipelineVersionPipelines(id, version, options).then((request) => request(axios, basePath));
+        async listOrganizationSharedCatalogAccessRequests(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20016>> {
+            const localVarAxiosArgs = await CatalogsApiAxiosParamCreator(configuration).listOrganizationSharedCatalogAccessRequests(organizationId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
         },
         /**
          * 
-         * @summary List published pipelines
-         * @param {Array<'ChatOps' | 'Cloud Infrastructure' | 'DevOps' | 'ITOps' | 'Network Automation' | 'Security Automation'>} [tags] 
-         * @param {'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc'} [sort] 
+         * @summary List shared catalogs available to organization
+         * @param {string} organizationId Owner Organization ID
+         * @param {'all' | 'accessible'} scope Access scope of catalogs to return
+         * @param {'name_asc' | 'name_desc'} [sort] 
          * @param {string} [search] 
+         * @param {number} [limit] 
+         * @param {number} [offset] 
+         * @param {string} [ownerOrganizationId] Owner Organization ID
+         * @param {Array<CatalogTags>} [tags] Catalog tags filter
+         * @param {Array<'organization' | 'pending_access_request'>} [fields] Additional fields to return
+         * @param {boolean} [draft] Include draft catalogs
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCatalogPipelines(tags?: Array<'ChatOps' | 'Cloud Infrastructure' | 'DevOps' | 'ITOps' | 'Network Automation' | 'Security Automation'>, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, options?: any): AxiosPromise<InlineResponse2009> {
-            return CatalogApiFp(configuration).listCatalogPipelines(tags, sort, search, options).then((request) => request(axios, basePath));
+        async listOrganizationSharedCatalogs(organizationId: string, scope: 'all' | 'accessible', sort?: 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, ownerOrganizationId?: string, tags?: Array<CatalogTags>, fields?: Array<'organization' | 'pending_access_request'>, draft?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
+            const localVarAxiosArgs = await CatalogsApiAxiosParamCreator(configuration).listOrganizationSharedCatalogs(organizationId, scope, sort, search, limit, offset, ownerOrganizationId, tags, fields, draft, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
         },
         /**
          * 
-         * @summary Publish pipeline revision
-         * @param {string} id Pipeline ID to publish
+         * @summary Revoke an organization\'s access to a catalog.
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
+         * @param {string} sharedOrganizationId Shared Organization ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeCatalogAccess(organizationId: string, catalogId: string, sharedOrganizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await CatalogsApiAxiosParamCreator(configuration).removeCatalogAccess(organizationId, catalogId, sharedOrganizationId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Run catalog pipeline
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
          * @param {InlineObject8} inlineObject8 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publishPipelineRevision(id: string, inlineObject8: InlineObject8, options?: any): AxiosPromise<InlineResponse201> {
-            return CatalogApiFp(configuration).publishPipelineRevision(id, inlineObject8, options).then((request) => request(axios, basePath));
+        async runCatalogPipeline(catalogId: string, pipelineId: string, revisionId: AnyType | string, inlineObject8: InlineObject8, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
+            const localVarAxiosArgs = await CatalogsApiAxiosParamCreator(configuration).runCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject8, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Update catalog access request (approve or deny).
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
+         * @param {string} accessRequestId Access Request ID
+         * @param {InlineObject16} inlineObject16 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateCatalogAccessRequest(organizationId: string, catalogId: string, accessRequestId: string, inlineObject16: InlineObject16, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await CatalogsApiAxiosParamCreator(configuration).updateCatalogAccessRequest(organizationId, catalogId, accessRequestId, inlineObject16, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * CatalogsApi - factory interface
+ * @export
+ */
+export const CatalogsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * 
+         * @summary Create a catalog access request
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
+         * @param {InlineObject15} inlineObject15 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createCatalogAccessRequest(organizationId: string, catalogId: string, inlineObject15: InlineObject15, options?: any): AxiosPromise<void> {
+            return CatalogsApiFp(configuration).createCatalogAccessRequest(organizationId, catalogId, inlineObject15, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get catalog
+         * @param {string} catalogId Catalog ID
+         * @param {Array<'organization'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCatalog(catalogId: string, fields?: Array<'organization'>, options?: any): AxiosPromise<InlineResponse2009> {
+            return CatalogsApiFp(configuration).getCatalog(catalogId, fields, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List catalog access requests
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listCatalogAccessRequests(organizationId: string, catalogId: string, options?: any): AxiosPromise<InlineResponse20016> {
+            return CatalogsApiFp(configuration).listCatalogAccessRequests(organizationId, catalogId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List organizations with access to the given catalog.
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
+         * @param {Array<'shared_organization'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listCatalogOrganizationAccess(organizationId: string, catalogId: string, fields?: Array<'shared_organization'>, options?: any): AxiosPromise<InlineResponse20017> {
+            return CatalogsApiFp(configuration).listCatalogOrganizationAccess(organizationId, catalogId, fields, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List pending outgoing access requests for an organization
+         * @param {string} organizationId Organization ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listOrganizationSharedCatalogAccessRequests(organizationId: string, options?: any): AxiosPromise<InlineResponse20016> {
+            return CatalogsApiFp(configuration).listOrganizationSharedCatalogAccessRequests(organizationId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List shared catalogs available to organization
+         * @param {string} organizationId Owner Organization ID
+         * @param {'all' | 'accessible'} scope Access scope of catalogs to return
+         * @param {'name_asc' | 'name_desc'} [sort] 
+         * @param {string} [search] 
+         * @param {number} [limit] 
+         * @param {number} [offset] 
+         * @param {string} [ownerOrganizationId] Owner Organization ID
+         * @param {Array<CatalogTags>} [tags] Catalog tags filter
+         * @param {Array<'organization' | 'pending_access_request'>} [fields] Additional fields to return
+         * @param {boolean} [draft] Include draft catalogs
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listOrganizationSharedCatalogs(organizationId: string, scope: 'all' | 'accessible', sort?: 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, ownerOrganizationId?: string, tags?: Array<CatalogTags>, fields?: Array<'organization' | 'pending_access_request'>, draft?: boolean, options?: any): AxiosPromise<InlineResponse2009> {
+            return CatalogsApiFp(configuration).listOrganizationSharedCatalogs(organizationId, scope, sort, search, limit, offset, ownerOrganizationId, tags, fields, draft, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Revoke an organization\'s access to a catalog.
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
+         * @param {string} sharedOrganizationId Shared Organization ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeCatalogAccess(organizationId: string, catalogId: string, sharedOrganizationId: string, options?: any): AxiosPromise<void> {
+            return CatalogsApiFp(configuration).removeCatalogAccess(organizationId, catalogId, sharedOrganizationId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Run catalog pipeline
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {InlineObject8} inlineObject8 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        runCatalogPipeline(catalogId: string, pipelineId: string, revisionId: AnyType | string, inlineObject8: InlineObject8, options?: any): AxiosPromise<InlineResponse201> {
+            return CatalogsApiFp(configuration).runCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject8, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update catalog access request (approve or deny).
+         * @param {string} organizationId Organization ID
+         * @param {string} catalogId Catalog ID
+         * @param {string} accessRequestId Access Request ID
+         * @param {InlineObject16} inlineObject16 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCatalogAccessRequest(organizationId: string, catalogId: string, accessRequestId: string, inlineObject16: InlineObject16, options?: any): AxiosPromise<void> {
+            return CatalogsApiFp(configuration).updateCatalogAccessRequest(organizationId, catalogId, accessRequestId, inlineObject16, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * CatalogApi - object-oriented interface
+ * CatalogsApi - object-oriented interface
  * @export
- * @class CatalogApi
+ * @class CatalogsApi
  * @extends {BaseAPI}
  */
-export class CatalogApi extends BaseAPI {
+export class CatalogsApi extends BaseAPI {
     /**
      * 
-     * @summary Clone catalog pipeline
-     * @param {string} id Pipeline ID
-     * @param {number} version Published version of the pipeline
-     * @param {InlineObject9} inlineObject9 
+     * @summary Create a catalog access request
+     * @param {string} organizationId Organization ID
+     * @param {string} catalogId Catalog ID
+     * @param {InlineObject15} inlineObject15 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CatalogApi
+     * @memberof CatalogsApi
      */
-    public cloneCatalogPipeline(id: string, version: number, inlineObject9: InlineObject9, options?: any) {
-        return CatalogApiFp(this.configuration).cloneCatalogPipeline(id, version, inlineObject9, options).then((request) => request(this.axios, this.basePath));
+    public createCatalogAccessRequest(organizationId: string, catalogId: string, inlineObject15: InlineObject15, options?: any) {
+        return CatalogsApiFp(this.configuration).createCatalogAccessRequest(organizationId, catalogId, inlineObject15, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @summary Clone pipeline
-     * @param {string} projectId Project ID
-     * @param {string} id Pipeline ID
-     * @param {number} revision Pipeline revision
-     * @param {InlineObject7} inlineObject7 
+     * @summary Get catalog
+     * @param {string} catalogId Catalog ID
+     * @param {Array<'organization'>} [fields] Additional fields to return
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CatalogApi
+     * @memberof CatalogsApi
      */
-    public clonePipeline(projectId: string, id: string, revision: number, inlineObject7: InlineObject7, options?: any) {
-        return CatalogApiFp(this.configuration).clonePipeline(projectId, id, revision, inlineObject7, options).then((request) => request(this.axios, this.basePath));
+    public getCatalog(catalogId: string, fields?: Array<'organization'>, options?: any) {
+        return CatalogsApiFp(this.configuration).getCatalog(catalogId, fields, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @summary Get pipeline
-     * @param {string} id Pipeline ID
+     * @summary List catalog access requests
+     * @param {string} organizationId Organization ID
+     * @param {string} catalogId Catalog ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CatalogApi
+     * @memberof CatalogsApi
      */
-    public getCatalogPipeline(id: string, options?: any) {
-        return CatalogApiFp(this.configuration).getCatalogPipeline(id, options).then((request) => request(this.axios, this.basePath));
+    public listCatalogAccessRequests(organizationId: string, catalogId: string, options?: any) {
+        return CatalogsApiFp(this.configuration).listCatalogAccessRequests(organizationId, catalogId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @summary Get pipeline version
-     * @param {string} id Pipeline ID
-     * @param {number} version Published version of the pipeline
+     * @summary List organizations with access to the given catalog.
+     * @param {string} organizationId Organization ID
+     * @param {string} catalogId Catalog ID
+     * @param {Array<'shared_organization'>} [fields] Additional fields to return
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CatalogApi
+     * @memberof CatalogsApi
      */
-    public getCatalogPipelineVersion(id: string, version: number, options?: any) {
-        return CatalogApiFp(this.configuration).getCatalogPipelineVersion(id, version, options).then((request) => request(this.axios, this.basePath));
+    public listCatalogOrganizationAccess(organizationId: string, catalogId: string, fields?: Array<'shared_organization'>, options?: any) {
+        return CatalogsApiFp(this.configuration).listCatalogOrganizationAccess(organizationId, catalogId, fields, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @summary List pipelines included in the steps of a given pipeline revision
-     * @param {string} id Pipeline ID
-     * @param {number} version Version number
+     * @summary List pending outgoing access requests for an organization
+     * @param {string} organizationId Organization ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CatalogApi
+     * @memberof CatalogsApi
      */
-    public getCatalogPipelineVersionPipelines(id: string, version: number, options?: any) {
-        return CatalogApiFp(this.configuration).getCatalogPipelineVersionPipelines(id, version, options).then((request) => request(this.axios, this.basePath));
+    public listOrganizationSharedCatalogAccessRequests(organizationId: string, options?: any) {
+        return CatalogsApiFp(this.configuration).listOrganizationSharedCatalogAccessRequests(organizationId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @summary List published pipelines
-     * @param {Array<'ChatOps' | 'Cloud Infrastructure' | 'DevOps' | 'ITOps' | 'Network Automation' | 'Security Automation'>} [tags] 
-     * @param {'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc'} [sort] 
+     * @summary List shared catalogs available to organization
+     * @param {string} organizationId Owner Organization ID
+     * @param {'all' | 'accessible'} scope Access scope of catalogs to return
+     * @param {'name_asc' | 'name_desc'} [sort] 
      * @param {string} [search] 
+     * @param {number} [limit] 
+     * @param {number} [offset] 
+     * @param {string} [ownerOrganizationId] Owner Organization ID
+     * @param {Array<CatalogTags>} [tags] Catalog tags filter
+     * @param {Array<'organization' | 'pending_access_request'>} [fields] Additional fields to return
+     * @param {boolean} [draft] Include draft catalogs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CatalogApi
+     * @memberof CatalogsApi
      */
-    public listCatalogPipelines(tags?: Array<'ChatOps' | 'Cloud Infrastructure' | 'DevOps' | 'ITOps' | 'Network Automation' | 'Security Automation'>, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, options?: any) {
-        return CatalogApiFp(this.configuration).listCatalogPipelines(tags, sort, search, options).then((request) => request(this.axios, this.basePath));
+    public listOrganizationSharedCatalogs(organizationId: string, scope: 'all' | 'accessible', sort?: 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, ownerOrganizationId?: string, tags?: Array<CatalogTags>, fields?: Array<'organization' | 'pending_access_request'>, draft?: boolean, options?: any) {
+        return CatalogsApiFp(this.configuration).listOrganizationSharedCatalogs(organizationId, scope, sort, search, limit, offset, ownerOrganizationId, tags, fields, draft, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @summary Publish pipeline revision
-     * @param {string} id Pipeline ID to publish
+     * @summary Revoke an organization\'s access to a catalog.
+     * @param {string} organizationId Organization ID
+     * @param {string} catalogId Catalog ID
+     * @param {string} sharedOrganizationId Shared Organization ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CatalogsApi
+     */
+    public removeCatalogAccess(organizationId: string, catalogId: string, sharedOrganizationId: string, options?: any) {
+        return CatalogsApiFp(this.configuration).removeCatalogAccess(organizationId, catalogId, sharedOrganizationId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Run catalog pipeline
+     * @param {string} catalogId Catalog ID
+     * @param {string} pipelineId Pipeline ID
+     * @param {AnyType | string} revisionId Pipeline revision ID
      * @param {InlineObject8} inlineObject8 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CatalogApi
+     * @memberof CatalogsApi
      */
-    public publishPipelineRevision(id: string, inlineObject8: InlineObject8, options?: any) {
-        return CatalogApiFp(this.configuration).publishPipelineRevision(id, inlineObject8, options).then((request) => request(this.axios, this.basePath));
+    public runCatalogPipeline(catalogId: string, pipelineId: string, revisionId: AnyType | string, inlineObject8: InlineObject8, options?: any) {
+        return CatalogsApiFp(this.configuration).runCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject8, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update catalog access request (approve or deny).
+     * @param {string} organizationId Organization ID
+     * @param {string} catalogId Catalog ID
+     * @param {string} accessRequestId Access Request ID
+     * @param {InlineObject16} inlineObject16 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CatalogsApi
+     */
+    public updateCatalogAccessRequest(organizationId: string, catalogId: string, accessRequestId: string, inlineObject16: InlineObject16, options?: any) {
+        return CatalogsApiFp(this.configuration).updateCatalogAccessRequest(organizationId, catalogId, accessRequestId, inlineObject16, options).then((request) => request(this.axios, this.basePath));
     }
 
 }
@@ -5136,6 +5578,45 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
         },
         /**
          * 
+         * @summary List organizations with publicly available catalogs.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listSharingCatalogsOrganizations: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/catalogs/organizations`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Update organization
          * @param {string} organizationId Organization ID
          * @param {Organization} organization 
@@ -5226,6 +5707,19 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary List organizations with publicly available catalogs.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listSharingCatalogsOrganizations(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20011>> {
+            const localVarAxiosArgs = await OrganizationsApiAxiosParamCreator(configuration).listSharingCatalogsOrganizations(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary Update organization
          * @param {string} organizationId Organization ID
          * @param {Organization} organization 
@@ -5266,6 +5760,15 @@ export const OrganizationsApiFactory = function (configuration?: Configuration, 
          */
         listOrganizations(options?: any): AxiosPromise<InlineResponse20015> {
             return OrganizationsApiFp(configuration).listOrganizations(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List organizations with publicly available catalogs.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listSharingCatalogsOrganizations(options?: any): AxiosPromise<InlineResponse20011> {
+            return OrganizationsApiFp(configuration).listSharingCatalogsOrganizations(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5313,6 +5816,17 @@ export class OrganizationsApi extends BaseAPI {
 
     /**
      * 
+     * @summary List organizations with publicly available catalogs.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApi
+     */
+    public listSharingCatalogsOrganizations(options?: any) {
+        return OrganizationsApiFp(this.configuration).listSharingCatalogsOrganizations(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Update organization
      * @param {string} organizationId Organization ID
      * @param {Organization} organization 
@@ -5333,6 +5847,138 @@ export class OrganizationsApi extends BaseAPI {
  */
 export const PipelinesApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * 
+         * @summary Clone catalog pipeline
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {InlineObject7} inlineObject7 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        cloneCatalogPipeline: async (catalogId: string, pipelineId: string, revisionId: AnyType | string, inlineObject7: InlineObject7, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'catalogId' is not null or undefined
+            if (catalogId === null || catalogId === undefined) {
+                throw new RequiredError('catalogId','Required parameter catalogId was null or undefined when calling cloneCatalogPipeline.');
+            }
+            // verify required parameter 'pipelineId' is not null or undefined
+            if (pipelineId === null || pipelineId === undefined) {
+                throw new RequiredError('pipelineId','Required parameter pipelineId was null or undefined when calling cloneCatalogPipeline.');
+            }
+            // verify required parameter 'revisionId' is not null or undefined
+            if (revisionId === null || revisionId === undefined) {
+                throw new RequiredError('revisionId','Required parameter revisionId was null or undefined when calling cloneCatalogPipeline.');
+            }
+            // verify required parameter 'inlineObject7' is not null or undefined
+            if (inlineObject7 === null || inlineObject7 === undefined) {
+                throw new RequiredError('inlineObject7','Required parameter inlineObject7 was null or undefined when calling cloneCatalogPipeline.');
+            }
+            const localVarPath = `/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}/clone`
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)))
+                .replace(`{${"pipeline_id"}}`, encodeURIComponent(String(pipelineId)))
+                .replace(`{${"revision_id"}}`, encodeURIComponent(String(revisionId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof inlineObject7 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject7 !== undefined ? inlineObject7 : {}) : (inlineObject7 || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Clone pipeline
+         * @param {string} projectId Project ID
+         * @param {string} id Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {InlineObject9} inlineObject9 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        clonePipeline: async (projectId: string, id: string, revisionId: AnyType | string, inlineObject9: InlineObject9, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            if (projectId === null || projectId === undefined) {
+                throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling clonePipeline.');
+            }
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling clonePipeline.');
+            }
+            // verify required parameter 'revisionId' is not null or undefined
+            if (revisionId === null || revisionId === undefined) {
+                throw new RequiredError('revisionId','Required parameter revisionId was null or undefined when calling clonePipeline.');
+            }
+            // verify required parameter 'inlineObject9' is not null or undefined
+            if (inlineObject9 === null || inlineObject9 === undefined) {
+                throw new RequiredError('inlineObject9','Required parameter inlineObject9 was null or undefined when calling clonePipeline.');
+            }
+            const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}/clone`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"_id"}}`, encodeURIComponent(String(id)))
+                .replace(`{${"revision_id"}}`, encodeURIComponent(String(revisionId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof inlineObject9 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject9 !== undefined ? inlineObject9 : {}) : (inlineObject9 || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @summary Create pipeline
@@ -5500,6 +6146,299 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @summary Get catalog pipeline
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCatalogPipeline: async (catalogId: string, pipelineId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'catalogId' is not null or undefined
+            if (catalogId === null || catalogId === undefined) {
+                throw new RequiredError('catalogId','Required parameter catalogId was null or undefined when calling getCatalogPipeline.');
+            }
+            // verify required parameter 'pipelineId' is not null or undefined
+            if (pipelineId === null || pipelineId === undefined) {
+                throw new RequiredError('pipelineId','Required parameter pipelineId was null or undefined when calling getCatalogPipeline.');
+            }
+            const localVarPath = `/catalogs/{catalog_id}/pipelines/{pipeline_id}`
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)))
+                .replace(`{${"pipeline_id"}}`, encodeURIComponent(String(pipelineId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get catalog pipeline revision
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCatalogPipelineRevision: async (catalogId: string, pipelineId: string, revisionId: AnyType | string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'catalogId' is not null or undefined
+            if (catalogId === null || catalogId === undefined) {
+                throw new RequiredError('catalogId','Required parameter catalogId was null or undefined when calling getCatalogPipelineRevision.');
+            }
+            // verify required parameter 'pipelineId' is not null or undefined
+            if (pipelineId === null || pipelineId === undefined) {
+                throw new RequiredError('pipelineId','Required parameter pipelineId was null or undefined when calling getCatalogPipelineRevision.');
+            }
+            // verify required parameter 'revisionId' is not null or undefined
+            if (revisionId === null || revisionId === undefined) {
+                throw new RequiredError('revisionId','Required parameter revisionId was null or undefined when calling getCatalogPipelineRevision.');
+            }
+            const localVarPath = `/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}`
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)))
+                .replace(`{${"pipeline_id"}}`, encodeURIComponent(String(pipelineId)))
+                .replace(`{${"revision_id"}}`, encodeURIComponent(String(revisionId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List catalog pipeline revisions included in the steps of a given catalog pipeline pipeline revision
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {Array<'variables' | 'outputs' | 'steps' | 'layout'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCatalogPipelineRevisionPipelineRevisions: async (catalogId: string, pipelineId: string, revisionId: AnyType | string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'catalogId' is not null or undefined
+            if (catalogId === null || catalogId === undefined) {
+                throw new RequiredError('catalogId','Required parameter catalogId was null or undefined when calling getCatalogPipelineRevisionPipelineRevisions.');
+            }
+            // verify required parameter 'pipelineId' is not null or undefined
+            if (pipelineId === null || pipelineId === undefined) {
+                throw new RequiredError('pipelineId','Required parameter pipelineId was null or undefined when calling getCatalogPipelineRevisionPipelineRevisions.');
+            }
+            // verify required parameter 'revisionId' is not null or undefined
+            if (revisionId === null || revisionId === undefined) {
+                throw new RequiredError('revisionId','Required parameter revisionId was null or undefined when calling getCatalogPipelineRevisionPipelineRevisions.');
+            }
+            const localVarPath = `/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}/revisions`
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)))
+                .replace(`{${"pipeline_id"}}`, encodeURIComponent(String(pipelineId)))
+                .replace(`{${"revision_id"}}`, encodeURIComponent(String(revisionId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (fields) {
+                localVarQueryParameter['fields'] = fields;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List catalog pipelines included in the steps of a given catalog pipeline revision
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCatalogPipelineRevisionPipelines: async (catalogId: string, pipelineId: string, revisionId: AnyType | string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'catalogId' is not null or undefined
+            if (catalogId === null || catalogId === undefined) {
+                throw new RequiredError('catalogId','Required parameter catalogId was null or undefined when calling getCatalogPipelineRevisionPipelines.');
+            }
+            // verify required parameter 'pipelineId' is not null or undefined
+            if (pipelineId === null || pipelineId === undefined) {
+                throw new RequiredError('pipelineId','Required parameter pipelineId was null or undefined when calling getCatalogPipelineRevisionPipelines.');
+            }
+            // verify required parameter 'revisionId' is not null or undefined
+            if (revisionId === null || revisionId === undefined) {
+                throw new RequiredError('revisionId','Required parameter revisionId was null or undefined when calling getCatalogPipelineRevisionPipelines.');
+            }
+            const localVarPath = `/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}/pipelines`
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)))
+                .replace(`{${"pipeline_id"}}`, encodeURIComponent(String(pipelineId)))
+                .replace(`{${"revision_id"}}`, encodeURIComponent(String(revisionId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get catalog pipeline versions
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {Array<'variables'>} [fields] Additional fields to return
+         * @param {number} [limit] 
+         * @param {number} [offset] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCatalogPipelineRevisions: async (catalogId: string, pipelineId: string, fields?: Array<'variables'>, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'catalogId' is not null or undefined
+            if (catalogId === null || catalogId === undefined) {
+                throw new RequiredError('catalogId','Required parameter catalogId was null or undefined when calling getCatalogPipelineRevisions.');
+            }
+            // verify required parameter 'pipelineId' is not null or undefined
+            if (pipelineId === null || pipelineId === undefined) {
+                throw new RequiredError('pipelineId','Required parameter pipelineId was null or undefined when calling getCatalogPipelineRevisions.');
+            }
+            const localVarPath = `/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions`
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)))
+                .replace(`{${"pipeline_id"}}`, encodeURIComponent(String(pipelineId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (fields) {
+                localVarQueryParameter['fields'] = fields;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Get pipeline
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
@@ -5554,11 +6493,11 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
          * @summary Get pipeline revision
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {number} revision Revision number
+         * @param {AnyType | string} revisionId Pipeline revision ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPipelineRevision: async (projectId: string, id: string, revision: number, options: any = {}): Promise<RequestArgs> => {
+        getPipelineRevision: async (projectId: string, id: string, revisionId: AnyType | string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             if (projectId === null || projectId === undefined) {
                 throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling getPipelineRevision.');
@@ -5567,14 +6506,14 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling getPipelineRevision.');
             }
-            // verify required parameter 'revision' is not null or undefined
-            if (revision === null || revision === undefined) {
-                throw new RequiredError('revision','Required parameter revision was null or undefined when calling getPipelineRevision.');
+            // verify required parameter 'revisionId' is not null or undefined
+            if (revisionId === null || revisionId === undefined) {
+                throw new RequiredError('revisionId','Required parameter revisionId was null or undefined when calling getPipelineRevision.');
             }
-            const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision}`
+            const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"_id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"revision"}}`, encodeURIComponent(String(revision)));
+                .replace(`{${"revision_id"}}`, encodeURIComponent(String(revisionId)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -5611,12 +6550,12 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
          * @summary List pipeline revisions included in the steps of a given pipeline revision
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {number} revision Revision number
+         * @param {AnyType | string} revisionId Revision revision ID
          * @param {Array<'variables' | 'outputs' | 'steps' | 'layout'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPipelineRevisionPipelineRevisions: async (projectId: string, id: string, revision: number, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options: any = {}): Promise<RequestArgs> => {
+        getPipelineRevisionPipelineRevisions: async (projectId: string, id: string, revisionId: AnyType | string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             if (projectId === null || projectId === undefined) {
                 throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling getPipelineRevisionPipelineRevisions.');
@@ -5625,14 +6564,14 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling getPipelineRevisionPipelineRevisions.');
             }
-            // verify required parameter 'revision' is not null or undefined
-            if (revision === null || revision === undefined) {
-                throw new RequiredError('revision','Required parameter revision was null or undefined when calling getPipelineRevisionPipelineRevisions.');
+            // verify required parameter 'revisionId' is not null or undefined
+            if (revisionId === null || revisionId === undefined) {
+                throw new RequiredError('revisionId','Required parameter revisionId was null or undefined when calling getPipelineRevisionPipelineRevisions.');
             }
-            const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision}/revisions`
+            const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}/revisions`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"_id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"revision"}}`, encodeURIComponent(String(revision)));
+                .replace(`{${"revision_id"}}`, encodeURIComponent(String(revisionId)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -5673,11 +6612,11 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
          * @summary List pipelines included in the steps of a given pipeline revision
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {number} revision Revision number
+         * @param {AnyType | string} revisionId Revision revision ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPipelineRevisionPipelines: async (projectId: string, id: string, revision: number, options: any = {}): Promise<RequestArgs> => {
+        getPipelineRevisionPipelines: async (projectId: string, id: string, revisionId: AnyType | string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             if (projectId === null || projectId === undefined) {
                 throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling getPipelineRevisionPipelines.');
@@ -5686,14 +6625,14 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling getPipelineRevisionPipelines.');
             }
-            // verify required parameter 'revision' is not null or undefined
-            if (revision === null || revision === undefined) {
-                throw new RequiredError('revision','Required parameter revision was null or undefined when calling getPipelineRevisionPipelines.');
+            // verify required parameter 'revisionId' is not null or undefined
+            if (revisionId === null || revisionId === undefined) {
+                throw new RequiredError('revisionId','Required parameter revisionId was null or undefined when calling getPipelineRevisionPipelines.');
             }
-            const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision}/pipelines`
+            const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}/pipelines`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"_id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"revision"}}`, encodeURIComponent(String(revision)));
+                .replace(`{${"revision_id"}}`, encodeURIComponent(String(revisionId)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -5733,10 +6672,11 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
          * @param {Array<'variables' | 'user'>} [fields] Additional fields to return
          * @param {number} [limit] 
          * @param {number} [offset] 
+         * @param {boolean} [published] Filter pipelines by published status
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPipelineRevisions: async (projectId: string, id: string, fields?: Array<'variables' | 'user'>, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
+        getPipelineRevisions: async (projectId: string, id: string, fields?: Array<'variables' | 'user'>, limit?: number, offset?: number, published?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             if (projectId === null || projectId === undefined) {
                 throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling getPipelineRevisions.');
@@ -5776,6 +6716,75 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
 
             if (offset !== undefined) {
                 localVarQueryParameter['offset'] = offset;
+            }
+
+            if (published !== undefined) {
+                localVarQueryParameter['published'] = published;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List catalog pipelines
+         * @param {string} catalogId Catalog ID
+         * @param {'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc'} [sort] 
+         * @param {number} [limit] 
+         * @param {number} [offset] 
+         * @param {string} [search] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listCatalogPipelines: async (catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'catalogId' is not null or undefined
+            if (catalogId === null || catalogId === undefined) {
+                throw new RequiredError('catalogId','Required parameter catalogId was null or undefined when calling listCatalogPipelines.');
+            }
+            const localVarPath = `/catalogs/{catalog_id}/pipelines`
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (search !== undefined) {
+                localVarQueryParameter['search'] = search;
             }
 
 
@@ -5858,15 +6867,72 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @summary Publish a pipeline revision
+         * @param {string} projectId Project ID
+         * @param {string} id Pipeline ID
+         * @param {string} revisionId Pipeline revision ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        publishPipelineRevision: async (projectId: string, id: string, revisionId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            if (projectId === null || projectId === undefined) {
+                throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling publishPipelineRevision.');
+            }
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling publishPipelineRevision.');
+            }
+            // verify required parameter 'revisionId' is not null or undefined
+            if (revisionId === null || revisionId === undefined) {
+                throw new RequiredError('revisionId','Required parameter revisionId was null or undefined when calling publishPipelineRevision.');
+            }
+            const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}/publish`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"_id"}}`, encodeURIComponent(String(id)))
+                .replace(`{${"revision_id"}}`, encodeURIComponent(String(revisionId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Run pipeline
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {number} revision Pipeline revision
+         * @param {string} revisionId Pipeline revision ID
          * @param {InlineObject10} inlineObject10 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        runPipeline: async (projectId: string, id: string, revision: number, inlineObject10: InlineObject10, options: any = {}): Promise<RequestArgs> => {
+        runPipeline: async (projectId: string, id: string, revisionId: string, inlineObject10: InlineObject10, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             if (projectId === null || projectId === undefined) {
                 throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling runPipeline.');
@@ -5875,18 +6941,18 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling runPipeline.');
             }
-            // verify required parameter 'revision' is not null or undefined
-            if (revision === null || revision === undefined) {
-                throw new RequiredError('revision','Required parameter revision was null or undefined when calling runPipeline.');
+            // verify required parameter 'revisionId' is not null or undefined
+            if (revisionId === null || revisionId === undefined) {
+                throw new RequiredError('revisionId','Required parameter revisionId was null or undefined when calling runPipeline.');
             }
             // verify required parameter 'inlineObject10' is not null or undefined
             if (inlineObject10 === null || inlineObject10 === undefined) {
                 throw new RequiredError('inlineObject10','Required parameter inlineObject10 was null or undefined when calling runPipeline.');
             }
-            const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision}/run`
+            const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}/run`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"_id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"revision"}}`, encodeURIComponent(String(revision)));
+                .replace(`{${"revision_id"}}`, encodeURIComponent(String(revisionId)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -5993,6 +7059,40 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Clone catalog pipeline
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {InlineObject7} inlineObject7 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async cloneCatalogPipeline(catalogId: string, pipelineId: string, revisionId: AnyType | string, inlineObject7: InlineObject7, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2011>> {
+            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).cloneCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject7, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Clone pipeline
+         * @param {string} projectId Project ID
+         * @param {string} id Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {InlineObject9} inlineObject9 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async clonePipeline(projectId: string, id: string, revisionId: AnyType | string, inlineObject9: InlineObject9, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2011>> {
+            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).clonePipeline(projectId, id, revisionId, inlineObject9, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary Create pipeline
          * @param {string} projectId Project ID
          * @param {Pipeline} pipeline 
@@ -6039,6 +7139,88 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Get catalog pipeline
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCatalogPipeline(catalogId: string, pipelineId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Pipeline>> {
+            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).getCatalogPipeline(catalogId, pipelineId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Get catalog pipeline revision
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCatalogPipelineRevision(catalogId: string, pipelineId: string, revisionId: AnyType | string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PipelineRevision>> {
+            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).getCatalogPipelineRevision(catalogId, pipelineId, revisionId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary List catalog pipeline revisions included in the steps of a given catalog pipeline pipeline revision
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {Array<'variables' | 'outputs' | 'steps' | 'layout'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCatalogPipelineRevisionPipelineRevisions(catalogId: string, pipelineId: string, revisionId: AnyType | string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2008>> {
+            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).getCatalogPipelineRevisionPipelineRevisions(catalogId, pipelineId, revisionId, fields, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary List catalog pipelines included in the steps of a given catalog pipeline revision
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCatalogPipelineRevisionPipelines(catalogId: string, pipelineId: string, revisionId: AnyType | string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).getCatalogPipelineRevisionPipelines(catalogId, pipelineId, revisionId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Get catalog pipeline versions
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {Array<'variables'>} [fields] Additional fields to return
+         * @param {number} [limit] 
+         * @param {number} [offset] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCatalogPipelineRevisions(catalogId: string, pipelineId: string, fields?: Array<'variables'>, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
+            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).getCatalogPipelineRevisions(catalogId, pipelineId, fields, limit, offset, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary Get pipeline
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
@@ -6057,12 +7239,12 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @summary Get pipeline revision
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {number} revision Revision number
+         * @param {AnyType | string} revisionId Pipeline revision ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPipelineRevision(projectId: string, id: string, revision: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PipelineRevision>> {
-            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).getPipelineRevision(projectId, id, revision, options);
+        async getPipelineRevision(projectId: string, id: string, revisionId: AnyType | string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PipelineRevision>> {
+            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).getPipelineRevision(projectId, id, revisionId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -6073,13 +7255,13 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @summary List pipeline revisions included in the steps of a given pipeline revision
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {number} revision Revision number
+         * @param {AnyType | string} revisionId Revision revision ID
          * @param {Array<'variables' | 'outputs' | 'steps' | 'layout'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPipelineRevisionPipelineRevisions(projectId: string, id: string, revision: number, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2008>> {
-            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).getPipelineRevisionPipelineRevisions(projectId, id, revision, fields, options);
+        async getPipelineRevisionPipelineRevisions(projectId: string, id: string, revisionId: AnyType | string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2008>> {
+            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).getPipelineRevisionPipelineRevisions(projectId, id, revisionId, fields, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -6090,12 +7272,12 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @summary List pipelines included in the steps of a given pipeline revision
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {number} revision Revision number
+         * @param {AnyType | string} revisionId Revision revision ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPipelineRevisionPipelines(projectId: string, id: string, revision: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
-            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).getPipelineRevisionPipelines(projectId, id, revision, options);
+        async getPipelineRevisionPipelines(projectId: string, id: string, revisionId: AnyType | string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).getPipelineRevisionPipelines(projectId, id, revisionId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -6109,11 +7291,30 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @param {Array<'variables' | 'user'>} [fields] Additional fields to return
          * @param {number} [limit] 
          * @param {number} [offset] 
+         * @param {boolean} [published] Filter pipelines by published status
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user'>, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
-            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).getPipelineRevisions(projectId, id, fields, limit, offset, options);
+        async getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user'>, limit?: number, offset?: number, published?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
+            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).getPipelineRevisions(projectId, id, fields, limit, offset, published, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary List catalog pipelines
+         * @param {string} catalogId Catalog ID
+         * @param {'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc'} [sort] 
+         * @param {number} [limit] 
+         * @param {number} [offset] 
+         * @param {string} [search] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listCatalogPipelines(catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).listCatalogPipelines(catalogId, sort, limit, offset, search, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -6139,16 +7340,32 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Publish a pipeline revision
+         * @param {string} projectId Project ID
+         * @param {string} id Pipeline ID
+         * @param {string} revisionId Pipeline revision ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async publishPipelineRevision(projectId: string, id: string, revisionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).publishPipelineRevision(projectId, id, revisionId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary Run pipeline
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {number} revision Pipeline revision
+         * @param {string} revisionId Pipeline revision ID
          * @param {InlineObject10} inlineObject10 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async runPipeline(projectId: string, id: string, revision: number, inlineObject10: InlineObject10, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
-            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).runPipeline(projectId, id, revision, inlineObject10, options);
+        async runPipeline(projectId: string, id: string, revisionId: string, inlineObject10: InlineObject10, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
+            const localVarAxiosArgs = await PipelinesApiAxiosParamCreator(configuration).runPipeline(projectId, id, revisionId, inlineObject10, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -6179,6 +7396,32 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
  */
 export const PipelinesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     return {
+        /**
+         * 
+         * @summary Clone catalog pipeline
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {InlineObject7} inlineObject7 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        cloneCatalogPipeline(catalogId: string, pipelineId: string, revisionId: AnyType | string, inlineObject7: InlineObject7, options?: any): AxiosPromise<InlineResponse2011> {
+            return PipelinesApiFp(configuration).cloneCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject7, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Clone pipeline
+         * @param {string} projectId Project ID
+         * @param {string} id Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {InlineObject9} inlineObject9 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        clonePipeline(projectId: string, id: string, revisionId: AnyType | string, inlineObject9: InlineObject9, options?: any): AxiosPromise<InlineResponse2011> {
+            return PipelinesApiFp(configuration).clonePipeline(projectId, id, revisionId, inlineObject9, options).then((request) => request(axios, basePath));
+        },
         /**
          * 
          * @summary Create pipeline
@@ -6215,6 +7458,68 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @summary Get catalog pipeline
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCatalogPipeline(catalogId: string, pipelineId: string, options?: any): AxiosPromise<Pipeline> {
+            return PipelinesApiFp(configuration).getCatalogPipeline(catalogId, pipelineId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get catalog pipeline revision
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCatalogPipelineRevision(catalogId: string, pipelineId: string, revisionId: AnyType | string, options?: any): AxiosPromise<PipelineRevision> {
+            return PipelinesApiFp(configuration).getCatalogPipelineRevision(catalogId, pipelineId, revisionId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List catalog pipeline revisions included in the steps of a given catalog pipeline pipeline revision
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {Array<'variables' | 'outputs' | 'steps' | 'layout'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCatalogPipelineRevisionPipelineRevisions(catalogId: string, pipelineId: string, revisionId: AnyType | string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): AxiosPromise<InlineResponse2008> {
+            return PipelinesApiFp(configuration).getCatalogPipelineRevisionPipelineRevisions(catalogId, pipelineId, revisionId, fields, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List catalog pipelines included in the steps of a given catalog pipeline revision
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {AnyType | string} revisionId Pipeline revision ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCatalogPipelineRevisionPipelines(catalogId: string, pipelineId: string, revisionId: AnyType | string, options?: any): AxiosPromise<InlineResponse2005> {
+            return PipelinesApiFp(configuration).getCatalogPipelineRevisionPipelines(catalogId, pipelineId, revisionId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get catalog pipeline versions
+         * @param {string} catalogId Catalog ID
+         * @param {string} pipelineId Pipeline ID
+         * @param {Array<'variables'>} [fields] Additional fields to return
+         * @param {number} [limit] 
+         * @param {number} [offset] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCatalogPipelineRevisions(catalogId: string, pipelineId: string, fields?: Array<'variables'>, limit?: number, offset?: number, options?: any): AxiosPromise<InlineResponse2006> {
+            return PipelinesApiFp(configuration).getCatalogPipelineRevisions(catalogId, pipelineId, fields, limit, offset, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Get pipeline
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
@@ -6229,37 +7534,37 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
          * @summary Get pipeline revision
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {number} revision Revision number
+         * @param {AnyType | string} revisionId Pipeline revision ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPipelineRevision(projectId: string, id: string, revision: number, options?: any): AxiosPromise<PipelineRevision> {
-            return PipelinesApiFp(configuration).getPipelineRevision(projectId, id, revision, options).then((request) => request(axios, basePath));
+        getPipelineRevision(projectId: string, id: string, revisionId: AnyType | string, options?: any): AxiosPromise<PipelineRevision> {
+            return PipelinesApiFp(configuration).getPipelineRevision(projectId, id, revisionId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary List pipeline revisions included in the steps of a given pipeline revision
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {number} revision Revision number
+         * @param {AnyType | string} revisionId Revision revision ID
          * @param {Array<'variables' | 'outputs' | 'steps' | 'layout'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPipelineRevisionPipelineRevisions(projectId: string, id: string, revision: number, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): AxiosPromise<InlineResponse2008> {
-            return PipelinesApiFp(configuration).getPipelineRevisionPipelineRevisions(projectId, id, revision, fields, options).then((request) => request(axios, basePath));
+        getPipelineRevisionPipelineRevisions(projectId: string, id: string, revisionId: AnyType | string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): AxiosPromise<InlineResponse2008> {
+            return PipelinesApiFp(configuration).getPipelineRevisionPipelineRevisions(projectId, id, revisionId, fields, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary List pipelines included in the steps of a given pipeline revision
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {number} revision Revision number
+         * @param {AnyType | string} revisionId Revision revision ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPipelineRevisionPipelines(projectId: string, id: string, revision: number, options?: any): AxiosPromise<InlineResponse2005> {
-            return PipelinesApiFp(configuration).getPipelineRevisionPipelines(projectId, id, revision, options).then((request) => request(axios, basePath));
+        getPipelineRevisionPipelines(projectId: string, id: string, revisionId: AnyType | string, options?: any): AxiosPromise<InlineResponse2005> {
+            return PipelinesApiFp(configuration).getPipelineRevisionPipelines(projectId, id, revisionId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6269,11 +7574,26 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
          * @param {Array<'variables' | 'user'>} [fields] Additional fields to return
          * @param {number} [limit] 
          * @param {number} [offset] 
+         * @param {boolean} [published] Filter pipelines by published status
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user'>, limit?: number, offset?: number, options?: any): AxiosPromise<InlineResponse2006> {
-            return PipelinesApiFp(configuration).getPipelineRevisions(projectId, id, fields, limit, offset, options).then((request) => request(axios, basePath));
+        getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user'>, limit?: number, offset?: number, published?: boolean, options?: any): AxiosPromise<InlineResponse2006> {
+            return PipelinesApiFp(configuration).getPipelineRevisions(projectId, id, fields, limit, offset, published, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List catalog pipelines
+         * @param {string} catalogId Catalog ID
+         * @param {'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc'} [sort] 
+         * @param {number} [limit] 
+         * @param {number} [offset] 
+         * @param {string} [search] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listCatalogPipelines(catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, options?: any): AxiosPromise<InlineResponse2005> {
+            return PipelinesApiFp(configuration).listCatalogPipelines(catalogId, sort, limit, offset, search, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6291,16 +7611,28 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @summary Publish a pipeline revision
+         * @param {string} projectId Project ID
+         * @param {string} id Pipeline ID
+         * @param {string} revisionId Pipeline revision ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        publishPipelineRevision(projectId: string, id: string, revisionId: string, options?: any): AxiosPromise<void> {
+            return PipelinesApiFp(configuration).publishPipelineRevision(projectId, id, revisionId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Run pipeline
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {number} revision Pipeline revision
+         * @param {string} revisionId Pipeline revision ID
          * @param {InlineObject10} inlineObject10 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        runPipeline(projectId: string, id: string, revision: number, inlineObject10: InlineObject10, options?: any): AxiosPromise<InlineResponse201> {
-            return PipelinesApiFp(configuration).runPipeline(projectId, id, revision, inlineObject10, options).then((request) => request(axios, basePath));
+        runPipeline(projectId: string, id: string, revisionId: string, inlineObject10: InlineObject10, options?: any): AxiosPromise<InlineResponse201> {
+            return PipelinesApiFp(configuration).runPipeline(projectId, id, revisionId, inlineObject10, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6324,6 +7656,36 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
  * @extends {BaseAPI}
  */
 export class PipelinesApi extends BaseAPI {
+    /**
+     * 
+     * @summary Clone catalog pipeline
+     * @param {string} catalogId Catalog ID
+     * @param {string} pipelineId Pipeline ID
+     * @param {AnyType | string} revisionId Pipeline revision ID
+     * @param {InlineObject7} inlineObject7 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PipelinesApi
+     */
+    public cloneCatalogPipeline(catalogId: string, pipelineId: string, revisionId: AnyType | string, inlineObject7: InlineObject7, options?: any) {
+        return PipelinesApiFp(this.configuration).cloneCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject7, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Clone pipeline
+     * @param {string} projectId Project ID
+     * @param {string} id Pipeline ID
+     * @param {AnyType | string} revisionId Pipeline revision ID
+     * @param {InlineObject9} inlineObject9 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PipelinesApi
+     */
+    public clonePipeline(projectId: string, id: string, revisionId: AnyType | string, inlineObject9: InlineObject9, options?: any) {
+        return PipelinesApiFp(this.configuration).clonePipeline(projectId, id, revisionId, inlineObject9, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Create pipeline
@@ -6366,6 +7728,78 @@ export class PipelinesApi extends BaseAPI {
 
     /**
      * 
+     * @summary Get catalog pipeline
+     * @param {string} catalogId Catalog ID
+     * @param {string} pipelineId Pipeline ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PipelinesApi
+     */
+    public getCatalogPipeline(catalogId: string, pipelineId: string, options?: any) {
+        return PipelinesApiFp(this.configuration).getCatalogPipeline(catalogId, pipelineId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get catalog pipeline revision
+     * @param {string} catalogId Catalog ID
+     * @param {string} pipelineId Pipeline ID
+     * @param {AnyType | string} revisionId Pipeline revision ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PipelinesApi
+     */
+    public getCatalogPipelineRevision(catalogId: string, pipelineId: string, revisionId: AnyType | string, options?: any) {
+        return PipelinesApiFp(this.configuration).getCatalogPipelineRevision(catalogId, pipelineId, revisionId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List catalog pipeline revisions included in the steps of a given catalog pipeline pipeline revision
+     * @param {string} catalogId Catalog ID
+     * @param {string} pipelineId Pipeline ID
+     * @param {AnyType | string} revisionId Pipeline revision ID
+     * @param {Array<'variables' | 'outputs' | 'steps' | 'layout'>} [fields] Additional fields to return
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PipelinesApi
+     */
+    public getCatalogPipelineRevisionPipelineRevisions(catalogId: string, pipelineId: string, revisionId: AnyType | string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any) {
+        return PipelinesApiFp(this.configuration).getCatalogPipelineRevisionPipelineRevisions(catalogId, pipelineId, revisionId, fields, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List catalog pipelines included in the steps of a given catalog pipeline revision
+     * @param {string} catalogId Catalog ID
+     * @param {string} pipelineId Pipeline ID
+     * @param {AnyType | string} revisionId Pipeline revision ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PipelinesApi
+     */
+    public getCatalogPipelineRevisionPipelines(catalogId: string, pipelineId: string, revisionId: AnyType | string, options?: any) {
+        return PipelinesApiFp(this.configuration).getCatalogPipelineRevisionPipelines(catalogId, pipelineId, revisionId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get catalog pipeline versions
+     * @param {string} catalogId Catalog ID
+     * @param {string} pipelineId Pipeline ID
+     * @param {Array<'variables'>} [fields] Additional fields to return
+     * @param {number} [limit] 
+     * @param {number} [offset] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PipelinesApi
+     */
+    public getCatalogPipelineRevisions(catalogId: string, pipelineId: string, fields?: Array<'variables'>, limit?: number, offset?: number, options?: any) {
+        return PipelinesApiFp(this.configuration).getCatalogPipelineRevisions(catalogId, pipelineId, fields, limit, offset, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Get pipeline
      * @param {string} projectId Project ID
      * @param {string} id Pipeline ID
@@ -6382,13 +7816,13 @@ export class PipelinesApi extends BaseAPI {
      * @summary Get pipeline revision
      * @param {string} projectId Project ID
      * @param {string} id Pipeline ID
-     * @param {number} revision Revision number
+     * @param {AnyType | string} revisionId Pipeline revision ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PipelinesApi
      */
-    public getPipelineRevision(projectId: string, id: string, revision: number, options?: any) {
-        return PipelinesApiFp(this.configuration).getPipelineRevision(projectId, id, revision, options).then((request) => request(this.axios, this.basePath));
+    public getPipelineRevision(projectId: string, id: string, revisionId: AnyType | string, options?: any) {
+        return PipelinesApiFp(this.configuration).getPipelineRevision(projectId, id, revisionId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6396,14 +7830,14 @@ export class PipelinesApi extends BaseAPI {
      * @summary List pipeline revisions included in the steps of a given pipeline revision
      * @param {string} projectId Project ID
      * @param {string} id Pipeline ID
-     * @param {number} revision Revision number
+     * @param {AnyType | string} revisionId Revision revision ID
      * @param {Array<'variables' | 'outputs' | 'steps' | 'layout'>} [fields] Additional fields to return
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PipelinesApi
      */
-    public getPipelineRevisionPipelineRevisions(projectId: string, id: string, revision: number, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any) {
-        return PipelinesApiFp(this.configuration).getPipelineRevisionPipelineRevisions(projectId, id, revision, fields, options).then((request) => request(this.axios, this.basePath));
+    public getPipelineRevisionPipelineRevisions(projectId: string, id: string, revisionId: AnyType | string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any) {
+        return PipelinesApiFp(this.configuration).getPipelineRevisionPipelineRevisions(projectId, id, revisionId, fields, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6411,13 +7845,13 @@ export class PipelinesApi extends BaseAPI {
      * @summary List pipelines included in the steps of a given pipeline revision
      * @param {string} projectId Project ID
      * @param {string} id Pipeline ID
-     * @param {number} revision Revision number
+     * @param {AnyType | string} revisionId Revision revision ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PipelinesApi
      */
-    public getPipelineRevisionPipelines(projectId: string, id: string, revision: number, options?: any) {
-        return PipelinesApiFp(this.configuration).getPipelineRevisionPipelines(projectId, id, revision, options).then((request) => request(this.axios, this.basePath));
+    public getPipelineRevisionPipelines(projectId: string, id: string, revisionId: AnyType | string, options?: any) {
+        return PipelinesApiFp(this.configuration).getPipelineRevisionPipelines(projectId, id, revisionId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6428,12 +7862,29 @@ export class PipelinesApi extends BaseAPI {
      * @param {Array<'variables' | 'user'>} [fields] Additional fields to return
      * @param {number} [limit] 
      * @param {number} [offset] 
+     * @param {boolean} [published] Filter pipelines by published status
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PipelinesApi
      */
-    public getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user'>, limit?: number, offset?: number, options?: any) {
-        return PipelinesApiFp(this.configuration).getPipelineRevisions(projectId, id, fields, limit, offset, options).then((request) => request(this.axios, this.basePath));
+    public getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user'>, limit?: number, offset?: number, published?: boolean, options?: any) {
+        return PipelinesApiFp(this.configuration).getPipelineRevisions(projectId, id, fields, limit, offset, published, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List catalog pipelines
+     * @param {string} catalogId Catalog ID
+     * @param {'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc'} [sort] 
+     * @param {number} [limit] 
+     * @param {number} [offset] 
+     * @param {string} [search] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PipelinesApi
+     */
+    public listCatalogPipelines(catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, options?: any) {
+        return PipelinesApiFp(this.configuration).listCatalogPipelines(catalogId, sort, limit, offset, search, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6454,17 +7905,31 @@ export class PipelinesApi extends BaseAPI {
 
     /**
      * 
+     * @summary Publish a pipeline revision
+     * @param {string} projectId Project ID
+     * @param {string} id Pipeline ID
+     * @param {string} revisionId Pipeline revision ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PipelinesApi
+     */
+    public publishPipelineRevision(projectId: string, id: string, revisionId: string, options?: any) {
+        return PipelinesApiFp(this.configuration).publishPipelineRevision(projectId, id, revisionId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Run pipeline
      * @param {string} projectId Project ID
      * @param {string} id Pipeline ID
-     * @param {number} revision Pipeline revision
+     * @param {string} revisionId Pipeline revision ID
      * @param {InlineObject10} inlineObject10 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PipelinesApi
      */
-    public runPipeline(projectId: string, id: string, revision: number, inlineObject10: InlineObject10, options?: any) {
-        return PipelinesApiFp(this.configuration).runPipeline(projectId, id, revision, inlineObject10, options).then((request) => request(this.axios, this.basePath));
+    public runPipeline(projectId: string, id: string, revisionId: string, inlineObject10: InlineObject10, options?: any) {
+        return PipelinesApiFp(this.configuration).runPipeline(projectId, id, revisionId, inlineObject10, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6770,6 +8235,60 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
+         * @summary Publish project catalog
+         * @param {string} projectId Project ID
+         * @param {InlineObject14} inlineObject14 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        publishProjectCatalog: async (projectId: string, inlineObject14: InlineObject14, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            if (projectId === null || projectId === undefined) {
+                throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling publishProjectCatalog.');
+            }
+            // verify required parameter 'inlineObject14' is not null or undefined
+            if (inlineObject14 === null || inlineObject14 === undefined) {
+                throw new RequiredError('inlineObject14','Required parameter inlineObject14 was null or undefined when calling publishProjectCatalog.');
+            }
+            const localVarPath = `/projects/{project_id}/publish`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof inlineObject14 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject14 !== undefined ? inlineObject14 : {}) : (inlineObject14 || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Update project
          * @param {string} projectId Project ID
          * @param {Project} project 
@@ -6886,7 +8405,7 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizationProjects(organizationId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, offset?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20011>> {
+        async listOrganizationProjects(organizationId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, offset?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
             const localVarAxiosArgs = await ProjectsApiAxiosParamCreator(configuration).listOrganizationProjects(organizationId, sort, search, offset, limit, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -6904,8 +8423,23 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listProjects(sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, fields?: Array<'organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20011>> {
+        async listProjects(sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, fields?: Array<'organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
             const localVarAxiosArgs = await ProjectsApiAxiosParamCreator(configuration).listProjects(sort, search, limit, offset, fields, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Publish project catalog
+         * @param {string} projectId Project ID
+         * @param {InlineObject14} inlineObject14 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async publishProjectCatalog(projectId: string, inlineObject14: InlineObject14, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await ProjectsApiAxiosParamCreator(configuration).publishProjectCatalog(projectId, inlineObject14, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -6978,7 +8512,7 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizationProjects(organizationId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, offset?: number, limit?: number, options?: any): AxiosPromise<InlineResponse20011> {
+        listOrganizationProjects(organizationId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, offset?: number, limit?: number, options?: any): AxiosPromise<InlineResponse2009> {
             return ProjectsApiFp(configuration).listOrganizationProjects(organizationId, sort, search, offset, limit, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6992,8 +8526,19 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjects(sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, fields?: Array<'organization'>, options?: any): AxiosPromise<InlineResponse20011> {
+        listProjects(sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, fields?: Array<'organization'>, options?: any): AxiosPromise<InlineResponse2009> {
             return ProjectsApiFp(configuration).listProjects(sort, search, limit, offset, fields, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Publish project catalog
+         * @param {string} projectId Project ID
+         * @param {InlineObject14} inlineObject14 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        publishProjectCatalog(projectId: string, inlineObject14: InlineObject14, options?: any): AxiosPromise<void> {
+            return ProjectsApiFp(configuration).publishProjectCatalog(projectId, inlineObject14, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7088,6 +8633,19 @@ export class ProjectsApi extends BaseAPI {
 
     /**
      * 
+     * @summary Publish project catalog
+     * @param {string} projectId Project ID
+     * @param {InlineObject14} inlineObject14 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public publishProjectCatalog(projectId: string, inlineObject14: InlineObject14, options?: any) {
+        return ProjectsApiFp(this.configuration).publishProjectCatalog(projectId, inlineObject14, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Update project
      * @param {string} projectId Project ID
      * @param {Project} project 
@@ -7164,11 +8722,11 @@ export const RunsApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary Get run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {Array<'job' | 'pipeline' | 'runner_agent'>} [fields] Additional fields to return
+         * @param {Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRun: async (projectId: string, id: string, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options: any = {}): Promise<RequestArgs> => {
+        getRun: async (projectId: string, id: string, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             if (projectId === null || projectId === undefined) {
                 throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling getRun.');
@@ -7430,11 +8988,11 @@ export const RunsApiFp = function(configuration?: Configuration) {
          * @summary Get run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {Array<'job' | 'pipeline' | 'runner_agent'>} [fields] Additional fields to return
+         * @param {Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRun(projectId: string, id: string, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Run>> {
+        async getRun(projectId: string, id: string, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Run>> {
             const localVarAxiosArgs = await RunsApiAxiosParamCreator(configuration).getRun(projectId, id, fields, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -7517,11 +9075,11 @@ export const RunsApiFactory = function (configuration?: Configuration, basePath?
          * @summary Get run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {Array<'job' | 'pipeline' | 'runner_agent'>} [fields] Additional fields to return
+         * @param {Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRun(projectId: string, id: string, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any): AxiosPromise<Run> {
+        getRun(projectId: string, id: string, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options?: any): AxiosPromise<Run> {
             return RunsApiFp(configuration).getRun(projectId, id, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -7591,12 +9149,12 @@ export class RunsApi extends BaseAPI {
      * @summary Get run
      * @param {string} projectId Project ID
      * @param {string} id Run ID
-     * @param {Array<'job' | 'pipeline' | 'runner_agent'>} [fields] Additional fields to return
+     * @param {Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RunsApi
      */
-    public getRun(projectId: string, id: string, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any) {
+    public getRun(projectId: string, id: string, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options?: any) {
         return RunsApiFp(this.configuration).getRun(projectId, id, fields, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -7928,18 +9486,18 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
          * 
          * @summary Add organization user
          * @param {string} organizationId Organization ID
-         * @param {InlineObject14} inlineObject14 
+         * @param {InlineObject17} inlineObject17 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addOrganizationUser: async (organizationId: string, inlineObject14: InlineObject14, options: any = {}): Promise<RequestArgs> => {
+        addOrganizationUser: async (organizationId: string, inlineObject17: InlineObject17, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationId' is not null or undefined
             if (organizationId === null || organizationId === undefined) {
                 throw new RequiredError('organizationId','Required parameter organizationId was null or undefined when calling addOrganizationUser.');
             }
-            // verify required parameter 'inlineObject14' is not null or undefined
-            if (inlineObject14 === null || inlineObject14 === undefined) {
-                throw new RequiredError('inlineObject14','Required parameter inlineObject14 was null or undefined when calling addOrganizationUser.');
+            // verify required parameter 'inlineObject17' is not null or undefined
+            if (inlineObject17 === null || inlineObject17 === undefined) {
+                throw new RequiredError('inlineObject17','Required parameter inlineObject17 was null or undefined when calling addOrganizationUser.');
             }
             const localVarPath = `/organizations/{organization_id}/users`
                 .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
@@ -7970,8 +9528,8 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             delete localVarUrlObj.search;
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof inlineObject14 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject14 !== undefined ? inlineObject14 : {}) : (inlineObject14 || "");
+            const needsSerialization = (typeof inlineObject17 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject17 !== undefined ? inlineObject17 : {}) : (inlineObject17 || "");
 
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -8961,11 +10519,11 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
          * @summary Update organization user
          * @param {string} organizationId Organization ID
          * @param {string} id User ID
-         * @param {InlineObject15} inlineObject15 
+         * @param {InlineObject18} inlineObject18 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateOrganizationUser: async (organizationId: string, id: string, inlineObject15: InlineObject15, options: any = {}): Promise<RequestArgs> => {
+        updateOrganizationUser: async (organizationId: string, id: string, inlineObject18: InlineObject18, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationId' is not null or undefined
             if (organizationId === null || organizationId === undefined) {
                 throw new RequiredError('organizationId','Required parameter organizationId was null or undefined when calling updateOrganizationUser.');
@@ -8974,9 +10532,9 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling updateOrganizationUser.');
             }
-            // verify required parameter 'inlineObject15' is not null or undefined
-            if (inlineObject15 === null || inlineObject15 === undefined) {
-                throw new RequiredError('inlineObject15','Required parameter inlineObject15 was null or undefined when calling updateOrganizationUser.');
+            // verify required parameter 'inlineObject18' is not null or undefined
+            if (inlineObject18 === null || inlineObject18 === undefined) {
+                throw new RequiredError('inlineObject18','Required parameter inlineObject18 was null or undefined when calling updateOrganizationUser.');
             }
             const localVarPath = `/organizations/{organization_id}/users/{_id}`
                 .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
@@ -9008,8 +10566,8 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             delete localVarUrlObj.search;
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof inlineObject15 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject15 !== undefined ? inlineObject15 : {}) : (inlineObject15 || "");
+            const needsSerialization = (typeof inlineObject18 !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(inlineObject18 !== undefined ? inlineObject18 : {}) : (inlineObject18 || "");
 
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -9245,12 +10803,12 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * 
          * @summary Add organization user
          * @param {string} organizationId Organization ID
-         * @param {InlineObject14} inlineObject14 
+         * @param {InlineObject17} inlineObject17 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addOrganizationUser(organizationId: string, inlineObject14: InlineObject14, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await UsersApiAxiosParamCreator(configuration).addOrganizationUser(organizationId, inlineObject14, options);
+        async addOrganizationUser(organizationId: string, inlineObject17: InlineObject17, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await UsersApiAxiosParamCreator(configuration).addOrganizationUser(organizationId, inlineObject17, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -9336,7 +10894,7 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizationGroups(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20017>> {
+        async listOrganizationGroups(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20019>> {
             const localVarAxiosArgs = await UsersApiAxiosParamCreator(configuration).listOrganizationGroups(organizationId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -9350,7 +10908,7 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizationInvites(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20016>> {
+        async listOrganizationInvites(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20018>> {
             const localVarAxiosArgs = await UsersApiAxiosParamCreator(configuration).listOrganizationInvites(organizationId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -9552,12 +11110,12 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @summary Update organization user
          * @param {string} organizationId Organization ID
          * @param {string} id User ID
-         * @param {InlineObject15} inlineObject15 
+         * @param {InlineObject18} inlineObject18 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateOrganizationUser(organizationId: string, id: string, inlineObject15: InlineObject15, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await UsersApiAxiosParamCreator(configuration).updateOrganizationUser(organizationId, id, inlineObject15, options);
+        async updateOrganizationUser(organizationId: string, id: string, inlineObject18: InlineObject18, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await UsersApiAxiosParamCreator(configuration).updateOrganizationUser(organizationId, id, inlineObject18, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -9636,12 +11194,12 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * 
          * @summary Add organization user
          * @param {string} organizationId Organization ID
-         * @param {InlineObject14} inlineObject14 
+         * @param {InlineObject17} inlineObject17 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addOrganizationUser(organizationId: string, inlineObject14: InlineObject14, options?: any): AxiosPromise<void> {
-            return UsersApiFp(configuration).addOrganizationUser(organizationId, inlineObject14, options).then((request) => request(axios, basePath));
+        addOrganizationUser(organizationId: string, inlineObject17: InlineObject17, options?: any): AxiosPromise<void> {
+            return UsersApiFp(configuration).addOrganizationUser(organizationId, inlineObject17, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9703,7 +11261,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizationGroups(organizationId: string, options?: any): AxiosPromise<InlineResponse20017> {
+        listOrganizationGroups(organizationId: string, options?: any): AxiosPromise<InlineResponse20019> {
             return UsersApiFp(configuration).listOrganizationGroups(organizationId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -9713,7 +11271,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizationInvites(organizationId: string, options?: any): AxiosPromise<InlineResponse20016> {
+        listOrganizationInvites(organizationId: string, options?: any): AxiosPromise<InlineResponse20018> {
             return UsersApiFp(configuration).listOrganizationInvites(organizationId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -9859,12 +11417,12 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @summary Update organization user
          * @param {string} organizationId Organization ID
          * @param {string} id User ID
-         * @param {InlineObject15} inlineObject15 
+         * @param {InlineObject18} inlineObject18 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateOrganizationUser(organizationId: string, id: string, inlineObject15: InlineObject15, options?: any): AxiosPromise<void> {
-            return UsersApiFp(configuration).updateOrganizationUser(organizationId, id, inlineObject15, options).then((request) => request(axios, basePath));
+        updateOrganizationUser(organizationId: string, id: string, inlineObject18: InlineObject18, options?: any): AxiosPromise<void> {
+            return UsersApiFp(configuration).updateOrganizationUser(organizationId, id, inlineObject18, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9924,13 +11482,13 @@ export class UsersApi extends BaseAPI {
      * 
      * @summary Add organization user
      * @param {string} organizationId Organization ID
-     * @param {InlineObject14} inlineObject14 
+     * @param {InlineObject17} inlineObject17 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public addOrganizationUser(organizationId: string, inlineObject14: InlineObject14, options?: any) {
-        return UsersApiFp(this.configuration).addOrganizationUser(organizationId, inlineObject14, options).then((request) => request(this.axios, this.basePath));
+    public addOrganizationUser(organizationId: string, inlineObject17: InlineObject17, options?: any) {
+        return UsersApiFp(this.configuration).addOrganizationUser(organizationId, inlineObject17, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10189,13 +11747,13 @@ export class UsersApi extends BaseAPI {
      * @summary Update organization user
      * @param {string} organizationId Organization ID
      * @param {string} id User ID
-     * @param {InlineObject15} inlineObject15 
+     * @param {InlineObject18} inlineObject18 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public updateOrganizationUser(organizationId: string, id: string, inlineObject15: InlineObject15, options?: any) {
-        return UsersApiFp(this.configuration).updateOrganizationUser(organizationId, id, inlineObject15, options).then((request) => request(this.axios, this.basePath));
+    public updateOrganizationUser(organizationId: string, id: string, inlineObject18: InlineObject18, options?: any) {
+        return UsersApiFp(this.configuration).updateOrganizationUser(organizationId, id, inlineObject18, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
