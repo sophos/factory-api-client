@@ -3,13 +3,12 @@ module.exports = {
 		[
 			'@babel/preset-env',
 			{
-				targets: 'defaults'
+				targets: 'last 2 versions, not ie >=0, not dead'
 			}
 		],
 		'@babel/preset-typescript'
 	],
 	plugins: [
-		'@babel/plugin-transform-runtime',
 		'@babel/proposal-class-properties',
 		'@babel/proposal-object-rest-spread'
 	]

@@ -5,35 +5,50 @@ import alias from '@rollup/plugin-alias';
 import pkg from './package.json';
 
 const extensions = ['.js', '.ts'];
+const external = Object.keys(pkg.dependencies);
+const resolveOptions = { extensions };
 
-export default {
+const config = {
 	input: 'src/index.ts',
-	external: [...Object.keys(pkg.dependencies), '@babel/runtime'],
-	output: [
-		{
-			file: pkg.main,
-			format: 'cjs',
-			sourcemap: true
-		},
-		{
-			file: pkg.module,
-			format: 'esm',
-			sourcemap: true
-		}
-	],
+	external,
 
 	plugins: [
-		resolve({ extensions }),
+		babel({
+			extensions,
+			exclude: 'node_modules/**',
+			babelHelpers: 'bundled'
+		}),
+		commonjs()
+	]
+};
+
+export default [{
+	...config,
+	output: {
+		file: pkg.module,
+		format: 'esm',
+		sourcemap: true
+	},
+
+	plugins: [
+		resolve(resolveOptions),
 		alias({
 			entries: {
 				url: 'native-url'
 			}
 		}),
-		babel({
-			extensions,
-			exclude: 'node_modules/**',
-			babelHelpers: 'runtime'
-		}),
-		commonjs()
+		...config.plugins
 	]
-};
+}, {
+	...config,
+	output: {
+		file: pkg.main,
+		format: 'cjs',
+		sourcemap: true
+	},
+	external: [...config.external, 'url'],
+	plugins: [
+		resolve({ ...resolveOptions, preferBuiltins: true }),
+		...config.plugins
+	]
+}];

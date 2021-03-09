@@ -2,7 +2,7 @@
   "name": "@refactr/api-client",
   "version": "0.4.0",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "dist/index.node.js",
   "module": "dist/index.mjs",
   "types": "./types",
   "files": [
@@ -17,18 +17,18 @@
     "native-url": "^0.3.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.1",
-    "@babel/plugin-transform-runtime": "^7.11.0",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/preset-typescript": "^7.10.4",
-    "@babel/runtime": "^7.11.2",
-    "@openapitools/openapi-generator-cli": "^2.1.16",
-    "@rollup/plugin-alias": "^3.1.1",
-    "@rollup/plugin-babel": "^5.1.0",
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "@babel/preset-typescript": "^7.13.0",
+    "@babel/runtime": "^7.13.10",
+    "@openapitools/openapi-generator-cli": "^2.1.26",
+    "@rollup/plugin-alias": "^3.1.2",
+    "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
-    "rollup": "^2.23.0",
-    "typescript": "^3.9.7"
+    "rollup": "^2.41.0",
+    "typescript": "^3.9.9"
   },
   "scripts": {
     "build": "rollup -c && tsc",
