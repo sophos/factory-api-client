@@ -1662,6 +1662,78 @@
           }
         }
       },
+      "post": {
+        "tags": [
+          "pipelines"
+        ],
+        "summary": "Update a pipeline revision",
+        "description": "",
+        "operationId": "updatePipelineRevision",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Pipeline ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "revision_id",
+            "in": "path",
+            "description": "Pipeline revision ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "comment": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
       "parameters": []
     },
     "/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}/publish": {
@@ -1893,7 +1965,7 @@
     "/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}": {
       "get": {
         "tags": [
-          "pipelines"
+          "catalogs"
         ],
         "summary": "Get catalog pipeline revision",
         "operationId": "getCatalogPipelineRevision",
@@ -1965,7 +2037,7 @@
     "/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}/pipelines": {
       "get": {
         "tags": [
-          "pipelines"
+          "catalogs"
         ],
         "summary": "List catalog pipelines included in the steps of a given catalog pipeline revision",
         "description": "",
@@ -2046,7 +2118,7 @@
     "/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}/revisions": {
       "get": {
         "tags": [
-          "pipelines"
+          "catalogs"
         ],
         "summary": "List catalog pipeline revisions included in the steps of a given catalog pipeline pipeline revision",
         "description": "",
@@ -2145,7 +2217,7 @@
     "/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}/clone": {
       "post": {
         "tags": [
-          "pipelines"
+          "catalogs"
         ],
         "summary": "Clone catalog pipeline",
         "description": "",
@@ -3065,7 +3137,7 @@
     "/catalogs/organizations": {
       "get": {
         "tags": [
-          "organizations"
+          "catalogs"
         ],
         "summary": "List organizations with publicly available catalogs.",
         "description": "",
@@ -3116,7 +3188,7 @@
     "/catalogs/{catalog_id}/pipelines": {
       "get": {
         "tags": [
-          "pipelines"
+          "catalogs"
         ],
         "summary": "List catalog pipelines",
         "description": "",
@@ -3206,7 +3278,7 @@
     "/catalogs/{catalog_id}/pipelines/{pipeline_id}": {
       "get": {
         "tags": [
-          "pipelines"
+          "catalogs"
         ],
         "summary": "Get catalog pipeline",
         "description": "",
@@ -3260,7 +3332,7 @@
     "/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions": {
       "get": {
         "tags": [
-          "pipelines"
+          "catalogs"
         ],
         "summary": "Get catalog pipeline versions",
         "description": "",
