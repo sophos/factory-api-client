@@ -1168,6 +1168,13 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "pinned",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -3240,6 +3247,13 @@
             "in": "query",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "pinned",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
             }
           }
         ],
@@ -6571,6 +6585,9 @@
             "type": "boolean",
             "readOnly": true
           },
+          "pinned": {
+            "type": "boolean"
+          },
           "name": {
             "type": "string"
           },
@@ -7062,6 +7079,10 @@
                 }
               }
             }
+          },
+          "outputs": {
+            "type": "object",
+            "readOnly": true
           },
           "suppress_events": {
             "type": "boolean",
