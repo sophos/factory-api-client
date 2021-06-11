@@ -1460,7 +1460,8 @@
                 "type": "string",
                 "enum": [
                   "variables",
-                  "user"
+                  "user",
+                  "outputs"
                 ]
               }
             }
@@ -3382,7 +3383,8 @@
               "items": {
                 "type": "string",
                 "enum": [
-                  "variables"
+                  "variables",
+                  "outputs"
                 ]
               }
             }

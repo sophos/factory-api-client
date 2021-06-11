@@ -3520,13 +3520,13 @@ export const CatalogsApiAxiosParamCreator = function (configuration?: Configurat
          * @summary Get catalog pipeline versions
          * @param {string} catalogId Catalog ID
          * @param {string} pipelineId Pipeline ID
-         * @param {Array<'variables'>} [fields] Additional fields to return
+         * @param {Array<'variables' | 'outputs'>} [fields] Additional fields to return
          * @param {number} [limit] 
          * @param {number} [offset] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogPipelineRevisions: async (catalogId: string, pipelineId: string, fields?: Array<'variables'>, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
+        getCatalogPipelineRevisions: async (catalogId: string, pipelineId: string, fields?: Array<'variables' | 'outputs'>, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'catalogId' is not null or undefined
             assertParamExists('getCatalogPipelineRevisions', 'catalogId', catalogId)
             // verify required parameter 'pipelineId' is not null or undefined
@@ -4137,13 +4137,13 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @summary Get catalog pipeline versions
          * @param {string} catalogId Catalog ID
          * @param {string} pipelineId Pipeline ID
-         * @param {Array<'variables'>} [fields] Additional fields to return
+         * @param {Array<'variables' | 'outputs'>} [fields] Additional fields to return
          * @param {number} [limit] 
          * @param {number} [offset] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCatalogPipelineRevisions(catalogId: string, pipelineId: string, fields?: Array<'variables'>, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
+        async getCatalogPipelineRevisions(catalogId: string, pipelineId: string, fields?: Array<'variables' | 'outputs'>, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCatalogPipelineRevisions(catalogId, pipelineId, fields, limit, offset, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -4369,13 +4369,13 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @summary Get catalog pipeline versions
          * @param {string} catalogId Catalog ID
          * @param {string} pipelineId Pipeline ID
-         * @param {Array<'variables'>} [fields] Additional fields to return
+         * @param {Array<'variables' | 'outputs'>} [fields] Additional fields to return
          * @param {number} [limit] 
          * @param {number} [offset] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogPipelineRevisions(catalogId: string, pipelineId: string, fields?: Array<'variables'>, limit?: number, offset?: number, options?: any): AxiosPromise<InlineResponse2006> {
+        getCatalogPipelineRevisions(catalogId: string, pipelineId: string, fields?: Array<'variables' | 'outputs'>, limit?: number, offset?: number, options?: any): AxiosPromise<InlineResponse2006> {
             return localVarFp.getCatalogPipelineRevisions(catalogId, pipelineId, fields, limit, offset, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4605,14 +4605,14 @@ export class CatalogsApi extends BaseAPI {
      * @summary Get catalog pipeline versions
      * @param {string} catalogId Catalog ID
      * @param {string} pipelineId Pipeline ID
-     * @param {Array<'variables'>} [fields] Additional fields to return
+     * @param {Array<'variables' | 'outputs'>} [fields] Additional fields to return
      * @param {number} [limit] 
      * @param {number} [offset] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CatalogsApi
      */
-    public getCatalogPipelineRevisions(catalogId: string, pipelineId: string, fields?: Array<'variables'>, limit?: number, offset?: number, options?: any) {
+    public getCatalogPipelineRevisions(catalogId: string, pipelineId: string, fields?: Array<'variables' | 'outputs'>, limit?: number, offset?: number, options?: any) {
         return CatalogsApiFp(this.configuration).getCatalogPipelineRevisions(catalogId, pipelineId, fields, limit, offset, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -6486,14 +6486,14 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
          * @summary Get pipeline revisions
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {Array<'variables' | 'user'>} [fields] Additional fields to return
+         * @param {Array<'variables' | 'user' | 'outputs'>} [fields] Additional fields to return
          * @param {number} [limit] 
          * @param {number} [offset] 
          * @param {boolean} [published] Filter pipelines by published status
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPipelineRevisions: async (projectId: string, id: string, fields?: Array<'variables' | 'user'>, limit?: number, offset?: number, published?: boolean, options: any = {}): Promise<RequestArgs> => {
+        getPipelineRevisions: async (projectId: string, id: string, fields?: Array<'variables' | 'user' | 'outputs'>, limit?: number, offset?: number, published?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getPipelineRevisions', 'projectId', projectId)
             // verify required parameter 'id' is not null or undefined
@@ -6922,14 +6922,14 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @summary Get pipeline revisions
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {Array<'variables' | 'user'>} [fields] Additional fields to return
+         * @param {Array<'variables' | 'user' | 'outputs'>} [fields] Additional fields to return
          * @param {number} [limit] 
          * @param {number} [offset] 
          * @param {boolean} [published] Filter pipelines by published status
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user'>, limit?: number, offset?: number, published?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
+        async getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user' | 'outputs'>, limit?: number, offset?: number, published?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPipelineRevisions(projectId, id, fields, limit, offset, published, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -7113,14 +7113,14 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
          * @summary Get pipeline revisions
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
-         * @param {Array<'variables' | 'user'>} [fields] Additional fields to return
+         * @param {Array<'variables' | 'user' | 'outputs'>} [fields] Additional fields to return
          * @param {number} [limit] 
          * @param {number} [offset] 
          * @param {boolean} [published] Filter pipelines by published status
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user'>, limit?: number, offset?: number, published?: boolean, options?: any): AxiosPromise<InlineResponse2006> {
+        getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user' | 'outputs'>, limit?: number, offset?: number, published?: boolean, options?: any): AxiosPromise<InlineResponse2006> {
             return localVarFp.getPipelineRevisions(projectId, id, fields, limit, offset, published, options).then((request) => request(axios, basePath));
         },
         /**
@@ -7314,7 +7314,7 @@ export class PipelinesApi extends BaseAPI {
      * @summary Get pipeline revisions
      * @param {string} projectId Project ID
      * @param {string} id Pipeline ID
-     * @param {Array<'variables' | 'user'>} [fields] Additional fields to return
+     * @param {Array<'variables' | 'user' | 'outputs'>} [fields] Additional fields to return
      * @param {number} [limit] 
      * @param {number} [offset] 
      * @param {boolean} [published] Filter pipelines by published status
@@ -7322,7 +7322,7 @@ export class PipelinesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PipelinesApi
      */
-    public getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user'>, limit?: number, offset?: number, published?: boolean, options?: any) {
+    public getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user' | 'outputs'>, limit?: number, offset?: number, published?: boolean, options?: any) {
         return PipelinesApiFp(this.configuration).getPipelineRevisions(projectId, id, fields, limit, offset, published, options).then((request) => request(this.axios, this.basePath));
     }
 
