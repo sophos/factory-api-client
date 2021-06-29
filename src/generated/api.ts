@@ -1335,6 +1335,71 @@ export interface ModelError {
 /**
  * 
  * @export
+ * @interface NotificationChannel
+ */
+export interface NotificationChannel {
+    /**
+     * 
+     * @type {string}
+     * @memberof NotificationChannel
+     */
+    _id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NotificationChannel
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NotificationChannel
+     */
+    type?: NotificationChannelTypeEnum;
+    /**
+     * 
+     * @type {NotificationChannelSettings}
+     * @memberof NotificationChannel
+     */
+    settings?: NotificationChannelSettings;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof NotificationChannel
+     */
+    events?: Array<string>;
+    /**
+     * 
+     * @type {object}
+     * @memberof NotificationChannel
+     */
+    auth?: object;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum NotificationChannelTypeEnum {
+    Email = 'email'
+}
+
+/**
+ * 
+ * @export
+ * @interface NotificationChannelSettings
+ */
+export interface NotificationChannelSettings {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof NotificationChannelSettings
+     */
+    recipients?: Array<string>;
+}
+/**
+ * 
+ * @export
  * @interface Organization
  */
 export interface Organization {
@@ -1410,6 +1475,12 @@ export interface Organization {
      * @memberof Organization
      */
     plan_quotas?: OrganizationPlanQuotas;
+    /**
+     * 
+     * @type {Array<NotificationChannel>}
+     * @memberof Organization
+     */
+    notification_channels?: Array<NotificationChannel>;
 }
 /**
  * 
@@ -1851,6 +1922,12 @@ export interface Project {
      * @memberof Project
      */
     pending_access_request?: boolean;
+    /**
+     * 
+     * @type {Array<NotificationChannel>}
+     * @memberof Project
+     */
+    notification_channels?: Array<NotificationChannel>;
 }
 /**
  * 
@@ -5859,12 +5936,57 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
     return {
         /**
          * 
-         * @summary Get organization
+         * @summary Add organization notification channel
          * @param {string} organizationId Organization ID
+         * @param {NotificationChannel} notificationChannel 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOrganization: async (organizationId: string, options: any = {}): Promise<RequestArgs> => {
+        addOrganizationNotificationChannel: async (organizationId: string, notificationChannel: NotificationChannel, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            assertParamExists('addOrganizationNotificationChannel', 'organizationId', organizationId)
+            // verify required parameter 'notificationChannel' is not null or undefined
+            assertParamExists('addOrganizationNotificationChannel', 'notificationChannel', notificationChannel)
+            const localVarPath = `/organizations/{organization_id}/notification_channels`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(notificationChannel, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get organization
+         * @param {string} organizationId Organization ID
+         * @param {Array<'notification_channels'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOrganization: async (organizationId: string, fields?: Array<'notification_channels'>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationId' is not null or undefined
             assertParamExists('getOrganization', 'organizationId', organizationId)
             const localVarPath = `/organizations/{organization_id}`
@@ -5883,6 +6005,10 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
             // authentication BearerAuth required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (fields) {
+                localVarQueryParameter['fields'] = fields;
+            }
 
 
     
@@ -5911,6 +6037,48 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
             }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Remove organization notification channel
+         * @param {string} organizationId Organization ID
+         * @param {string} notificationChannelId Notification Channel ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeOrganizationNotificationChannel: async (organizationId: string, notificationChannelId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            assertParamExists('removeOrganizationNotificationChannel', 'organizationId', organizationId)
+            // verify required parameter 'notificationChannelId' is not null or undefined
+            assertParamExists('removeOrganizationNotificationChannel', 'notificationChannelId', notificationChannelId)
+            const localVarPath = `/organizations/{organization_id}/notification_channels/{notification_channel_id}`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
+                .replace(`{${"notification_channel_id"}}`, encodeURIComponent(String(notificationChannelId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -5973,6 +6141,54 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Update organization notification channel
+         * @param {string} organizationId Organization ID
+         * @param {string} notificationChannelId Notification Channel ID
+         * @param {NotificationChannel} notificationChannel 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateOrganizationNotificationChannel: async (organizationId: string, notificationChannelId: string, notificationChannel: NotificationChannel, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            assertParamExists('updateOrganizationNotificationChannel', 'organizationId', organizationId)
+            // verify required parameter 'notificationChannelId' is not null or undefined
+            assertParamExists('updateOrganizationNotificationChannel', 'notificationChannelId', notificationChannelId)
+            // verify required parameter 'notificationChannel' is not null or undefined
+            assertParamExists('updateOrganizationNotificationChannel', 'notificationChannel', notificationChannel)
+            const localVarPath = `/organizations/{organization_id}/notification_channels/{notification_channel_id}`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
+                .replace(`{${"notification_channel_id"}}`, encodeURIComponent(String(notificationChannelId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(notificationChannel, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -5985,13 +6201,26 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Get organization
+         * @summary Add organization notification channel
          * @param {string} organizationId Organization ID
+         * @param {NotificationChannel} notificationChannel 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOrganization(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Organization>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getOrganization(organizationId, options);
+        async addOrganizationNotificationChannel(organizationId: string, notificationChannel: NotificationChannel, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addOrganizationNotificationChannel(organizationId, notificationChannel, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get organization
+         * @param {string} organizationId Organization ID
+         * @param {Array<'notification_channels'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getOrganization(organizationId: string, fields?: Array<'notification_channels'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Organization>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOrganization(organizationId, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -6006,6 +6235,18 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Remove organization notification channel
+         * @param {string} organizationId Organization ID
+         * @param {string} notificationChannelId Notification Channel ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeOrganizationNotificationChannel(organizationId: string, notificationChannelId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.removeOrganizationNotificationChannel(organizationId, notificationChannelId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Update organization
          * @param {string} organizationId Organization ID
          * @param {Organization} organization 
@@ -6014,6 +6255,19 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
          */
         async updateOrganization(organizationId: string, organization: Organization, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Organization>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateOrganization(organizationId, organization, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update organization notification channel
+         * @param {string} organizationId Organization ID
+         * @param {string} notificationChannelId Notification Channel ID
+         * @param {NotificationChannel} notificationChannel 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateOrganizationNotificationChannel(organizationId: string, notificationChannelId: string, notificationChannel: NotificationChannel, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOrganizationNotificationChannel(organizationId, notificationChannelId, notificationChannel, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -6028,13 +6282,25 @@ export const OrganizationsApiFactory = function (configuration?: Configuration, 
     return {
         /**
          * 
-         * @summary Get organization
+         * @summary Add organization notification channel
          * @param {string} organizationId Organization ID
+         * @param {NotificationChannel} notificationChannel 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOrganization(organizationId: string, options?: any): AxiosPromise<Organization> {
-            return localVarFp.getOrganization(organizationId, options).then((request) => request(axios, basePath));
+        addOrganizationNotificationChannel(organizationId: string, notificationChannel: NotificationChannel, options?: any): AxiosPromise<void> {
+            return localVarFp.addOrganizationNotificationChannel(organizationId, notificationChannel, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get organization
+         * @param {string} organizationId Organization ID
+         * @param {Array<'notification_channels'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOrganization(organizationId: string, fields?: Array<'notification_channels'>, options?: any): AxiosPromise<Organization> {
+            return localVarFp.getOrganization(organizationId, fields, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6047,6 +6313,17 @@ export const OrganizationsApiFactory = function (configuration?: Configuration, 
         },
         /**
          * 
+         * @summary Remove organization notification channel
+         * @param {string} organizationId Organization ID
+         * @param {string} notificationChannelId Notification Channel ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeOrganizationNotificationChannel(organizationId: string, notificationChannelId: string, options?: any): AxiosPromise<void> {
+            return localVarFp.removeOrganizationNotificationChannel(organizationId, notificationChannelId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Update organization
          * @param {string} organizationId Organization ID
          * @param {Organization} organization 
@@ -6055,6 +6332,18 @@ export const OrganizationsApiFactory = function (configuration?: Configuration, 
          */
         updateOrganization(organizationId: string, organization: Organization, options?: any): AxiosPromise<Organization> {
             return localVarFp.updateOrganization(organizationId, organization, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update organization notification channel
+         * @param {string} organizationId Organization ID
+         * @param {string} notificationChannelId Notification Channel ID
+         * @param {NotificationChannel} notificationChannel 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateOrganizationNotificationChannel(organizationId: string, notificationChannelId: string, notificationChannel: NotificationChannel, options?: any): AxiosPromise<void> {
+            return localVarFp.updateOrganizationNotificationChannel(organizationId, notificationChannelId, notificationChannel, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -6068,14 +6357,28 @@ export const OrganizationsApiFactory = function (configuration?: Configuration, 
 export class OrganizationsApi extends BaseAPI {
     /**
      * 
-     * @summary Get organization
+     * @summary Add organization notification channel
      * @param {string} organizationId Organization ID
+     * @param {NotificationChannel} notificationChannel 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrganizationsApi
      */
-    public getOrganization(organizationId: string, options?: any) {
-        return OrganizationsApiFp(this.configuration).getOrganization(organizationId, options).then((request) => request(this.axios, this.basePath));
+    public addOrganizationNotificationChannel(organizationId: string, notificationChannel: NotificationChannel, options?: any) {
+        return OrganizationsApiFp(this.configuration).addOrganizationNotificationChannel(organizationId, notificationChannel, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get organization
+     * @param {string} organizationId Organization ID
+     * @param {Array<'notification_channels'>} [fields] Additional fields to return
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApi
+     */
+    public getOrganization(organizationId: string, fields?: Array<'notification_channels'>, options?: any) {
+        return OrganizationsApiFp(this.configuration).getOrganization(organizationId, fields, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6091,6 +6394,19 @@ export class OrganizationsApi extends BaseAPI {
 
     /**
      * 
+     * @summary Remove organization notification channel
+     * @param {string} organizationId Organization ID
+     * @param {string} notificationChannelId Notification Channel ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApi
+     */
+    public removeOrganizationNotificationChannel(organizationId: string, notificationChannelId: string, options?: any) {
+        return OrganizationsApiFp(this.configuration).removeOrganizationNotificationChannel(organizationId, notificationChannelId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Update organization
      * @param {string} organizationId Organization ID
      * @param {Organization} organization 
@@ -6100,6 +6416,20 @@ export class OrganizationsApi extends BaseAPI {
      */
     public updateOrganization(organizationId: string, organization: Organization, options?: any) {
         return OrganizationsApiFp(this.configuration).updateOrganization(organizationId, organization, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update organization notification channel
+     * @param {string} organizationId Organization ID
+     * @param {string} notificationChannelId Notification Channel ID
+     * @param {NotificationChannel} notificationChannel 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApi
+     */
+    public updateOrganizationNotificationChannel(organizationId: string, notificationChannelId: string, notificationChannel: NotificationChannel, options?: any) {
+        return OrganizationsApiFp(this.configuration).updateOrganizationNotificationChannel(organizationId, notificationChannelId, notificationChannel, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -7411,6 +7741,50 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
+         * @summary Add project notification channel
+         * @param {string} projectId Project ID
+         * @param {NotificationChannel} notificationChannel 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addProjectNotificationChannel: async (projectId: string, notificationChannel: NotificationChannel, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('addProjectNotificationChannel', 'projectId', projectId)
+            // verify required parameter 'notificationChannel' is not null or undefined
+            assertParamExists('addProjectNotificationChannel', 'notificationChannel', notificationChannel)
+            const localVarPath = `/projects/{project_id}/notification_channels`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(notificationChannel, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Create organization project
          * @param {string} organizationId Organization ID
          * @param {Project} project 
@@ -7495,11 +7869,11 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
          * 
          * @summary Get project
          * @param {string} projectId Project ID
-         * @param {Array<'variables' | 'organization'>} [fields] Additional fields to return
+         * @param {Array<'variables' | 'notification_channels' | 'organization'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProject: async (projectId: string, fields?: Array<'variables' | 'organization'>, options: any = {}): Promise<RequestArgs> => {
+        getProject: async (projectId: string, fields?: Array<'variables' | 'notification_channels' | 'organization'>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getProject', 'projectId', projectId)
             const localVarPath = `/projects/{project_id}`
@@ -7697,6 +8071,48 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
+         * @summary Remove project notification channel
+         * @param {string} projectId Project ID
+         * @param {string} notificationChannelId Notification Channel ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeProjectNotificationChannel: async (projectId: string, notificationChannelId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('removeProjectNotificationChannel', 'projectId', projectId)
+            // verify required parameter 'notificationChannelId' is not null or undefined
+            assertParamExists('removeProjectNotificationChannel', 'notificationChannelId', notificationChannelId)
+            const localVarPath = `/projects/{project_id}/notification_channels/{notification_channel_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"notification_channel_id"}}`, encodeURIComponent(String(notificationChannelId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Update project
          * @param {string} projectId Project ID
          * @param {Project} project 
@@ -7739,6 +8155,54 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Update project notification channel
+         * @param {string} projectId Project ID
+         * @param {string} notificationChannelId Notification Channel ID
+         * @param {NotificationChannel} notificationChannel 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateProjectNotificationChannel: async (projectId: string, notificationChannelId: string, notificationChannel: NotificationChannel, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('updateProjectNotificationChannel', 'projectId', projectId)
+            // verify required parameter 'notificationChannelId' is not null or undefined
+            assertParamExists('updateProjectNotificationChannel', 'notificationChannelId', notificationChannelId)
+            // verify required parameter 'notificationChannel' is not null or undefined
+            assertParamExists('updateProjectNotificationChannel', 'notificationChannel', notificationChannel)
+            const localVarPath = `/projects/{project_id}/notification_channels/{notification_channel_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"notification_channel_id"}}`, encodeURIComponent(String(notificationChannelId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(notificationChannel, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -7749,6 +8213,18 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
 export const ProjectsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ProjectsApiAxiosParamCreator(configuration)
     return {
+        /**
+         * 
+         * @summary Add project notification channel
+         * @param {string} projectId Project ID
+         * @param {NotificationChannel} notificationChannel 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addProjectNotificationChannel(projectId: string, notificationChannel: NotificationChannel, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addProjectNotificationChannel(projectId, notificationChannel, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
         /**
          * 
          * @summary Create organization project
@@ -7776,11 +8252,11 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          * 
          * @summary Get project
          * @param {string} projectId Project ID
-         * @param {Array<'variables' | 'organization'>} [fields] Additional fields to return
+         * @param {Array<'variables' | 'notification_channels' | 'organization'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProject(projectId: string, fields?: Array<'variables' | 'organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Project>> {
+        async getProject(projectId: string, fields?: Array<'variables' | 'notification_channels' | 'organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Project>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getProject(projectId, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -7828,6 +8304,18 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Remove project notification channel
+         * @param {string} projectId Project ID
+         * @param {string} notificationChannelId Notification Channel ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeProjectNotificationChannel(projectId: string, notificationChannelId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.removeProjectNotificationChannel(projectId, notificationChannelId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Update project
          * @param {string} projectId Project ID
          * @param {Project} project 
@@ -7836,6 +8324,19 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          */
         async updateProject(projectId: string, project: Project, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateProject(projectId, project, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update project notification channel
+         * @param {string} projectId Project ID
+         * @param {string} notificationChannelId Notification Channel ID
+         * @param {NotificationChannel} notificationChannel 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateProjectNotificationChannel(projectId: string, notificationChannelId: string, notificationChannel: NotificationChannel, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateProjectNotificationChannel(projectId, notificationChannelId, notificationChannel, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -7848,6 +8349,17 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
 export const ProjectsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = ProjectsApiFp(configuration)
     return {
+        /**
+         * 
+         * @summary Add project notification channel
+         * @param {string} projectId Project ID
+         * @param {NotificationChannel} notificationChannel 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addProjectNotificationChannel(projectId: string, notificationChannel: NotificationChannel, options?: any): AxiosPromise<void> {
+            return localVarFp.addProjectNotificationChannel(projectId, notificationChannel, options).then((request) => request(axios, basePath));
+        },
         /**
          * 
          * @summary Create organization project
@@ -7873,11 +8385,11 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          * 
          * @summary Get project
          * @param {string} projectId Project ID
-         * @param {Array<'variables' | 'organization'>} [fields] Additional fields to return
+         * @param {Array<'variables' | 'notification_channels' | 'organization'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProject(projectId: string, fields?: Array<'variables' | 'organization'>, options?: any): AxiosPromise<Project> {
+        getProject(projectId: string, fields?: Array<'variables' | 'notification_channels' | 'organization'>, options?: any): AxiosPromise<Project> {
             return localVarFp.getProject(projectId, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -7921,6 +8433,17 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
+         * @summary Remove project notification channel
+         * @param {string} projectId Project ID
+         * @param {string} notificationChannelId Notification Channel ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeProjectNotificationChannel(projectId: string, notificationChannelId: string, options?: any): AxiosPromise<void> {
+            return localVarFp.removeProjectNotificationChannel(projectId, notificationChannelId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Update project
          * @param {string} projectId Project ID
          * @param {Project} project 
@@ -7929,6 +8452,18 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          */
         updateProject(projectId: string, project: Project, options?: any): AxiosPromise<void> {
             return localVarFp.updateProject(projectId, project, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update project notification channel
+         * @param {string} projectId Project ID
+         * @param {string} notificationChannelId Notification Channel ID
+         * @param {NotificationChannel} notificationChannel 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateProjectNotificationChannel(projectId: string, notificationChannelId: string, notificationChannel: NotificationChannel, options?: any): AxiosPromise<void> {
+            return localVarFp.updateProjectNotificationChannel(projectId, notificationChannelId, notificationChannel, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -7940,6 +8475,19 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
  * @extends {BaseAPI}
  */
 export class ProjectsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Add project notification channel
+     * @param {string} projectId Project ID
+     * @param {NotificationChannel} notificationChannel 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public addProjectNotificationChannel(projectId: string, notificationChannel: NotificationChannel, options?: any) {
+        return ProjectsApiFp(this.configuration).addProjectNotificationChannel(projectId, notificationChannel, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Create organization project
@@ -7969,12 +8517,12 @@ export class ProjectsApi extends BaseAPI {
      * 
      * @summary Get project
      * @param {string} projectId Project ID
-     * @param {Array<'variables' | 'organization'>} [fields] Additional fields to return
+     * @param {Array<'variables' | 'notification_channels' | 'organization'>} [fields] Additional fields to return
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    public getProject(projectId: string, fields?: Array<'variables' | 'organization'>, options?: any) {
+    public getProject(projectId: string, fields?: Array<'variables' | 'notification_channels' | 'organization'>, options?: any) {
         return ProjectsApiFp(this.configuration).getProject(projectId, fields, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -8025,6 +8573,19 @@ export class ProjectsApi extends BaseAPI {
 
     /**
      * 
+     * @summary Remove project notification channel
+     * @param {string} projectId Project ID
+     * @param {string} notificationChannelId Notification Channel ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public removeProjectNotificationChannel(projectId: string, notificationChannelId: string, options?: any) {
+        return ProjectsApiFp(this.configuration).removeProjectNotificationChannel(projectId, notificationChannelId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Update project
      * @param {string} projectId Project ID
      * @param {Project} project 
@@ -8034,6 +8595,20 @@ export class ProjectsApi extends BaseAPI {
      */
     public updateProject(projectId: string, project: Project, options?: any) {
         return ProjectsApiFp(this.configuration).updateProject(projectId, project, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update project notification channel
+     * @param {string} projectId Project ID
+     * @param {string} notificationChannelId Notification Channel ID
+     * @param {NotificationChannel} notificationChannel 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public updateProjectNotificationChannel(projectId: string, notificationChannelId: string, notificationChannel: NotificationChannel, options?: any) {
+        return ProjectsApiFp(this.configuration).updateProjectNotificationChannel(projectId, notificationChannelId, notificationChannel, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

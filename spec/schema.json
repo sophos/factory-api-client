@@ -129,7 +129,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -388,6 +388,7 @@
                 "type": "string",
                 "enum": [
                   "variables",
+                  "notification_channels",
                   "organization"
                 ]
               }
@@ -839,7 +840,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK"
+            "description": "Created"
           },
           "400": {
             "description": "Invalid input"
@@ -1097,6 +1098,154 @@
         ],
         "responses": {
           "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/projects/{project_id}/notification_channels": {
+      "post": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Add project notification channel",
+        "description": "",
+        "operationId": "addProjectNotificationChannel",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotificationChannel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/projects/{project_id}/notification_channels/{notification_channel_id}": {
+      "post": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Update project notification channel",
+        "description": "",
+        "operationId": "updateProjectNotificationChannel",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "notification_channel_id",
+            "in": "path",
+            "description": "Notification Channel ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotificationChannel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Remove project notification channel",
+        "description": "",
+        "operationId": "removeProjectNotificationChannel",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "notification_channel_id",
+            "in": "path",
+            "description": "Notification Channel ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
             "description": "OK"
           },
           "400": {
@@ -1238,7 +1387,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -2294,7 +2443,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -2403,7 +2552,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -2583,7 +2732,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -2678,7 +2827,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -2839,7 +2988,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -3572,7 +3721,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -3870,7 +4019,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -4276,7 +4425,7 @@
         ],
         "responses": {
           "201": {
-            "description": "OK",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -4416,6 +4565,21 @@
               "type": "string",
               "format": "resource-id"
             }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Additional fields to return",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "notification_channels"
+                ]
+              }
+            }
           }
         ],
         "responses": {
@@ -4471,7 +4635,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -4613,7 +4777,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -5084,7 +5248,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK"
+            "description": "Created"
           },
           "400": {
             "description": "Invalid input"
@@ -5156,7 +5320,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK"
+            "description": "Created"
           },
           "400": {
             "description": "Invalid input"
@@ -5266,7 +5430,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK"
+            "description": "Created"
           },
           "400": {
             "description": "Invalid input"
@@ -5524,7 +5688,7 @@
         ],
         "responses": {
           "201": {
-            "description": "OK"
+            "description": "Created"
           },
           "400": {
             "description": "Invalid input"
@@ -5620,7 +5784,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK"
+            "description": "Created"
           },
           "400": {
             "description": "Invalid input"
@@ -5717,6 +5881,154 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/organizations/{organization_id}/notification_channels": {
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Add organization notification channel",
+        "description": "",
+        "operationId": "addOrganizationNotificationChannel",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotificationChannel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/organizations/{organization_id}/notification_channels/{notification_channel_id}": {
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Update organization notification channel",
+        "description": "",
+        "operationId": "updateOrganizationNotificationChannel",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "notification_channel_id",
+            "in": "path",
+            "description": "Notification Channel ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotificationChannel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Remove organization notification channel",
+        "description": "",
+        "operationId": "removeOrganizationNotificationChannel",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "notification_channel_id",
+            "in": "path",
+            "description": "Notification Channel ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -6078,7 +6390,7 @@
         ],
         "responses": {
           "201": {
-            "description": "OK",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -6368,6 +6680,12 @@
                 "type": "integer"
               }
             }
+          },
+          "notification_channels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationChannel"
+            }
           }
         }
       },
@@ -6478,6 +6796,12 @@
           "pending_access_request": {
             "type": "boolean",
             "readOnly": true
+          },
+          "notification_channels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationChannel"
+            }
           }
         }
       },
@@ -7152,6 +7476,44 @@
           "Security Automation",
           "MLOps"
         ]
+      },
+      "NotificationChannel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "email"
+            ]
+          },
+          "settings": {
+            "type": "object",
+            "properties": {
+              "recipients": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "auth": {
+            "type": "object"
+          }
+        }
       },
       "Error": {
         "type": "object",
