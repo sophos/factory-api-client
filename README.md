@@ -4,7 +4,7 @@ This is the official Refactr API client library for JavaScript.
 
 **Note:** This project is under active development, and the interface will change in the future.
 
-### Usage
+## Usage
 
 To list projects:
 
@@ -27,6 +27,10 @@ const client = new ProjectsApi(config);
 });
 ```
 
-### Other
+## Other
 
 This library is generated from the OpenAPI schema at https://api.refactr.it/v1
+
+## End User License Agreement
+
+Please see [End User License Agreement & Terms of Use](https://www.refactr.it/terms-privacy-security).
