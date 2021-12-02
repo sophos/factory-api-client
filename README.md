@@ -1,6 +1,6 @@
-# Refactr JavaScript API Client Library
+# Sophos Factory JavaScript API Client Library
 
-This is the official Refactr API client library for JavaScript.
+This is the official Sophos Factory API client library for JavaScript.
 
 **Note:** This project is under active development, and the interface will change in the future.
 
