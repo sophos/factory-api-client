@@ -2,7 +2,7 @@
   "openapi": "3.0.2",
   "info": {
     "version": "1.0.0",
-    "title": "Refactr Platform API v1",
+    "title": "Sophos Factory Platform API v1",
     "description": "",
     "contact": {
       "email": "support@refactr.it"
@@ -11,7 +11,7 @@
   "servers": [
     {
       "url": "https://api.refactr.it/v1",
-      "description": "Refactr Platform API v1"
+      "description": "Sophos Factory Platform API v1"
     }
   ],
   "tags": [
