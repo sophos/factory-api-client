@@ -68,7 +68,7 @@ jobs:
       - name: Making a pull request
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GEN_DEPLOY_KEY1 }}
           commit-message: update client
           title: Update client
           body: |
