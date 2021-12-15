@@ -35,6 +35,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          ssh-key: ${{ secrets.GEN_DEPLOY_KEY1 }}
       - uses: actions/cache@v2
         with:
           path: ~/.npm
@@ -68,7 +70,6 @@ jobs:
       - name: Making a pull request
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.GEN_DEPLOY_KEY1 }}
           commit-message: update client
           title: Update client
           body: |
