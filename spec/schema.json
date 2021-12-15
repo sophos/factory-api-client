@@ -2,7 +2,7 @@
   "openapi": "3.0.2",
   "info": {
     "version": "1.0.0",
-    "title": "Sophos Factory Platform API v1",
+    "title": "Sophos Factory API v1",
     "description": "",
     "contact": {
       "email": "support@refactr.it"
@@ -11,7 +11,7 @@
   "servers": [
     {
       "url": "https://api.refactr.it/v1",
-      "description": "Sophos Factory Platform API v1"
+      "description": "Sophos Factory API v1"
     }
   ],
   "tags": [
@@ -2891,7 +2891,8 @@
                   "azure_service_principal",
                   "google_service_account",
                   "aws_access_key",
-                  "vault_app_role"
+                  "vault_app_role",
+                  "cis_license_bundle"
                 ]
               }
             }
@@ -7047,7 +7048,8 @@
               "azure_service_principal",
               "google_service_account",
               "aws_access_key",
-              "vault_app_role"
+              "vault_app_role",
+              "cis_license_bundle"
             ]
           },
           "data": {
@@ -7217,6 +7219,10 @@
           },
           "name": {
             "type": "string"
+          },
+          "host_name": {
+            "type": "string",
+            "readOnly": true
           },
           "host_type": {
             "type": "string",
