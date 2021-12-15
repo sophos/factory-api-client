@@ -2,6 +2,7 @@
 name: Codegen
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 9 * * *'
 
@@ -72,5 +73,5 @@ jobs:
           title: Update client
           body: |
             This pull request is automatically generated bacause spec schema has been updated!
-          assignees: romanrefactr, refactranthony
-          reviewers: romanrefactr, refactranthony
+          assignees: vsophos, refactranthony
+          reviewers: vsophos, refactranthony
