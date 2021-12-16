@@ -1,18 +1,20 @@
 # Release Process
 
-This document describes process to release and publish a new version of this module.
+This document describes the process for creating a release and publishing a new version of this module.
 
-**Please note in order to be able to release a new version make sure you have preinstalled Git
-and cloned this repository.**
+## Prerequisites
 
-1. Bump the version number in `package.json`.
+- Install [Git](https://git-scm.com/downloads) and [npm](https://www.npmjs.com/)
+- [Clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) this repository
 
+## Create a Release
+
+1. Bump the version number in `package.json`. Use [Semantic Versioning](https://semver.org).
 2. Run `npm install` to regenerate the `package-lock.json`.
-
 3. Run `npm run build`. It's important to do this after bumping the version.
+4. Commit and Git tag these changes. Use `v` followed by the version number, for example: `git tag -a v0.8.2`.
+5. Push the changes to the GitHub repository, including the tag (`git push --tags`). Open and merge PRs as appropriate.
+6. Once the changes are merged to `master`, [create a new Release on GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) and choose the tag you just created.
+7. Publishing a release triggers the GitHub Action [Publish to npm](.github/workflows/release.yml) which will release the new npm package automatically. Ensure the Action completes successfully.
 
-3. Create a new Git tag/release named with the same version as in `package.json` but with `v` prefix, e.g. `v0.5.0`.
-
-4. Wait until GitHub Action checks finished, if status is successful you are good, otherwise if status is failed, check the error(s), and redo all the steps again, until status is successful.
-
-
+New updates can be viewed at the npm package page: https://www.npmjs.com/package/@refactr/api-client
