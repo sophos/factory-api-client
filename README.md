@@ -6,9 +6,11 @@ This is the official Sophos Factory API client library for JavaScript.
 
 ## Usage
 
-To list projects:
+Generate an API Token by logging into the platform and visiting the [API Tokens page](https://app.refactr.it/user/tokens).
 
-```
+The API client is [hosted on npm](https://www.npmjs.com/package/@refactr/api-client) and can be installed like any other npm package. For example, to list projects:
+
+```js
 const { ProjectsApi, Configuration } = require('@refactr/api-client');
 
 const accessToken = '<your api token here>';
@@ -27,9 +29,13 @@ const client = new ProjectsApi(config);
 });
 ```
 
-## Other
+All methods can be viewed by browsing the specification: https://api.refactr.it/v1/
 
-This library is generated from the OpenAPI schema at https://api.refactr.it/v1
+## Generating the Library
+
+The library is generated from the OpenAPI schema at: https://api.refactr.it/v1
+
+The GitHub Action workflow [Codegen](.github/workflows/gen.yml) runs on a schedule and can also be dispatched manually. It compares the last updated schema stored at `spec/schema.json` with the current schema downloaded from `https://api.refactr.it/v1/spec`. If there is a difference, the workflow regenerates the client library, then opens a pull request with the changes.
 
 ## Terms of Use
 
