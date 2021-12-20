@@ -68,9 +68,9 @@ jobs:
 
       - name: Push changes to the repository
         run: |
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git checkout -b ${{ github.ref_name }}/codegen
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git checkout -b ${{ github.ref_name }}-codegen
           git add .
-          git commit -am "Update schema with ${GITHUB_WORKFLOW}"
-          git push -u https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          git commit -am "Update schema with ${{ github.workflow }}"
+          git push -u https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
