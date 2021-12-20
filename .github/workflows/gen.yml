@@ -29,6 +29,7 @@ jobs:
     name: Generating code
     needs: compare_schemas
     runs-on: ubuntu-latest
+    permissions: read-all | write-all
 
     if: ${{ needs.compare_schemas.outputs.need_regenerate == '1' }}
 
@@ -66,11 +67,13 @@ jobs:
       - name: Generating OpenAPI client
         run: npm run generate
 
-      - name: Push changes to the repository
-        run: |
-          git config user.name "${{ github.actor }}"
-          git config user.email "${{ github.actor }}@users.noreply.github.com"
-          git checkout -b ${{ github.ref_name }}-codegen
-          git add .
-          git commit -am "Update schema with ${{ github.workflow }}"
-          git push -u https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+      - name: Making a pull request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: update client
+          title: Update client
+          body: |
+            This is an automatically generated PR for updating the specification schema. (`gen.yml`)
+          assignees: vsophos, refactranthony
+          reviewers: vsophos, refactranthony
