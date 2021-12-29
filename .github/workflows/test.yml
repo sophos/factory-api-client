@@ -32,7 +32,7 @@ jobs:
          script: |
           const { ProjectsApi, Configuration } = require('@refactr/api-client')
           const accessToken = process.env.TOKEN;
-          const proj = '61c21b61ce610a30584b4636';
+          const proj = '61ccbe03d42b9bdcc88365d8';
           const config = new Configuration({
             accessToken: accessToken,
             basePath: 'https://api.main.refactr.it/v1'
@@ -40,7 +40,7 @@ jobs:
           const client = new ProjectsApi(config);
           (async () => {
               const res = await client.getProject(proj);
-              if (res.data.name.includes('Stable CI Testing')) console.info('Everything looks good!');
+              if (res.data.name.includes('CRUD Testing')) console.info('Everything looks good!');
           })().catch(e => {
               console.error(`Request failed with status code: ${e.response.status}`);
               console.error('Response body:');
