@@ -28,6 +28,7 @@
     "README.md"
   ],
   "dependencies": {
+    "@refactr/api-client": "^0.8.2",
     "axios": "^0.21.2"
   },
   "devDependencies": {
@@ -37,11 +38,11 @@
     "@babel/preset-typescript": "^7.13.0",
     "@babel/runtime": "^7.13.10",
     "@openapitools/openapi-generator-cli": "^2.4.8",
-    "rollup-plugin-terser": "^7.0.2",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-node-resolve": "^13.0.5",
     "rollup": "^2.57.0",
+    "rollup-plugin-terser": "^7.0.2",
     "typescript": "^3.9.10"
   },
   "scripts": {
