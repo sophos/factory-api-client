@@ -1,0 +1,39 @@
+name: Test
+
+on:
+  workflow_dispatch:
+  pull_request:
+    # When all changes are Markdown files, this workflow will not run
+    paths-ignore:
+      - '**.md'
+  push:
+   branches:
+    - master
+
+jobs:
+  test-pipeline:
+    name: Test Pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/github-script@v5
+        env:
+          TOKEN: ${{ secrets.MAIN_API_TOKEN }}
+        with:
+         script: |
+          const { ProjectsApi, Configuration } = require('@refactr/api-client')
+          const accessToken = process.env.TOKEN;
+          const proj = '61c21b61ce610a30584b4636';
+          const config = new Configuration({
+            accessToken: accessToken,
+            basePath: 'https://api.main.refactr.it/v1'
+          });
+          const client = new ProjectsApi(config);
+          (async () => {
+              const res = await client.getProject(proj);
+              if (res.data.name.includes('Stable CI Testing')) console.info('Everything looks good!');
+          })().catch(e => {
+              console.error(`Request failed with status code: ${e.response.status}`);
+              console.error('Response body:');
+              console.error(e.response.data);
+          });
