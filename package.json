@@ -1,6 +1,6 @@
 {
   "name": "@refactr/api-client",
-  "version": "0.8.2",
+  "version": "1.0.0",
   "description": "Official Sophos Factory API client library for JavaScript.",
   "keywords": [
     "Sophos",
