@@ -1,4 +1,4 @@
-# Sophos Factory JavaScript API Client Library
+# Sophos Factory API Client Library for JavaScript
 
 This is the official Sophos Factory API client library for JavaScript.
 
