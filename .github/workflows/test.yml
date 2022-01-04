@@ -30,7 +30,7 @@ jobs:
           TOKEN: ${{ secrets.MAIN_API_TOKEN }}
         with:
          script: |
-          const { ProjectsApi, Configuration } = require('@refactr/api-client')
+          const { ProjectsApi, Configuration } = require('@sophos-factory/api-client')
           const accessToken = process.env.TOKEN;
           const proj = '61ccbe03d42b9bdcc88365d8';
           const config = new Configuration({

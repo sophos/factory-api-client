@@ -17,4 +17,4 @@ This document describes the process for creating a release and publishing a new 
 6. Once the changes are merged to `master`, [create a new Release on GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) and choose the tag you just created.
 7. Publishing a release triggers the GitHub Action [Publish to npm](.github/workflows/release.yml) which will release the new npm package automatically. Ensure the Action completes successfully.
 
-New updates can be viewed at the npm package page: https://www.npmjs.com/package/@refactr/api-client
+New updates can be viewed at the npm package page: https://www.npmjs.com/package/@sophos-factory/api-client
