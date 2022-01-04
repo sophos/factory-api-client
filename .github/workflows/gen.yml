@@ -75,5 +75,5 @@ jobs:
           title: Update client
           body: |
             This is an automatically generated PR for updating the specification schema. (`gen.yml`)
-          assignees: vsophos, refactranthony
-          reviewers: vsophos, refactranthony
+          assignees: sophos-victoria, sophosanthony
+          reviewers: sophos-victoria, sophosanthony
