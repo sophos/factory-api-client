@@ -28,7 +28,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@sophos-factory/api-client": "^1.0.0",
+    "@refactr/api-client": "^0.8.2",
     "axios": "^0.21.2"
   },
   "devDependencies": {
