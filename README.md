@@ -6,10 +6,10 @@ This is the official Sophos Factory API client library for JavaScript.
 
 Generate an API Token by logging into Sophos Factory and visiting the [API Tokens page](https://app.refactr.it/user/tokens).
 
-The API client is [hosted on npm](https://www.npmjs.com/package/@refactr/api-client) and can be installed like any other npm package. For example, to list projects:
+The API client is [hosted on npm](https://www.npmjs.com/package/@sophos-factory/api-client) and can be installed like any other npm package. For example, to list projects:
 
 ```js
-const { ProjectsApi, Configuration } = require('@refactr/api-client');
+const { ProjectsApi, Configuration } = require('@sophos-factory/api-client');
 
 const accessToken = '<your api token here>';
 
