@@ -1139,6 +1139,12 @@ export interface Job {
     enabled?: boolean;
     /**
      * 
+     * @type {boolean}
+     * @memberof Job
+     */
+    pinned?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof Job
      */
@@ -1154,13 +1160,19 @@ export interface Job {
      * @type {string}
      * @memberof Job
      */
+    webhook_type?: JobWebhookTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof Job
+     */
     webhook_token?: string;
     /**
      * 
-     * @type {JobWebhook}
+     * @type {object}
      * @memberof Job
      */
-    webhook?: JobWebhook;
+    webhook?: object;
     /**
      * 
      * @type {string}
@@ -1207,6 +1219,17 @@ export enum JobTriggerTypeEnum {
     Manual = 'manual',
     Scheduled = 'scheduled',
     Webhook = 'webhook'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum JobWebhookTypeEnum {
+    Custom = 'custom',
+    Github = 'github',
+    Gitlab = 'gitlab',
+    Bitbucket = 'bitbucket',
+    TerraformRunTask = 'terraform_run_task'
 }
 
 /**
@@ -1259,55 +1282,6 @@ export enum JobScheduleIntervalTypeEnum {
     Month = 'month'
 }
 
-/**
- * 
- * @export
- * @interface JobWebhook
- */
-export interface JobWebhook {
-    /**
-     * 
-     * @type {string}
-     * @memberof JobWebhook
-     */
-    vars_transform?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof JobWebhook
-     */
-    validator?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof JobWebhook
-     */
-    condition?: string | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof JobWebhook
-     */
-    status_code?: number | null;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof JobWebhook
-     */
-    ip_whitelist?: Array<string> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof JobWebhook
-     */
-    credential?: string | null;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof JobWebhook
-     */
-    ignore_errors?: boolean | null;
-}
 /**
  * 
  * @export
@@ -4976,10 +4950,11 @@ export const CredentialsApiAxiosParamCreator = function (configuration?: Configu
          * @param {'created_asc' | 'created_desc'} [sort] 
          * @param {number} [offset] 
          * @param {number} [limit] 
+         * @param {string} [search] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCredentials: async (projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role' | 'cis_license_bundle'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options: any = {}): Promise<RequestArgs> => {
+        listCredentials: async (projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role' | 'cis_license_bundle'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, search?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('listCredentials', 'projectId', projectId)
             const localVarPath = `/projects/{project_id}/credentials`
@@ -5013,6 +4988,10 @@ export const CredentialsApiAxiosParamCreator = function (configuration?: Configu
 
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
+            }
+
+            if (search !== undefined) {
+                localVarQueryParameter['search'] = search;
             }
 
 
@@ -5128,11 +5107,12 @@ export const CredentialsApiFp = function(configuration?: Configuration) {
          * @param {'created_asc' | 'created_desc'} [sort] 
          * @param {number} [offset] 
          * @param {number} [limit] 
+         * @param {string} [search] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role' | 'cis_license_bundle'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20010>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listCredentials(projectId, type, sort, offset, limit, options);
+        async listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role' | 'cis_license_bundle'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, search?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20010>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listCredentials(projectId, type, sort, offset, limit, search, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -5199,11 +5179,12 @@ export const CredentialsApiFactory = function (configuration?: Configuration, ba
          * @param {'created_asc' | 'created_desc'} [sort] 
          * @param {number} [offset] 
          * @param {number} [limit] 
+         * @param {string} [search] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role' | 'cis_license_bundle'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options?: any): AxiosPromise<InlineResponse20010> {
-            return localVarFp.listCredentials(projectId, type, sort, offset, limit, options).then((request) => request(axios, basePath));
+        listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role' | 'cis_license_bundle'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, search?: string, options?: any): AxiosPromise<InlineResponse20010> {
+            return localVarFp.listCredentials(projectId, type, sort, offset, limit, search, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5274,12 +5255,13 @@ export class CredentialsApi extends BaseAPI {
      * @param {'created_asc' | 'created_desc'} [sort] 
      * @param {number} [offset] 
      * @param {number} [limit] 
+     * @param {string} [search] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CredentialsApi
      */
-    public listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role' | 'cis_license_bundle'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, options?: any) {
-        return CredentialsApiFp(this.configuration).listCredentials(projectId, type, sort, offset, limit, options).then((request) => request(this.axios, this.basePath));
+    public listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role' | 'cis_license_bundle'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, search?: string, options?: any) {
+        return CredentialsApiFp(this.configuration).listCredentials(projectId, type, sort, offset, limit, search, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5445,10 +5427,12 @@ export const JobsApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {number} [limit] 
          * @param {number} [offset] 
          * @param {Array<'pipeline' | 'pipeline_revision'>} [fields] Additional fields to return
+         * @param {string} [search] 
+         * @param {boolean} [pinned] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listJobs: async (projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, options: any = {}): Promise<RequestArgs> => {
+        listJobs: async (projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, search?: string, pinned?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('listJobs', 'projectId', projectId)
             const localVarPath = `/projects/{project_id}/jobs`
@@ -5482,6 +5466,14 @@ export const JobsApiAxiosParamCreator = function (configuration?: Configuration)
 
             if (fields) {
                 localVarQueryParameter['fields'] = fields;
+            }
+
+            if (search !== undefined) {
+                localVarQueryParameter['search'] = search;
+            }
+
+            if (pinned !== undefined) {
+                localVarQueryParameter['pinned'] = pinned;
             }
 
 
@@ -5688,11 +5680,13 @@ export const JobsApiFp = function(configuration?: Configuration) {
          * @param {number} [limit] 
          * @param {number} [offset] 
          * @param {Array<'pipeline' | 'pipeline_revision'>} [fields] Additional fields to return
+         * @param {string} [search] 
+         * @param {boolean} [pinned] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20012>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listJobs(projectId, sort, limit, offset, fields, options);
+        async listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, search?: string, pinned?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20012>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listJobs(projectId, sort, limit, offset, fields, search, pinned, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -5785,11 +5779,13 @@ export const JobsApiFactory = function (configuration?: Configuration, basePath?
          * @param {number} [limit] 
          * @param {number} [offset] 
          * @param {Array<'pipeline' | 'pipeline_revision'>} [fields] Additional fields to return
+         * @param {string} [search] 
+         * @param {boolean} [pinned] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, options?: any): AxiosPromise<InlineResponse20012> {
-            return localVarFp.listJobs(projectId, sort, limit, offset, fields, options).then((request) => request(axios, basePath));
+        listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, search?: string, pinned?: boolean, options?: any): AxiosPromise<InlineResponse20012> {
+            return localVarFp.listJobs(projectId, sort, limit, offset, fields, search, pinned, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5884,12 +5880,14 @@ export class JobsApi extends BaseAPI {
      * @param {number} [limit] 
      * @param {number} [offset] 
      * @param {Array<'pipeline' | 'pipeline_revision'>} [fields] Additional fields to return
+     * @param {string} [search] 
+     * @param {boolean} [pinned] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof JobsApi
      */
-    public listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, options?: any) {
-        return JobsApiFp(this.configuration).listJobs(projectId, sort, limit, offset, fields, options).then((request) => request(this.axios, this.basePath));
+    public listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, search?: string, pinned?: boolean, options?: any) {
+        return JobsApiFp(this.configuration).listJobs(projectId, sort, limit, offset, fields, search, pinned, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

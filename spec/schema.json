@@ -1321,6 +1321,7 @@
           {
             "name": "pinned",
             "in": "query",
+            "required": false,
             "schema": {
               "type": "boolean"
             }
@@ -2926,6 +2927,13 @@
               "minimum": 1,
               "maximum": 200
             }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -3403,6 +3411,7 @@
           {
             "name": "pinned",
             "in": "query",
+            "required": false,
             "schema": {
               "type": "boolean"
             }
@@ -3658,6 +3667,21 @@
                   "pipeline_revision"
                 ]
               }
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pinned",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
             }
           }
         ],
@@ -7102,6 +7126,9 @@
           "enabled": {
             "type": "boolean"
           },
+          "pinned": {
+            "type": "boolean"
+          },
           "trigger_type": {
             "type": "string",
             "enum": [
@@ -7139,46 +7166,22 @@
               }
             }
           },
+          "webhook_type": {
+            "type": "string",
+            "enum": [
+              "custom",
+              "github",
+              "gitlab",
+              "bitbucket",
+              "terraform_run_task"
+            ]
+          },
           "webhook_token": {
             "type": "string",
             "readOnly": true
           },
           "webhook": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "vars_transform": {
-                "type": "string",
-                "nullable": true
-              },
-              "validator": {
-                "type": "string",
-                "nullable": true
-              },
-              "condition": {
-                "type": "string",
-                "nullable": true
-              },
-              "status_code": {
-                "type": "number",
-                "nullable": true
-              },
-              "ip_whitelist": {
-                "type": "array",
-                "nullable": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "credential": {
-                "type": "string",
-                "nullable": true
-              },
-              "ignore_errors": {
-                "type": "boolean",
-                "nullable": true
-              }
-            }
+            "type": "object"
           },
           "pipeline_catalog_id": {
             "type": "string"
