@@ -60,7 +60,7 @@ jobs:
         run: npm install
 
       - name: Download schema from external URL
-        run: npm run fetch
+        run: mkdir -p spec && curl -s https://api.main.refactr.it/v1/spec | jq '.' > ./spec/schema.json
 
       - name: Generating OpenAPI client
         run: npm run generate
