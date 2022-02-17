@@ -14,8 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Download schema from the staging API
-        run: curl https://api.staging.refactr.it/v1/spec -o new_schema.json
+      - name: Download schema from the main API
+        run: curl https://api.main.refactr.it/v1/spec -o new_schema.json
 
       - name: Compare specs
         id: cmp
@@ -72,6 +72,6 @@ jobs:
           commit-message: update client
           title: Update client
           body: |
-            This PR contains changes generated against the staging API.
+            This PR contains changes generated against the development API.
           assignees: sophos-victoria
           reviewers: sophos-victoria
