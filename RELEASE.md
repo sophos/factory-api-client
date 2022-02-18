@@ -18,3 +18,13 @@ This document describes the process for creating a release and publishing a new 
 7. Publishing a release triggers the GitHub Action [Publish to npm](.github/workflows/release.yml) which will release the new npm package automatically. Ensure the Action completes successfully.
 
 New updates can be viewed at the npm package page: https://www.npmjs.com/package/@sophos-factory/api-client
+
+## Publishing a Pre-Release
+
+1. Do steps 1-4 above.
+2. Ensure you have the correct npm credentials set up locally.
+3. Publish the pre-release using [`npm publish`](https://docs.npmjs.com/cli/v8/commands/npm-publish) and ensure you pass the pre-release `--tag`. For example:
+
+    ```sh
+    npm publish --tag v1.0.3-rc.1 --access public
+    ```
