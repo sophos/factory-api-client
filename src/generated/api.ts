@@ -8671,11 +8671,11 @@ export const RunsApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary Get run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
+         * @param {Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRun: async (projectId: string, id: string, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options: any = {}): Promise<RequestArgs> => {
+        getRun: async (projectId: string, id: string, fields?: Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getRun', 'projectId', projectId)
             // verify required parameter 'id' is not null or undefined
@@ -8898,11 +8898,11 @@ export const RunsApiFp = function(configuration?: Configuration) {
          * @summary Get run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
+         * @param {Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRun(projectId: string, id: string, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Run>> {
+        async getRun(projectId: string, id: string, fields?: Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Run>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getRun(projectId, id, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8974,11 +8974,11 @@ export const RunsApiFactory = function (configuration?: Configuration, basePath?
          * @summary Get run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
+         * @param {Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRun(projectId: string, id: string, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options?: any): AxiosPromise<Run> {
+        getRun(projectId: string, id: string, fields?: Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options?: any): AxiosPromise<Run> {
             return localVarFp.getRun(projectId, id, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -9048,12 +9048,12 @@ export class RunsApi extends BaseAPI {
      * @summary Get run
      * @param {string} projectId Project ID
      * @param {string} id Run ID
-     * @param {Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
+     * @param {Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RunsApi
      */
-    public getRun(projectId: string, id: string, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options?: any) {
+    public getRun(projectId: string, id: string, fields?: Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options?: any) {
         return RunsApiFp(this.configuration).getRun(projectId, id, fields, options).then((request) => request(this.axios, this.basePath));
     }
 
