@@ -4282,6 +4282,10 @@
               "items": {
                 "type": "string",
                 "enum": [
+                  "events",
+                  "operations",
+                  "variables",
+                  "outputs",
                   "job",
                   "pipeline",
                   "runner_agent",
