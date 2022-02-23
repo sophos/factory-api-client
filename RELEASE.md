@@ -26,5 +26,5 @@ New updates can be viewed at the npm package page: https://www.npmjs.com/package
 3. Publish the pre-release using [`npm publish`](https://docs.npmjs.com/cli/v8/commands/npm-publish) and ensure you pass the pre-release `--tag`. For example:
 
     ```sh
-    npm publish --tag v1.0.3-rc.1 --access public
+    npm publish --tag pre-release --access public
     ```
