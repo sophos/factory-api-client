@@ -27,7 +27,7 @@ jobs:
       - run: npm install
       - uses: actions/github-script@v5
         env:
-          TOKEN: ${{ secrets.MAIN_API_TOKEN }}
+          TOKEN: ${{ secrets.FACTORY_API_TOKEN }}
         with:
          script: |
           const { ProjectsApi, Configuration } = require('@sophos-factory/api-client')
@@ -35,7 +35,7 @@ jobs:
           const proj = '61ccbe03d42b9bdcc88365d8';
           const config = new Configuration({
             accessToken: accessToken,
-            basePath: 'https://api.main.refactr.it/v1'
+            basePath: 'https://api.dev.factory.sophos.com/v1'
           });
           const client = new ProjectsApi(config);
           (async () => {
