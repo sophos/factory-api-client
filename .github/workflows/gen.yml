@@ -53,7 +53,7 @@ jobs:
       - name: Installing Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 16.x
 
       - name: Install OpenAPI generator
         run: npm install @openapitools/openapi-generator-cli@^2 -g

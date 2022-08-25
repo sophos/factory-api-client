@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Download schema from the main API
-        run: curl https://api.main.refactr.it/v1/spec -o new_schema.json
+        run: curl https://api.staging.factory.sophos.com/v1/spec -o new_schema.json
 
       - name: Compare specs
         id: cmp
@@ -51,7 +51,7 @@ jobs:
       - name: Installing Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 16.x
 
       - name: Install OpenAPI generator
         run: npm install @openapitools/openapi-generator-cli@^2 -g
@@ -60,7 +60,7 @@ jobs:
         run: npm install
 
       - name: Download schema from external URL
-        run: mkdir -p spec && curl -s https://api.main.refactr.it/v1/spec | jq '.' > ./spec/schema.json
+        run: mkdir -p spec && curl -s https://api.staging.factory.sophos.com/v1/spec | jq '.' > ./spec/schema.json
 
       - name: Generating OpenAPI client
         run: npm run generate

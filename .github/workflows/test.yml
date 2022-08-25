@@ -24,18 +24,26 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.version }}
-      - run: npm install
-      - uses: actions/github-script@v5
-        env:
-          TOKEN: ${{ secrets.MAIN_API_TOKEN }}
-        with:
-         script: |
+      - name: Build and Install @sophos-factory/api-client
+        run: |
+          npm ci
+          npm run build
+          mkdir -p ../test
+          npm pack
+          cp sophos-factory-api-client-*.tgz ../test/api-client.tgz
+          cd ../test
+          npm init -f -y
+          npm install api-client.tgz
+      - name: Create Test Script
+        working-directory: ../test
+        run: |
+          cat << SCRIPT > ./test.js
           const { ProjectsApi, Configuration } = require('@sophos-factory/api-client')
           const accessToken = process.env.TOKEN;
           const proj = '61ccbe03d42b9bdcc88365d8';
           const config = new Configuration({
             accessToken: accessToken,
-            basePath: 'https://api.main.refactr.it/v1'
+            basePath: 'https://api.dev.factory.sophos.com/v1'
           });
           const client = new ProjectsApi(config);
           (async () => {
@@ -46,3 +54,9 @@ jobs:
               console.error('Response body:');
               console.error(e.response.data);
           });
+          SCRIPT
+      - name: Run Smoke Test
+        working-directory: ../test
+        env:
+          TOKEN: ${{ secrets.FACTORY_API_TOKEN }}
+        run: node test.js
