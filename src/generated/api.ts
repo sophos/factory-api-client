@@ -8626,6 +8626,48 @@ export const RunsApiAxiosParamCreator = function (configuration?: Configuration)
     return {
         /**
          * 
+         * @summary Cancel a run
+         * @param {string} projectId Project ID
+         * @param {string} id Run ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        cancelRun: async (projectId: string, id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('cancelRun', 'projectId', projectId)
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('cancelRun', 'id', id)
+            const localVarPath = `/projects/{project_id}/runs/{_id}/cancel`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Delete run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
@@ -8883,6 +8925,18 @@ export const RunsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Cancel a run
+         * @param {string} projectId Project ID
+         * @param {string} id Run ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async cancelRun(projectId: string, id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.cancelRun(projectId, id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Delete run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
@@ -8960,6 +9014,17 @@ export const RunsApiFactory = function (configuration?: Configuration, basePath?
     return {
         /**
          * 
+         * @summary Cancel a run
+         * @param {string} projectId Project ID
+         * @param {string} id Run ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        cancelRun(projectId: string, id: string, options?: any): AxiosPromise<InlineResponse201> {
+            return localVarFp.cancelRun(projectId, id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Delete run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
@@ -9030,6 +9095,19 @@ export const RunsApiFactory = function (configuration?: Configuration, basePath?
  * @extends {BaseAPI}
  */
 export class RunsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Cancel a run
+     * @param {string} projectId Project ID
+     * @param {string} id Run ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RunsApi
+     */
+    public cancelRun(projectId: string, id: string, options?: any) {
+        return RunsApiFp(this.configuration).cancelRun(projectId, id, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Delete run
