@@ -2552,6 +2552,18 @@
                   },
                   "suppress_outputs": {
                     "type": "boolean"
+                  },
+                  "verbosity": {
+                    "type": "string",
+                    "nullable": true,
+                    "enum": [
+                      "error",
+                      "warning",
+                      "info",
+                      "debug",
+                      "trace",
+                      ""
+                    ]
                   }
                 }
               }
@@ -2829,6 +2841,18 @@
                   },
                   "suppress_outputs": {
                     "type": "boolean"
+                  },
+                  "verbosity": {
+                    "type": "string",
+                    "nullable": true,
+                    "enum": [
+                      "error",
+                      "warning",
+                      "info",
+                      "debug",
+                      "trace",
+                      ""
+                    ]
                   }
                 }
               }
@@ -4038,13 +4062,26 @@
                   "variables": {
                     "type": "object"
                   },
-                  "suppress_outputs": {
-                    "description": "Whether to suppress run output",
+                  "suppress_vars": {
                     "type": "boolean"
                   },
                   "suppress_events": {
-                    "description": "Whether to suppress run events",
                     "type": "boolean"
+                  },
+                  "suppress_outputs": {
+                    "type": "boolean"
+                  },
+                  "verbosity": {
+                    "type": "string",
+                    "nullable": true,
+                    "enum": [
+                      "error",
+                      "warning",
+                      "info",
+                      "debug",
+                      "trace",
+                      ""
+                    ]
                   }
                 }
               }
@@ -4461,6 +4498,27 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "verbosity": {
+                    "type": "string",
+                    "enum": [
+                      "error",
+                      "warning",
+                      "info",
+                      "debug",
+                      "trace"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "Created",
@@ -7282,6 +7340,18 @@
           },
           "variables": {
             "type": "object"
+          },
+          "verbosity": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "error",
+              "warning",
+              "info",
+              "debug",
+              "trace",
+              ""
+            ]
           }
         }
       },
@@ -7512,6 +7582,17 @@
           "suppress_vars": {
             "type": "boolean",
             "readOnly": true
+          },
+          "verbosity": {
+            "type": "string",
+            "readOnly": true,
+            "enum": [
+              "error",
+              "warning",
+              "info",
+              "debug",
+              "trace"
+            ]
           },
           "events": {
             "type": "array",
