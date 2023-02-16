@@ -15,7 +15,7 @@
     "api-client",
     "openapi"
   ],
-  "homepage": "https://github.com/sophos-factory/api-client/",
+  "homepage": "https://github.com/sophos/factory-api-client/",
   "license": "MIT",
   "main": "dist/index.node.js",
   "module": "dist/index.mjs",

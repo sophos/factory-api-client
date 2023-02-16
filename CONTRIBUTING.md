@@ -11,7 +11,7 @@ This repository generates the schema (at [`spec/schema.json`](spec/schema.json))
 Clone the repository: 
 
 ```sh
-git clone https://github.com/sophos-factory/api-client.git
+git clone https://github.com/sophos/factory-api-client.git
 ```
 
 ## Issues and Branches
