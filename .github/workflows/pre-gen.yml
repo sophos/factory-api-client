@@ -21,7 +21,7 @@ jobs:
         id: cmp
         if: ${{ hashFiles('./new_schema.json') != hashFiles('./spec/schema.json') }}
         run: |
-          echo "::set-output name=need_regenerate::1"
+          echo "need_regenerate=1" >> $GITHUB_OUTPUT
 
   codegen:
     name: Generating code
@@ -47,6 +47,7 @@ jobs:
         with:
           java-version: 12.x
           java-package: jdk
+          distribution: adopt
 
       - name: Installing Node.js
         uses: actions/setup-node@v3
@@ -73,5 +74,5 @@ jobs:
           title: Update client
           body: |
             This PR contains changes generated against the development API.
-          assignees: sophos-victoria
-          reviewers: sophos-victoria
+          assignees: sophos-victoria, sophos-daniels, marcfieser
+          reviewers: sophos-victoria, sophos-daniels, marcfieser
