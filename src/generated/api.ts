@@ -1741,6 +1741,12 @@ export interface Pipeline {
     icon_name?: string;
     /**
      * 
+     * @type {Array<string>}
+     * @memberof Pipeline
+     */
+    tags?: Array<string> | null;
+    /**
+     * 
      * @type {number}
      * @memberof Pipeline
      */
@@ -3855,10 +3861,11 @@ export const CatalogsApiAxiosParamCreator = function (configuration?: Configurat
          * @param {number} [offset] 
          * @param {string} [search] 
          * @param {boolean} [pinned] 
+         * @param {Array<string>} [tags] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCatalogPipelines: async (catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, options: any = {}): Promise<RequestArgs> => {
+        listCatalogPipelines: async (catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'catalogId' is not null or undefined
             assertParamExists('listCatalogPipelines', 'catalogId', catalogId)
             const localVarPath = `/catalogs/{catalog_id}/pipelines`
@@ -3896,6 +3903,10 @@ export const CatalogsApiAxiosParamCreator = function (configuration?: Configurat
 
             if (pinned !== undefined) {
                 localVarQueryParameter['pinned'] = pinned;
+            }
+
+            if (tags) {
+                localVarQueryParameter['tags'] = tags;
             }
 
 
@@ -4366,11 +4377,12 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {number} [offset] 
          * @param {string} [search] 
          * @param {boolean} [pinned] 
+         * @param {Array<string>} [tags] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCatalogPipelines(catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listCatalogPipelines(catalogId, sort, limit, offset, search, pinned, options);
+        async listCatalogPipelines(catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listCatalogPipelines(catalogId, sort, limit, offset, search, pinned, tags, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -4595,11 +4607,12 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {number} [offset] 
          * @param {string} [search] 
          * @param {boolean} [pinned] 
+         * @param {Array<string>} [tags] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCatalogPipelines(catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, options?: any): AxiosPromise<InlineResponse2005> {
-            return localVarFp.listCatalogPipelines(catalogId, sort, limit, offset, search, pinned, options).then((request) => request(axios, basePath));
+        listCatalogPipelines(catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options?: any): AxiosPromise<InlineResponse2005> {
+            return localVarFp.listCatalogPipelines(catalogId, sort, limit, offset, search, pinned, tags, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4837,12 +4850,13 @@ export class CatalogsApi extends BaseAPI {
      * @param {number} [offset] 
      * @param {string} [search] 
      * @param {boolean} [pinned] 
+     * @param {Array<string>} [tags] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CatalogsApi
      */
-    public listCatalogPipelines(catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, options?: any) {
-        return CatalogsApiFp(this.configuration).listCatalogPipelines(catalogId, sort, limit, offset, search, pinned, options).then((request) => request(this.axios, this.basePath));
+    public listCatalogPipelines(catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options?: any) {
+        return CatalogsApiFp(this.configuration).listCatalogPipelines(catalogId, sort, limit, offset, search, pinned, tags, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7014,10 +7028,11 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
          * @param {number} [offset] 
          * @param {string} [search] 
          * @param {boolean} [pinned] 
+         * @param {Array<string>} [tags] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listPipelines: async (projectId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, options: any = {}): Promise<RequestArgs> => {
+        listPipelines: async (projectId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('listPipelines', 'projectId', projectId)
             const localVarPath = `/projects/{project_id}/pipelines`
@@ -7055,6 +7070,10 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
 
             if (pinned !== undefined) {
                 localVarQueryParameter['pinned'] = pinned;
+            }
+
+            if (tags) {
+                localVarQueryParameter['tags'] = tags;
             }
 
 
@@ -7404,11 +7423,12 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @param {number} [offset] 
          * @param {string} [search] 
          * @param {boolean} [pinned] 
+         * @param {Array<string>} [tags] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listPipelines(projectId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listPipelines(projectId, sort, limit, offset, search, pinned, options);
+        async listPipelines(projectId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listPipelines(projectId, sort, limit, offset, search, pinned, tags, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -7594,11 +7614,12 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
          * @param {number} [offset] 
          * @param {string} [search] 
          * @param {boolean} [pinned] 
+         * @param {Array<string>} [tags] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listPipelines(projectId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, options?: any): AxiosPromise<InlineResponse2005> {
-            return localVarFp.listPipelines(projectId, sort, limit, offset, search, pinned, options).then((request) => request(axios, basePath));
+        listPipelines(projectId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options?: any): AxiosPromise<InlineResponse2005> {
+            return localVarFp.listPipelines(projectId, sort, limit, offset, search, pinned, tags, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7797,12 +7818,13 @@ export class PipelinesApi extends BaseAPI {
      * @param {number} [offset] 
      * @param {string} [search] 
      * @param {boolean} [pinned] 
+     * @param {Array<string>} [tags] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PipelinesApi
      */
-    public listPipelines(projectId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, options?: any) {
-        return PipelinesApiFp(this.configuration).listPipelines(projectId, sort, limit, offset, search, pinned, options).then((request) => request(this.axios, this.basePath));
+    public listPipelines(projectId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options?: any) {
+        return PipelinesApiFp(this.configuration).listPipelines(projectId, sort, limit, offset, search, pinned, tags, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
