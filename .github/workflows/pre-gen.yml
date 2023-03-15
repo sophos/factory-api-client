@@ -12,7 +12,7 @@ jobs:
       need_regenerate: ${{ steps.cmp.outputs.need_regenerate }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Download schema from the main API
         run: curl https://api.staging.factory.sophos.com/v1/spec -o new_schema.json
@@ -32,10 +32,10 @@ jobs:
     if: ${{ needs.compare_schemas.outputs.need_regenerate == '1' }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ssh-key: ${{ secrets.GEN_DEPLOY_KEY1 }}
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -43,13 +43,13 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Installing Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: 12.x
           java-package: jdk
 
       - name: Installing Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
 
