@@ -2564,12 +2564,15 @@
                   "suppress_outputs": {
                     "type": "boolean"
                   },
+                  "max_retries": {
+                    "type": "integer"
+                  },
                   "verbosity": {
                     "type": "string",
                     "nullable": true,
                     "enum": [
                       "error",
-                      "warning",
+                      "warn",
                       "info",
                       "debug",
                       "trace",
@@ -2853,12 +2856,15 @@
                   "suppress_outputs": {
                     "type": "boolean"
                   },
+                  "max_retries": {
+                    "type": "integer"
+                  },
                   "verbosity": {
                     "type": "string",
                     "nullable": true,
                     "enum": [
                       "error",
-                      "warning",
+                      "warn",
                       "info",
                       "debug",
                       "trace",
@@ -4093,12 +4099,15 @@
                   "suppress_outputs": {
                     "type": "boolean"
                   },
+                  "max_retries": {
+                    "type": "integer"
+                  },
                   "verbosity": {
                     "type": "string",
                     "nullable": true,
                     "enum": [
                       "error",
-                      "warning",
+                      "warn",
                       "info",
                       "debug",
                       "trace",
@@ -4228,6 +4237,48 @@
             "schema": {
               "type": "string",
               "format": "resource-id"
+            }
+          },
+          {
+            "name": "statuses",
+            "in": "query",
+            "description": "Run Statuses",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Queued",
+                  "Running",
+                  "Pending",
+                  "Failed",
+                  "Canceled",
+                  "Canceling",
+                  "Skipped",
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Start Date",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "End Date",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
             }
           },
           {
@@ -4530,7 +4581,7 @@
                     "type": "string",
                     "enum": [
                       "error",
-                      "warning",
+                      "warn",
                       "info",
                       "debug",
                       "trace"
@@ -7367,6 +7418,10 @@
           "disable_on_failure": {
             "type": "boolean"
           },
+          "max_retries": {
+            "nullable": true,
+            "type": "integer"
+          },
           "variables": {
             "type": "object"
           },
@@ -7375,7 +7430,7 @@
             "nullable": true,
             "enum": [
               "error",
-              "warning",
+              "warn",
               "info",
               "debug",
               "trace",
@@ -7612,12 +7667,20 @@
             "type": "boolean",
             "readOnly": true
           },
+          "attempt": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "max_retries": {
+            "type": "integer",
+            "readOnly": true
+          },
           "verbosity": {
             "type": "string",
             "readOnly": true,
             "enum": [
               "error",
-              "warning",
+              "warn",
               "info",
               "debug",
               "trace"
