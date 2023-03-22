@@ -283,6 +283,12 @@ export interface InlineObject11 {
     suppress_outputs?: boolean;
     /**
      * 
+     * @type {number}
+     * @memberof InlineObject11
+     */
+    max_retries?: number;
+    /**
+     * 
      * @type {string}
      * @memberof InlineObject11
      */
@@ -295,7 +301,7 @@ export interface InlineObject11 {
     */
 export enum InlineObject11VerbosityEnum {
     Error = 'error',
-    Warning = 'warning',
+    Warn = 'warn',
     Info = 'info',
     Debug = 'debug',
     Trace = 'trace',
@@ -365,6 +371,12 @@ export interface InlineObject13 {
     suppress_outputs?: boolean;
     /**
      * 
+     * @type {number}
+     * @memberof InlineObject13
+     */
+    max_retries?: number;
+    /**
+     * 
      * @type {string}
      * @memberof InlineObject13
      */
@@ -377,7 +389,7 @@ export interface InlineObject13 {
     */
 export enum InlineObject13VerbosityEnum {
     Error = 'error',
-    Warning = 'warning',
+    Warn = 'warn',
     Info = 'info',
     Debug = 'debug',
     Trace = 'trace',
@@ -417,7 +429,7 @@ export interface InlineObject15 {
     */
 export enum InlineObject15VerbosityEnum {
     Error = 'error',
-    Warning = 'warning',
+    Warn = 'warn',
     Info = 'info',
     Debug = 'debug',
     Trace = 'trace'
@@ -766,6 +778,12 @@ export interface InlineObject9 {
     suppress_outputs?: boolean;
     /**
      * 
+     * @type {number}
+     * @memberof InlineObject9
+     */
+    max_retries?: number;
+    /**
+     * 
      * @type {string}
      * @memberof InlineObject9
      */
@@ -778,7 +796,7 @@ export interface InlineObject9 {
     */
 export enum InlineObject9VerbosityEnum {
     Error = 'error',
-    Warning = 'warning',
+    Warn = 'warn',
     Info = 'info',
     Debug = 'debug',
     Trace = 'trace',
@@ -1297,6 +1315,12 @@ export interface Job {
     disable_on_failure?: boolean;
     /**
      * 
+     * @type {number}
+     * @memberof Job
+     */
+    max_retries?: number | null;
+    /**
+     * 
      * @type {object}
      * @memberof Job
      */
@@ -1335,7 +1359,7 @@ export enum JobWebhookTypeEnum {
     */
 export enum JobVerbosityEnum {
     Error = 'error',
-    Warning = 'warning',
+    Warn = 'warn',
     Info = 'info',
     Debug = 'debug',
     Trace = 'trace',
@@ -2143,6 +2167,18 @@ export interface Run {
     suppress_vars?: boolean;
     /**
      * 
+     * @type {number}
+     * @memberof Run
+     */
+    attempt?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Run
+     */
+    max_retries?: number;
+    /**
+     * 
      * @type {string}
      * @memberof Run
      */
@@ -2172,7 +2208,7 @@ export enum RunStatusEnum {
     */
 export enum RunVerbosityEnum {
     Error = 'error',
-    Warning = 'warning',
+    Warn = 'warn',
     Info = 'info',
     Debug = 'debug',
     Trace = 'trace'
@@ -8910,6 +8946,9 @@ export const RunsApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {string} projectId Project ID
          * @param {string} [pipelineId] Pipeline ID
          * @param {string} [jobId] Job ID
+         * @param {Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>} [statuses] Run Statuses
+         * @param {string} [startDate] Start Date
+         * @param {string} [endDate] End Date
          * @param {'created_desc' | 'created_asc'} [sort] 
          * @param {number} [limit] 
          * @param {number} [offset] 
@@ -8917,7 +8956,7 @@ export const RunsApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjectRuns: async (projectId: string, pipelineId?: string, jobId?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options: any = {}): Promise<RequestArgs> => {
+        listProjectRuns: async (projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('listProjectRuns', 'projectId', projectId)
             const localVarPath = `/projects/{project_id}/runs`
@@ -8943,6 +8982,22 @@ export const RunsApiAxiosParamCreator = function (configuration?: Configuration)
 
             if (jobId !== undefined) {
                 localVarQueryParameter['job_id'] = jobId;
+            }
+
+            if (statuses) {
+                localVarQueryParameter['statuses'] = statuses;
+            }
+
+            if (startDate !== undefined) {
+                localVarQueryParameter['start_date'] = (startDate as any instanceof Date) ?
+                    (startDate as any).toISOString() :
+                    startDate;
+            }
+
+            if (endDate !== undefined) {
+                localVarQueryParameter['end_date'] = (endDate as any instanceof Date) ?
+                    (endDate as any).toISOString() :
+                    endDate;
             }
 
             if (sort !== undefined) {
@@ -9119,6 +9174,9 @@ export const RunsApiFp = function(configuration?: Configuration) {
          * @param {string} projectId Project ID
          * @param {string} [pipelineId] Pipeline ID
          * @param {string} [jobId] Job ID
+         * @param {Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>} [statuses] Run Statuses
+         * @param {string} [startDate] Start Date
+         * @param {string} [endDate] End Date
          * @param {'created_desc' | 'created_asc'} [sort] 
          * @param {number} [limit] 
          * @param {number} [offset] 
@@ -9126,8 +9184,8 @@ export const RunsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20014>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listProjectRuns(projectId, pipelineId, jobId, sort, limit, offset, fields, options);
+        async listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20014>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listProjectRuns(projectId, pipelineId, jobId, statuses, startDate, endDate, sort, limit, offset, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -9206,6 +9264,9 @@ export const RunsApiFactory = function (configuration?: Configuration, basePath?
          * @param {string} projectId Project ID
          * @param {string} [pipelineId] Pipeline ID
          * @param {string} [jobId] Job ID
+         * @param {Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>} [statuses] Run Statuses
+         * @param {string} [startDate] Start Date
+         * @param {string} [endDate] End Date
          * @param {'created_desc' | 'created_asc'} [sort] 
          * @param {number} [limit] 
          * @param {number} [offset] 
@@ -9213,8 +9274,8 @@ export const RunsApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any): AxiosPromise<InlineResponse20014> {
-            return localVarFp.listProjectRuns(projectId, pipelineId, jobId, sort, limit, offset, fields, options).then((request) => request(axios, basePath));
+        listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any): AxiosPromise<InlineResponse20014> {
+            return localVarFp.listProjectRuns(projectId, pipelineId, jobId, statuses, startDate, endDate, sort, limit, offset, fields, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9296,6 +9357,9 @@ export class RunsApi extends BaseAPI {
      * @param {string} projectId Project ID
      * @param {string} [pipelineId] Pipeline ID
      * @param {string} [jobId] Job ID
+     * @param {Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>} [statuses] Run Statuses
+     * @param {string} [startDate] Start Date
+     * @param {string} [endDate] End Date
      * @param {'created_desc' | 'created_asc'} [sort] 
      * @param {number} [limit] 
      * @param {number} [offset] 
@@ -9304,8 +9368,8 @@ export class RunsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RunsApi
      */
-    public listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any) {
-        return RunsApiFp(this.configuration).listProjectRuns(projectId, pipelineId, jobId, sort, limit, offset, fields, options).then((request) => request(this.axios, this.basePath));
+    public listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any) {
+        return RunsApiFp(this.configuration).listProjectRuns(projectId, pipelineId, jobId, statuses, startDate, endDate, sort, limit, offset, fields, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
