@@ -44,6 +44,10 @@
       "description": "Manage projects"
     },
     {
+      "name": "runner_pools",
+      "description": "Runner pools orchestrate fleets of runners"
+    },
+    {
       "name": "runs",
       "description": "Manage runs"
     },
@@ -3875,7 +3879,8 @@
                 "enum": [
                   "pipeline",
                   "pipeline_revision",
-                  "webhook_token"
+                  "webhook_token",
+                  "expected_variables"
                 ]
               }
             }
@@ -4148,6 +4153,84 @@
       },
       "parameters": []
     },
+    "/projects/{project_id}/runner_managers": {
+      "get": {
+        "tags": [
+          "runner_pools"
+        ],
+        "summary": "List all managers associated with a project",
+        "description": "",
+        "operationId": "listProjectManagers",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "runners",
+            "in": "query",
+            "description": "Include runners",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Additional fields to return",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "runner_options",
+                  "runner_manager_options",
+                  "instances"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "runner_managers": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/RunnerManager"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
     "/projects/{project_id}/agents": {
       "get": {
         "tags": [
@@ -4324,7 +4407,8 @@
                 "enum": [
                   "job",
                   "pipeline",
-                  "runner_agent"
+                  "runner_agent",
+                  "runner_manager"
                 ]
               }
             }
@@ -4408,6 +4492,7 @@
                   "job",
                   "pipeline",
                   "runner_agent",
+                  "runner_manager",
                   "pipeline_revision"
                 ]
               }
@@ -6739,6 +6824,514 @@
       },
       "parameters": []
     },
+    "/organizations/{organization_id}/runner_managers": {
+      "get": {
+        "tags": [
+          "runner_pools"
+        ],
+        "summary": "List all managers for an organization",
+        "description": "",
+        "operationId": "listOrganizationRunnerManagers",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "runners",
+            "in": "query",
+            "description": "Include runners",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Additional fields to return",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "runner_options",
+                  "runner_manager_options",
+                  "instances"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "runner_managers": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/RunnerManager"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "runner_pools"
+        ],
+        "summary": "Create runner manager",
+        "description": "",
+        "operationId": "createRunnerManager",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "hosted": {
+                    "type": "boolean"
+                  },
+                  "provider": {
+                    "type": "string"
+                  },
+                  "project_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "runner_manager_options": {
+                    "type": "object",
+                    "properties": {
+                      "scaling": {
+                        "type": "object",
+                        "properties": {
+                          "queueDepthThreshold": {
+                            "type": "number"
+                          },
+                          "queueAverageTimeThresholdMs": {
+                            "type": "number"
+                          },
+                          "scaleUpCooldownMs": {
+                            "type": "number"
+                          },
+                          "scaleDownCooldownMs": {
+                            "type": "number"
+                          },
+                          "scaleUpPercentage": {
+                            "type": "number"
+                          },
+                          "scaleDownPercentage": {
+                            "type": "number"
+                          }
+                        }
+                      },
+                      "timeoutConfig": {
+                        "type": "object",
+                        "properties": {
+                          "createTimeout": {
+                            "type": "number"
+                          },
+                          "runningTimeout": {
+                            "type": "number"
+                          },
+                          "idleTimeout": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunnerManager"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/organizations/{organization_id}/runner_managers/{_id}": {
+      "get": {
+        "tags": [
+          "runner_pools"
+        ],
+        "summary": "Get manager",
+        "description": "",
+        "operationId": "getRunnerManager",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Manager ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "runners",
+            "in": "query",
+            "description": "Include runners",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Additional fields to return",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "name",
+                  "runner_options",
+                  "runner_manager_options",
+                  "instances",
+                  "key"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunnerManager"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "runner_pools"
+        ],
+        "summary": "Update runner manager",
+        "description": "",
+        "operationId": "updateRunnerManager",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Manager ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "project_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "runner_manager_options": {
+                    "type": "object",
+                    "properties": {
+                      "scaling": {
+                        "type": "object",
+                        "properties": {
+                          "queueDepthThreshold": {
+                            "type": "number"
+                          },
+                          "queueAverageTimeThresholdMs": {
+                            "type": "number"
+                          },
+                          "scaleUpCooldownMs": {
+                            "type": "number"
+                          },
+                          "scaleDownCooldownMs": {
+                            "type": "number"
+                          },
+                          "scaleUpPercentage": {
+                            "type": "number"
+                          },
+                          "scaleDownPercentage": {
+                            "type": "number"
+                          }
+                        }
+                      },
+                      "timeoutConfig": {
+                        "type": "object",
+                        "properties": {
+                          "createTimeout": {
+                            "type": "number"
+                          },
+                          "runningTimeout": {
+                            "type": "number"
+                          },
+                          "idleTimeout": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "runner_options": {
+                    "type": "object",
+                    "properties": {
+                      "idle_ttl": {
+                        "type": "integer"
+                      },
+                      "startup_script": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "env": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "runner_pools"
+        ],
+        "summary": "Delete runner manager",
+        "description": "",
+        "operationId": "deleteRunnerManager",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Manager ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/organizations/{organization_id}/runner_managers/{_id}/key": {
+      "post": {
+        "tags": [
+          "runner_pools"
+        ],
+        "summary": "Regenerate runner manager key",
+        "description": "",
+        "operationId": "regenerateRunnerManagerKey",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Manager ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "parameters": []
+    },
     "/projects/{project_id}/jobs/{_id}/webhook/events": {
       "parameters": []
     }
@@ -7423,7 +8016,8 @@
             "type": "integer"
           },
           "variables": {
-            "type": "object"
+            "type": "object",
+            "nullable": true
           },
           "verbosity": {
             "type": "string",
@@ -7556,6 +8150,395 @@
                 }
               }
             }
+          }
+        }
+      },
+      "RunnerManager": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "organization_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "project_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "key": {
+            "type": "string",
+            "readOnly": true
+          },
+          "meta": {
+            "$ref": "#/components/schemas/RunnerManagerMeta"
+          },
+          "runner_options": {
+            "$ref": "#/components/schemas/RunnerManagerRunnerOptions"
+          },
+          "runner_manager_options": {
+            "$ref": "#/components/schemas/RunnerManagerOptions"
+          },
+          "instances": {
+            "type": "array",
+            "readOnly": true,
+            "items": {
+              "$ref": "#/components/schemas/RunnerManagerInstance"
+            }
+          },
+          "runners": {
+            "type": "array",
+            "readOnly": true,
+            "items": {
+              "$ref": "#/components/schemas/RunnerManagerRunnerAgent"
+            }
+          }
+        }
+      },
+      "RunnerManagerRunnerOptions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "idle_ttl": {
+            "type": "integer"
+          },
+          "autostart": {
+            "type": "boolean"
+          },
+          "startup_script": {
+            "type": "string",
+            "nullable": true
+          },
+          "env": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "RunnerManagerOptions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "hosted": {
+            "type": "boolean"
+          },
+          "timeoutConfig": {
+            "type": "object",
+            "properties": {
+              "createTimeout": {
+                "type": "integer"
+              },
+              "runningTimeout": {
+                "type": "integer"
+              },
+              "idleTimeout": {
+                "type": "integer"
+              }
+            }
+          },
+          "scaling": {
+            "type": "object",
+            "properties": {
+              "minClusterSize": {
+                "type": "integer"
+              },
+              "maxClusterSize": {
+                "type": "integer"
+              },
+              "queueDepthThreshold": {
+                "type": "integer"
+              },
+              "queueAverageTimeThresholdMs": {
+                "type": "integer"
+              },
+              "scaleUpCooldownMs": {
+                "type": "integer"
+              },
+              "scaleDownCooldownMs": {
+                "type": "integer"
+              },
+              "scaleUpPercetange": {
+                "type": "integer"
+              },
+              "scaleDownPercentage": {
+                "type": "integer"
+              }
+            }
+          },
+          "provider": {
+            "type": "string"
+          },
+          "providerConfig": {
+            "type": "object",
+            "readOnly": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/RunnerManagerProviderConfigKubernetesContainer"
+              },
+              {
+                "$ref": "#/components/schemas/RunnerManagerProviderConfigCloudFormationEc2"
+              },
+              {
+                "$ref": "#/components/schemas/RunnerManagerProviderConfigLocalDocker"
+              },
+              {}
+            ]
+          }
+        }
+      },
+      "RunnerManagerProviderConfigKubernetesContainer": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "image": {
+            "type": "object",
+            "properties": {
+              "imageRegistry": {
+                "type": "string"
+              },
+              "imageRepository": {
+                "type": "string"
+              },
+              "imageTag": {
+                "type": "string"
+              }
+            }
+          },
+          "namespace": {
+            "type": "string"
+          },
+          "cpuRequest": {
+            "type": "string"
+          },
+          "cpuLimit": {
+            "type": "string"
+          },
+          "memoryRequest": {
+            "type": "string"
+          },
+          "memoryLimit": {
+            "type": "string"
+          }
+        }
+      },
+      "RunnerManagerProviderConfigCloudFormationEc2": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "instanceType": {
+            "type": "string"
+          },
+          "instanceSubnets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "instanceSecurityGroupId": {
+            "type": "string"
+          },
+          "imageRegion": {
+            "type": "string"
+          },
+          "imageAccountId": {
+            "type": "string"
+          },
+          "imagePrefix": {
+            "type": "string"
+          },
+          "autoLatest": {
+            "type": "boolean"
+          }
+        }
+      },
+      "RunnerManagerProviderConfigLocalDocker": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "port": {
+            "type": "string"
+          }
+        }
+      },
+      "RunnerManagerInstance": {
+        "type": "object",
+        "additionalProperties": false,
+        "readOnly": true,
+        "properties": {
+          "_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "status": {
+            "type": "string",
+            "readOnly": true,
+            "enum": [
+              "bootup",
+              "active",
+              "inactive",
+              "error",
+              "tainted",
+              "offline"
+            ]
+          },
+          "statusDate": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "started": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "heartbeat": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "errorCount": {
+            "type": "integer",
+            "readOnly": true
+          }
+        }
+      },
+      "RunnerManagerMeta": {
+        "type": "object",
+        "additionalProperties": false,
+        "readOnly": true,
+        "properties": {
+          "managerScaling": {
+            "type": "object",
+            "readOnly": true,
+            "properties": {
+              "scaleUpCooldown": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "scaleDownCooldown": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "stats": {
+            "type": "object",
+            "readOnly": true,
+            "properties": {
+              "queueAverageTimeMs": {
+                "type": "integer"
+              },
+              "queued": {
+                "type": "integer"
+              },
+              "running": {
+                "type": "integer"
+              },
+              "runningAverageTimeMs": {
+                "type": "integer"
+              }
+            }
+          },
+          "scaling": {
+            "type": "object",
+            "readOnly": true,
+            "properties": {
+              "scaleUpCooldown": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "scaleDownCooldown": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      },
+      "RunnerManagerRunnerAgent": {
+        "type": "object",
+        "additionalProperties": false,
+        "readOnly": true,
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "status_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "heartbeat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "last_run": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "started": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "idle": {
+            "type": "boolean"
+          },
+          "idle_since": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "idle_ttl": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string"
+          },
+          "project_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "organization_id": {
+            "type": "string"
+          },
+          "runner_manager_id": {
+            "type": "string"
+          },
+          "agent_version": {
+            "type": "string"
           }
         }
       },
