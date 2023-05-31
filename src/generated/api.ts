@@ -584,6 +584,74 @@ export interface InlineObject22 {
 /**
  * 
  * @export
+ * @interface InlineObject23
+ */
+export interface InlineObject23 {
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject23
+     */
+    name?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject23
+     */
+    hosted?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject23
+     */
+    provider?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject23
+     */
+    project_ids?: Array<string>;
+    /**
+     * 
+     * @type {OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions}
+     * @memberof InlineObject23
+     */
+    runner_manager_options?: OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions;
+}
+/**
+ * 
+ * @export
+ * @interface InlineObject24
+ */
+export interface InlineObject24 {
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject24
+     */
+    name?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject24
+     */
+    project_ids?: Array<string>;
+    /**
+     * 
+     * @type {OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions}
+     * @memberof InlineObject24
+     */
+    runner_manager_options?: OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions;
+    /**
+     * 
+     * @type {OrganizationsOrganizationIdAgentsIdOptions}
+     * @memberof InlineObject24
+     */
+    runner_options?: OrganizationsOrganizationIdAgentsIdOptions;
+}
+/**
+ * 
+ * @export
  * @interface InlineObject3
  */
 export interface InlineObject3 {
@@ -901,10 +969,10 @@ export interface InlineResponse20012 {
 export interface InlineResponse20013 {
     /**
      * 
-     * @type {Array<RunnerAgent>}
+     * @type {Array<RunnerManager>}
      * @memberof InlineResponse20013
      */
-    runner_agents?: Array<RunnerAgent>;
+    runner_managers?: Array<RunnerManager>;
 }
 /**
  * 
@@ -914,10 +982,10 @@ export interface InlineResponse20013 {
 export interface InlineResponse20014 {
     /**
      * 
-     * @type {Array<Run>}
+     * @type {Array<RunnerAgent>}
      * @memberof InlineResponse20014
      */
-    runs?: Array<Run>;
+    runner_agents?: Array<RunnerAgent>;
 }
 /**
  * 
@@ -927,10 +995,10 @@ export interface InlineResponse20014 {
 export interface InlineResponse20015 {
     /**
      * 
-     * @type {Array<Organization>}
+     * @type {Array<Run>}
      * @memberof InlineResponse20015
      */
-    organizations?: Array<Organization>;
+    runs?: Array<Run>;
 }
 /**
  * 
@@ -940,10 +1008,10 @@ export interface InlineResponse20015 {
 export interface InlineResponse20016 {
     /**
      * 
-     * @type {Array<CatalogAccessRequest>}
+     * @type {Array<Organization>}
      * @memberof InlineResponse20016
      */
-    users?: Array<CatalogAccessRequest>;
+    organizations?: Array<Organization>;
 }
 /**
  * 
@@ -953,10 +1021,10 @@ export interface InlineResponse20016 {
 export interface InlineResponse20017 {
     /**
      * 
-     * @type {Array<CatalogAccess>}
+     * @type {Array<CatalogAccessRequest>}
      * @memberof InlineResponse20017
      */
-    catalog_access?: Array<CatalogAccess>;
+    users?: Array<CatalogAccessRequest>;
 }
 /**
  * 
@@ -966,10 +1034,10 @@ export interface InlineResponse20017 {
 export interface InlineResponse20018 {
     /**
      * 
-     * @type {Array<OrganizationInvite>}
+     * @type {Array<CatalogAccess>}
      * @memberof InlineResponse20018
      */
-    users?: Array<OrganizationInvite>;
+    catalog_access?: Array<CatalogAccess>;
 }
 /**
  * 
@@ -979,10 +1047,10 @@ export interface InlineResponse20018 {
 export interface InlineResponse20019 {
     /**
      * 
-     * @type {Array<UserGroup>}
+     * @type {Array<OrganizationInvite>}
      * @memberof InlineResponse20019
      */
-    users?: Array<UserGroup>;
+    users?: Array<OrganizationInvite>;
 }
 /**
  * 
@@ -996,6 +1064,19 @@ export interface InlineResponse2002 {
      * @memberof InlineResponse2002
      */
     users?: Array<User>;
+}
+/**
+ * 
+ * @export
+ * @interface InlineResponse20020
+ */
+export interface InlineResponse20020 {
+    /**
+     * 
+     * @type {Array<UserGroup>}
+     * @memberof InlineResponse20020
+     */
+    users?: Array<UserGroup>;
 }
 /**
  * 
@@ -1184,6 +1265,19 @@ export interface InlineResponse2012 {
 /**
  * 
  * @export
+ * @interface InlineResponse2013
+ */
+export interface InlineResponse2013 {
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2013
+     */
+    key?: string;
+}
+/**
+ * 
+ * @export
  * @interface Job
  */
 export interface Job {
@@ -1324,7 +1418,7 @@ export interface Job {
      * @type {object}
      * @memberof Job
      */
-    variables?: object;
+    variables?: object | null;
     /**
      * 
      * @type {string}
@@ -1696,6 +1790,93 @@ export interface OrganizationsOrganizationIdAgentsIdOptionsEnv {
      * @memberof OrganizationsOrganizationIdAgentsIdOptionsEnv
      */
     value?: string;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions
+ */
+export interface OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions {
+    /**
+     * 
+     * @type {OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsScaling}
+     * @memberof OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions
+     */
+    scaling?: OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsScaling;
+    /**
+     * 
+     * @type {OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsTimeoutConfig}
+     * @memberof OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions
+     */
+    timeoutConfig?: OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsTimeoutConfig;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsScaling
+ */
+export interface OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsScaling {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsScaling
+     */
+    queueDepthThreshold?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsScaling
+     */
+    queueAverageTimeThresholdMs?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsScaling
+     */
+    scaleUpCooldownMs?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsScaling
+     */
+    scaleDownCooldownMs?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsScaling
+     */
+    scaleUpPercentage?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsScaling
+     */
+    scaleDownPercentage?: number;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsTimeoutConfig
+ */
+export interface OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsTimeoutConfig {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsTimeoutConfig
+     */
+    createTimeout?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsTimeoutConfig
+     */
+    runningTimeout?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsTimeoutConfig
+     */
+    idleTimeout?: number;
 }
 /**
  * 
@@ -2511,6 +2692,592 @@ export interface RunnerAgentOptionsOptions {
 /**
  * 
  * @export
+ * @interface RunnerManager
+ */
+export interface RunnerManager {
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManager
+     */
+    _id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManager
+     */
+    organization_id?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RunnerManager
+     */
+    project_ids?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManager
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManager
+     */
+    created?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManager
+     */
+    key?: string;
+    /**
+     * 
+     * @type {RunnerManagerMeta}
+     * @memberof RunnerManager
+     */
+    meta?: RunnerManagerMeta;
+    /**
+     * 
+     * @type {RunnerManagerRunnerOptions}
+     * @memberof RunnerManager
+     */
+    runner_options?: RunnerManagerRunnerOptions;
+    /**
+     * 
+     * @type {RunnerManagerOptions}
+     * @memberof RunnerManager
+     */
+    runner_manager_options?: RunnerManagerOptions;
+    /**
+     * 
+     * @type {Array<RunnerManagerInstance>}
+     * @memberof RunnerManager
+     */
+    instances?: Array<RunnerManagerInstance>;
+    /**
+     * 
+     * @type {Array<RunnerManagerRunnerAgent>}
+     * @memberof RunnerManager
+     */
+    runners?: Array<RunnerManagerRunnerAgent>;
+}
+/**
+ * 
+ * @export
+ * @interface RunnerManagerInstance
+ */
+export interface RunnerManagerInstance {
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerInstance
+     */
+    _id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerInstance
+     */
+    status?: RunnerManagerInstanceStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerInstance
+     */
+    statusDate?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerInstance
+     */
+    started?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerInstance
+     */
+    heartbeat?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerInstance
+     */
+    errorCount?: number;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum RunnerManagerInstanceStatusEnum {
+    Bootup = 'bootup',
+    Active = 'active',
+    Inactive = 'inactive',
+    Error = 'error',
+    Tainted = 'tainted',
+    Offline = 'offline'
+}
+
+/**
+ * 
+ * @export
+ * @interface RunnerManagerMeta
+ */
+export interface RunnerManagerMeta {
+    /**
+     * 
+     * @type {RunnerManagerMetaManagerScaling}
+     * @memberof RunnerManagerMeta
+     */
+    managerScaling?: RunnerManagerMetaManagerScaling;
+    /**
+     * 
+     * @type {RunnerManagerMetaStats}
+     * @memberof RunnerManagerMeta
+     */
+    stats?: RunnerManagerMetaStats;
+    /**
+     * 
+     * @type {RunnerManagerMetaManagerScaling}
+     * @memberof RunnerManagerMeta
+     */
+    scaling?: RunnerManagerMetaManagerScaling;
+}
+/**
+ * 
+ * @export
+ * @interface RunnerManagerMetaManagerScaling
+ */
+export interface RunnerManagerMetaManagerScaling {
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerMetaManagerScaling
+     */
+    scaleUpCooldown?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerMetaManagerScaling
+     */
+    scaleDownCooldown?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RunnerManagerMetaStats
+ */
+export interface RunnerManagerMetaStats {
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerMetaStats
+     */
+    queueAverageTimeMs?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerMetaStats
+     */
+    queued?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerMetaStats
+     */
+    running?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerMetaStats
+     */
+    runningAverageTimeMs?: number;
+}
+/**
+ * 
+ * @export
+ * @interface RunnerManagerOptions
+ */
+export interface RunnerManagerOptions {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof RunnerManagerOptions
+     */
+    hosted?: boolean;
+    /**
+     * 
+     * @type {RunnerManagerOptionsTimeoutConfig}
+     * @memberof RunnerManagerOptions
+     */
+    timeoutConfig?: RunnerManagerOptionsTimeoutConfig;
+    /**
+     * 
+     * @type {RunnerManagerOptionsScaling}
+     * @memberof RunnerManagerOptions
+     */
+    scaling?: RunnerManagerOptionsScaling;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerOptions
+     */
+    provider?: string;
+    /**
+     * 
+     * @type {RunnerManagerProviderConfigKubernetesContainer | RunnerManagerProviderConfigCloudFormationEc2 | RunnerManagerProviderConfigLocalDocker}
+     * @memberof RunnerManagerOptions
+     */
+    providerConfig?: RunnerManagerProviderConfigKubernetesContainer | RunnerManagerProviderConfigCloudFormationEc2 | RunnerManagerProviderConfigLocalDocker;
+}
+/**
+ * 
+ * @export
+ * @interface RunnerManagerOptionsScaling
+ */
+export interface RunnerManagerOptionsScaling {
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerOptionsScaling
+     */
+    minClusterSize?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerOptionsScaling
+     */
+    maxClusterSize?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerOptionsScaling
+     */
+    queueDepthThreshold?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerOptionsScaling
+     */
+    queueAverageTimeThresholdMs?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerOptionsScaling
+     */
+    scaleUpCooldownMs?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerOptionsScaling
+     */
+    scaleDownCooldownMs?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerOptionsScaling
+     */
+    scaleUpPercetange?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerOptionsScaling
+     */
+    scaleDownPercentage?: number;
+}
+/**
+ * 
+ * @export
+ * @interface RunnerManagerOptionsTimeoutConfig
+ */
+export interface RunnerManagerOptionsTimeoutConfig {
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerOptionsTimeoutConfig
+     */
+    createTimeout?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerOptionsTimeoutConfig
+     */
+    runningTimeout?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerOptionsTimeoutConfig
+     */
+    idleTimeout?: number;
+}
+/**
+ * 
+ * @export
+ * @interface RunnerManagerProviderConfigCloudFormationEc2
+ */
+export interface RunnerManagerProviderConfigCloudFormationEc2 {
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigCloudFormationEc2
+     */
+    instanceType?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RunnerManagerProviderConfigCloudFormationEc2
+     */
+    instanceSubnets?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigCloudFormationEc2
+     */
+    instanceSecurityGroupId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigCloudFormationEc2
+     */
+    imageRegion?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigCloudFormationEc2
+     */
+    imageAccountId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigCloudFormationEc2
+     */
+    imagePrefix?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof RunnerManagerProviderConfigCloudFormationEc2
+     */
+    autoLatest?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface RunnerManagerProviderConfigKubernetesContainer
+ */
+export interface RunnerManagerProviderConfigKubernetesContainer {
+    /**
+     * 
+     * @type {RunnerManagerProviderConfigKubernetesContainerImage}
+     * @memberof RunnerManagerProviderConfigKubernetesContainer
+     */
+    image?: RunnerManagerProviderConfigKubernetesContainerImage;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigKubernetesContainer
+     */
+    namespace?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigKubernetesContainer
+     */
+    cpuRequest?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigKubernetesContainer
+     */
+    cpuLimit?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigKubernetesContainer
+     */
+    memoryRequest?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigKubernetesContainer
+     */
+    memoryLimit?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RunnerManagerProviderConfigKubernetesContainerImage
+ */
+export interface RunnerManagerProviderConfigKubernetesContainerImage {
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigKubernetesContainerImage
+     */
+    imageRegistry?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigKubernetesContainerImage
+     */
+    imageRepository?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigKubernetesContainerImage
+     */
+    imageTag?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RunnerManagerProviderConfigLocalDocker
+ */
+export interface RunnerManagerProviderConfigLocalDocker {
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigLocalDocker
+     */
+    address?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerProviderConfigLocalDocker
+     */
+    port?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RunnerManagerRunnerAgent
+ */
+export interface RunnerManagerRunnerAgent {
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    _id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    status?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    status_date?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    created?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    heartbeat?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    last_run?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    started?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    idle?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    idle_since?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    idle_ttl?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    type?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    project_ids?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    organization_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    runner_manager_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerRunnerAgent
+     */
+    agent_version?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RunnerManagerRunnerOptions
+ */
+export interface RunnerManagerRunnerOptions {
+    /**
+     * 
+     * @type {number}
+     * @memberof RunnerManagerRunnerOptions
+     */
+    idle_ttl?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof RunnerManagerRunnerOptions
+     */
+    autostart?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunnerManagerRunnerOptions
+     */
+    startup_script?: string | null;
+    /**
+     * 
+     * @type {Array<OrganizationsOrganizationIdAgentsIdOptionsEnv>}
+     * @memberof RunnerManagerRunnerOptions
+     */
+    env?: Array<OrganizationsOrganizationIdAgentsIdOptionsEnv>;
+}
+/**
+ * 
+ * @export
  * @interface Token
  */
 export interface Token {
@@ -3106,7 +3873,7 @@ export const AgentsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizationRunnerAgents(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20013>> {
+        async listOrganizationRunnerAgents(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20014>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizationRunnerAgents(organizationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3117,7 +3884,7 @@ export const AgentsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listProjectRunnerAgents(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20013>> {
+        async listProjectRunnerAgents(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20014>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listProjectRunnerAgents(projectId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3221,7 +3988,7 @@ export const AgentsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizationRunnerAgents(organizationId: string, options?: any): AxiosPromise<InlineResponse20013> {
+        listOrganizationRunnerAgents(organizationId: string, options?: any): AxiosPromise<InlineResponse20014> {
             return localVarFp.listOrganizationRunnerAgents(organizationId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3231,7 +3998,7 @@ export const AgentsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjectRunnerAgents(projectId: string, options?: any): AxiosPromise<InlineResponse20013> {
+        listProjectRunnerAgents(projectId: string, options?: any): AxiosPromise<InlineResponse20014> {
             return localVarFp.listProjectRunnerAgents(projectId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4387,7 +5154,7 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCatalogAccessRequests(organizationId: string, catalogId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20016>> {
+        async listCatalogAccessRequests(organizationId: string, catalogId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20017>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listCatalogAccessRequests(organizationId, catalogId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -4400,7 +5167,7 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCatalogOrganizationAccess(organizationId: string, catalogId: string, fields?: Array<'shared_organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20017>> {
+        async listCatalogOrganizationAccess(organizationId: string, catalogId: string, fields?: Array<'shared_organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20018>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listCatalogOrganizationAccess(organizationId, catalogId, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -4428,7 +5195,7 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizationSharedCatalogAccessRequests(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20016>> {
+        async listOrganizationSharedCatalogAccessRequests(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20017>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizationSharedCatalogAccessRequests(organizationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -4619,7 +5386,7 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCatalogAccessRequests(organizationId: string, catalogId: string, options?: any): AxiosPromise<InlineResponse20016> {
+        listCatalogAccessRequests(organizationId: string, catalogId: string, options?: any): AxiosPromise<InlineResponse20017> {
             return localVarFp.listCatalogAccessRequests(organizationId, catalogId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4631,7 +5398,7 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCatalogOrganizationAccess(organizationId: string, catalogId: string, fields?: Array<'shared_organization'>, options?: any): AxiosPromise<InlineResponse20017> {
+        listCatalogOrganizationAccess(organizationId: string, catalogId: string, fields?: Array<'shared_organization'>, options?: any): AxiosPromise<InlineResponse20018> {
             return localVarFp.listCatalogOrganizationAccess(organizationId, catalogId, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4657,7 +5424,7 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizationSharedCatalogAccessRequests(organizationId: string, options?: any): AxiosPromise<InlineResponse20016> {
+        listOrganizationSharedCatalogAccessRequests(organizationId: string, options?: any): AxiosPromise<InlineResponse20017> {
             return localVarFp.listOrganizationSharedCatalogAccessRequests(organizationId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5554,11 +6321,11 @@ export const JobsApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary Get job
          * @param {string} projectId Project ID
          * @param {string} id Job ID
-         * @param {Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>} [fields] Additional fields to return
+         * @param {Array<'pipeline' | 'pipeline_revision' | 'webhook_token' | 'expected_variables'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJob: async (projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>, options: any = {}): Promise<RequestArgs> => {
+        getJob: async (projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision' | 'webhook_token' | 'expected_variables'>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getJob', 'projectId', projectId)
             // verify required parameter 'id' is not null or undefined
@@ -5841,11 +6608,11 @@ export const JobsApiFp = function(configuration?: Configuration) {
          * @summary Get job
          * @param {string} projectId Project ID
          * @param {string} id Job ID
-         * @param {Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>} [fields] Additional fields to return
+         * @param {Array<'pipeline' | 'pipeline_revision' | 'webhook_token' | 'expected_variables'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getJob(projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Job>> {
+        async getJob(projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision' | 'webhook_token' | 'expected_variables'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Job>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getJob(projectId, id, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5941,11 +6708,11 @@ export const JobsApiFactory = function (configuration?: Configuration, basePath?
          * @summary Get job
          * @param {string} projectId Project ID
          * @param {string} id Job ID
-         * @param {Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>} [fields] Additional fields to return
+         * @param {Array<'pipeline' | 'pipeline_revision' | 'webhook_token' | 'expected_variables'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJob(projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>, options?: any): AxiosPromise<Job> {
+        getJob(projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision' | 'webhook_token' | 'expected_variables'>, options?: any): AxiosPromise<Job> {
             return localVarFp.getJob(projectId, id, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6040,12 +6807,12 @@ export class JobsApi extends BaseAPI {
      * @summary Get job
      * @param {string} projectId Project ID
      * @param {string} id Job ID
-     * @param {Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>} [fields] Additional fields to return
+     * @param {Array<'pipeline' | 'pipeline_revision' | 'webhook_token' | 'expected_variables'>} [fields] Additional fields to return
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof JobsApi
      */
-    public getJob(projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision' | 'webhook_token'>, options?: any) {
+    public getJob(projectId: string, id: string, fields?: Array<'pipeline' | 'pipeline_revision' | 'webhook_token' | 'expected_variables'>, options?: any) {
         return JobsApiFp(this.configuration).getJob(projectId, id, fields, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -6411,7 +7178,7 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizations(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20015>> {
+        async listOrganizations(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20016>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizations(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6490,7 +7257,7 @@ export const OrganizationsApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizations(options?: any): AxiosPromise<InlineResponse20015> {
+        listOrganizations(options?: any): AxiosPromise<InlineResponse20016> {
             return localVarFp.listOrganizations(options).then((request) => request(axios, basePath));
         },
         /**
@@ -8804,6 +9571,635 @@ export class ProjectsApi extends BaseAPI {
 
 
 /**
+ * RunnerPoolsApi - axios parameter creator
+ * @export
+ */
+export const RunnerPoolsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create runner manager
+         * @param {string} organizationId Organization ID
+         * @param {InlineObject23} inlineObject23 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createRunnerManager: async (organizationId: string, inlineObject23: InlineObject23, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            assertParamExists('createRunnerManager', 'organizationId', organizationId)
+            // verify required parameter 'inlineObject23' is not null or undefined
+            assertParamExists('createRunnerManager', 'inlineObject23', inlineObject23)
+            const localVarPath = `/organizations/{organization_id}/runner_managers`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject23, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete runner manager
+         * @param {string} organizationId Organization ID
+         * @param {string} id Manager ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteRunnerManager: async (organizationId: string, id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            assertParamExists('deleteRunnerManager', 'organizationId', organizationId)
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteRunnerManager', 'id', id)
+            const localVarPath = `/organizations/{organization_id}/runner_managers/{_id}`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
+                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get manager
+         * @param {string} organizationId Organization ID
+         * @param {string} id Manager ID
+         * @param {boolean} [runners] Include runners
+         * @param {Array<'name' | 'runner_options' | 'runner_manager_options' | 'instances' | 'key'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRunnerManager: async (organizationId: string, id: string, runners?: boolean, fields?: Array<'name' | 'runner_options' | 'runner_manager_options' | 'instances' | 'key'>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            assertParamExists('getRunnerManager', 'organizationId', organizationId)
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getRunnerManager', 'id', id)
+            const localVarPath = `/organizations/{organization_id}/runner_managers/{_id}`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
+                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (runners !== undefined) {
+                localVarQueryParameter['runners'] = runners;
+            }
+
+            if (fields) {
+                localVarQueryParameter['fields'] = fields;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List all managers for an organization
+         * @param {string} organizationId Organization ID
+         * @param {boolean} [runners] Include runners
+         * @param {Array<'runner_options' | 'runner_manager_options' | 'instances'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listOrganizationRunnerManagers: async (organizationId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            assertParamExists('listOrganizationRunnerManagers', 'organizationId', organizationId)
+            const localVarPath = `/organizations/{organization_id}/runner_managers`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (runners !== undefined) {
+                localVarQueryParameter['runners'] = runners;
+            }
+
+            if (fields) {
+                localVarQueryParameter['fields'] = fields;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List all managers associated with a project
+         * @param {string} projectId Project ID
+         * @param {boolean} [runners] Include runners
+         * @param {Array<'runner_options' | 'runner_manager_options' | 'instances'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listProjectManagers: async (projectId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('listProjectManagers', 'projectId', projectId)
+            const localVarPath = `/projects/{project_id}/runner_managers`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (runners !== undefined) {
+                localVarQueryParameter['runners'] = runners;
+            }
+
+            if (fields) {
+                localVarQueryParameter['fields'] = fields;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Regenerate runner manager key
+         * @param {string} organizationId Organization ID
+         * @param {string} id Manager ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        regenerateRunnerManagerKey: async (organizationId: string, id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            assertParamExists('regenerateRunnerManagerKey', 'organizationId', organizationId)
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('regenerateRunnerManagerKey', 'id', id)
+            const localVarPath = `/organizations/{organization_id}/runner_managers/{_id}/key`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
+                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update runner manager
+         * @param {string} organizationId Organization ID
+         * @param {string} id Manager ID
+         * @param {InlineObject24} inlineObject24 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateRunnerManager: async (organizationId: string, id: string, inlineObject24: InlineObject24, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            assertParamExists('updateRunnerManager', 'organizationId', organizationId)
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateRunnerManager', 'id', id)
+            // verify required parameter 'inlineObject24' is not null or undefined
+            assertParamExists('updateRunnerManager', 'inlineObject24', inlineObject24)
+            const localVarPath = `/organizations/{organization_id}/runner_managers/{_id}`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
+                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject24, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * RunnerPoolsApi - functional programming interface
+ * @export
+ */
+export const RunnerPoolsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = RunnerPoolsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create runner manager
+         * @param {string} organizationId Organization ID
+         * @param {InlineObject23} inlineObject23 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createRunnerManager(organizationId: string, inlineObject23: InlineObject23, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunnerManager>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createRunnerManager(organizationId, inlineObject23, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete runner manager
+         * @param {string} organizationId Organization ID
+         * @param {string} id Manager ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteRunnerManager(organizationId: string, id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteRunnerManager(organizationId, id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get manager
+         * @param {string} organizationId Organization ID
+         * @param {string} id Manager ID
+         * @param {boolean} [runners] Include runners
+         * @param {Array<'name' | 'runner_options' | 'runner_manager_options' | 'instances' | 'key'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getRunnerManager(organizationId: string, id: string, runners?: boolean, fields?: Array<'name' | 'runner_options' | 'runner_manager_options' | 'instances' | 'key'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunnerManager>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRunnerManager(organizationId, id, runners, fields, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary List all managers for an organization
+         * @param {string} organizationId Organization ID
+         * @param {boolean} [runners] Include runners
+         * @param {Array<'runner_options' | 'runner_manager_options' | 'instances'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listOrganizationRunnerManagers(organizationId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20013>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizationRunnerManagers(organizationId, runners, fields, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary List all managers associated with a project
+         * @param {string} projectId Project ID
+         * @param {boolean} [runners] Include runners
+         * @param {Array<'runner_options' | 'runner_manager_options' | 'instances'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listProjectManagers(projectId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20013>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listProjectManagers(projectId, runners, fields, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Regenerate runner manager key
+         * @param {string} organizationId Organization ID
+         * @param {string} id Manager ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async regenerateRunnerManagerKey(organizationId: string, id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2013>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.regenerateRunnerManagerKey(organizationId, id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update runner manager
+         * @param {string} organizationId Organization ID
+         * @param {string} id Manager ID
+         * @param {InlineObject24} inlineObject24 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateRunnerManager(organizationId: string, id: string, inlineObject24: InlineObject24, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateRunnerManager(organizationId, id, inlineObject24, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * RunnerPoolsApi - factory interface
+ * @export
+ */
+export const RunnerPoolsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = RunnerPoolsApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create runner manager
+         * @param {string} organizationId Organization ID
+         * @param {InlineObject23} inlineObject23 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createRunnerManager(organizationId: string, inlineObject23: InlineObject23, options?: any): AxiosPromise<RunnerManager> {
+            return localVarFp.createRunnerManager(organizationId, inlineObject23, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete runner manager
+         * @param {string} organizationId Organization ID
+         * @param {string} id Manager ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteRunnerManager(organizationId: string, id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.deleteRunnerManager(organizationId, id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get manager
+         * @param {string} organizationId Organization ID
+         * @param {string} id Manager ID
+         * @param {boolean} [runners] Include runners
+         * @param {Array<'name' | 'runner_options' | 'runner_manager_options' | 'instances' | 'key'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRunnerManager(organizationId: string, id: string, runners?: boolean, fields?: Array<'name' | 'runner_options' | 'runner_manager_options' | 'instances' | 'key'>, options?: any): AxiosPromise<RunnerManager> {
+            return localVarFp.getRunnerManager(organizationId, id, runners, fields, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List all managers for an organization
+         * @param {string} organizationId Organization ID
+         * @param {boolean} [runners] Include runners
+         * @param {Array<'runner_options' | 'runner_manager_options' | 'instances'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listOrganizationRunnerManagers(organizationId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options?: any): AxiosPromise<InlineResponse20013> {
+            return localVarFp.listOrganizationRunnerManagers(organizationId, runners, fields, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List all managers associated with a project
+         * @param {string} projectId Project ID
+         * @param {boolean} [runners] Include runners
+         * @param {Array<'runner_options' | 'runner_manager_options' | 'instances'>} [fields] Additional fields to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listProjectManagers(projectId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options?: any): AxiosPromise<InlineResponse20013> {
+            return localVarFp.listProjectManagers(projectId, runners, fields, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Regenerate runner manager key
+         * @param {string} organizationId Organization ID
+         * @param {string} id Manager ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        regenerateRunnerManagerKey(organizationId: string, id: string, options?: any): AxiosPromise<InlineResponse2013> {
+            return localVarFp.regenerateRunnerManagerKey(organizationId, id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update runner manager
+         * @param {string} organizationId Organization ID
+         * @param {string} id Manager ID
+         * @param {InlineObject24} inlineObject24 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateRunnerManager(organizationId: string, id: string, inlineObject24: InlineObject24, options?: any): AxiosPromise<void> {
+            return localVarFp.updateRunnerManager(organizationId, id, inlineObject24, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * RunnerPoolsApi - object-oriented interface
+ * @export
+ * @class RunnerPoolsApi
+ * @extends {BaseAPI}
+ */
+export class RunnerPoolsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create runner manager
+     * @param {string} organizationId Organization ID
+     * @param {InlineObject23} inlineObject23 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RunnerPoolsApi
+     */
+    public createRunnerManager(organizationId: string, inlineObject23: InlineObject23, options?: any) {
+        return RunnerPoolsApiFp(this.configuration).createRunnerManager(organizationId, inlineObject23, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete runner manager
+     * @param {string} organizationId Organization ID
+     * @param {string} id Manager ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RunnerPoolsApi
+     */
+    public deleteRunnerManager(organizationId: string, id: string, options?: any) {
+        return RunnerPoolsApiFp(this.configuration).deleteRunnerManager(organizationId, id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get manager
+     * @param {string} organizationId Organization ID
+     * @param {string} id Manager ID
+     * @param {boolean} [runners] Include runners
+     * @param {Array<'name' | 'runner_options' | 'runner_manager_options' | 'instances' | 'key'>} [fields] Additional fields to return
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RunnerPoolsApi
+     */
+    public getRunnerManager(organizationId: string, id: string, runners?: boolean, fields?: Array<'name' | 'runner_options' | 'runner_manager_options' | 'instances' | 'key'>, options?: any) {
+        return RunnerPoolsApiFp(this.configuration).getRunnerManager(organizationId, id, runners, fields, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List all managers for an organization
+     * @param {string} organizationId Organization ID
+     * @param {boolean} [runners] Include runners
+     * @param {Array<'runner_options' | 'runner_manager_options' | 'instances'>} [fields] Additional fields to return
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RunnerPoolsApi
+     */
+    public listOrganizationRunnerManagers(organizationId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options?: any) {
+        return RunnerPoolsApiFp(this.configuration).listOrganizationRunnerManagers(organizationId, runners, fields, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List all managers associated with a project
+     * @param {string} projectId Project ID
+     * @param {boolean} [runners] Include runners
+     * @param {Array<'runner_options' | 'runner_manager_options' | 'instances'>} [fields] Additional fields to return
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RunnerPoolsApi
+     */
+    public listProjectManagers(projectId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options?: any) {
+        return RunnerPoolsApiFp(this.configuration).listProjectManagers(projectId, runners, fields, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Regenerate runner manager key
+     * @param {string} organizationId Organization ID
+     * @param {string} id Manager ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RunnerPoolsApi
+     */
+    public regenerateRunnerManagerKey(organizationId: string, id: string, options?: any) {
+        return RunnerPoolsApiFp(this.configuration).regenerateRunnerManagerKey(organizationId, id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update runner manager
+     * @param {string} organizationId Organization ID
+     * @param {string} id Manager ID
+     * @param {InlineObject24} inlineObject24 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RunnerPoolsApi
+     */
+    public updateRunnerManager(organizationId: string, id: string, inlineObject24: InlineObject24, options?: any) {
+        return RunnerPoolsApiFp(this.configuration).updateRunnerManager(organizationId, id, inlineObject24, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
  * RunsApi - axios parameter creator
  * @export
  */
@@ -8898,11 +10294,11 @@ export const RunsApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary Get run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
+         * @param {Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'runner_manager' | 'pipeline_revision'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRun: async (projectId: string, id: string, fields?: Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options: any = {}): Promise<RequestArgs> => {
+        getRun: async (projectId: string, id: string, fields?: Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'runner_manager' | 'pipeline_revision'>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getRun', 'projectId', projectId)
             // verify required parameter 'id' is not null or undefined
@@ -8952,11 +10348,11 @@ export const RunsApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {'created_desc' | 'created_asc'} [sort] 
          * @param {number} [limit] 
          * @param {number} [offset] 
-         * @param {Array<'job' | 'pipeline' | 'runner_agent'>} [fields] Additional fields to return
+         * @param {Array<'job' | 'pipeline' | 'runner_agent' | 'runner_manager'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjectRuns: async (projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options: any = {}): Promise<RequestArgs> => {
+        listProjectRuns: async (projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'runner_manager'>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('listProjectRuns', 'projectId', projectId)
             const localVarPath = `/projects/{project_id}/runs`
@@ -9160,11 +10556,11 @@ export const RunsApiFp = function(configuration?: Configuration) {
          * @summary Get run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
+         * @param {Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'runner_manager' | 'pipeline_revision'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRun(projectId: string, id: string, fields?: Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Run>> {
+        async getRun(projectId: string, id: string, fields?: Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'runner_manager' | 'pipeline_revision'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Run>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getRun(projectId, id, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9180,11 +10576,11 @@ export const RunsApiFp = function(configuration?: Configuration) {
          * @param {'created_desc' | 'created_asc'} [sort] 
          * @param {number} [limit] 
          * @param {number} [offset] 
-         * @param {Array<'job' | 'pipeline' | 'runner_agent'>} [fields] Additional fields to return
+         * @param {Array<'job' | 'pipeline' | 'runner_agent' | 'runner_manager'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20014>> {
+        async listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'runner_manager'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20015>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listProjectRuns(projectId, pipelineId, jobId, statuses, startDate, endDate, sort, limit, offset, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9251,11 +10647,11 @@ export const RunsApiFactory = function (configuration?: Configuration, basePath?
          * @summary Get run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
+         * @param {Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'runner_manager' | 'pipeline_revision'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRun(projectId: string, id: string, fields?: Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options?: any): AxiosPromise<Run> {
+        getRun(projectId: string, id: string, fields?: Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'runner_manager' | 'pipeline_revision'>, options?: any): AxiosPromise<Run> {
             return localVarFp.getRun(projectId, id, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -9270,11 +10666,11 @@ export const RunsApiFactory = function (configuration?: Configuration, basePath?
          * @param {'created_desc' | 'created_asc'} [sort] 
          * @param {number} [limit] 
          * @param {number} [offset] 
-         * @param {Array<'job' | 'pipeline' | 'runner_agent'>} [fields] Additional fields to return
+         * @param {Array<'job' | 'pipeline' | 'runner_agent' | 'runner_manager'>} [fields] Additional fields to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any): AxiosPromise<InlineResponse20014> {
+        listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'runner_manager'>, options?: any): AxiosPromise<InlineResponse20015> {
             return localVarFp.listProjectRuns(projectId, pipelineId, jobId, statuses, startDate, endDate, sort, limit, offset, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -9342,12 +10738,12 @@ export class RunsApi extends BaseAPI {
      * @summary Get run
      * @param {string} projectId Project ID
      * @param {string} id Run ID
-     * @param {Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>} [fields] Additional fields to return
+     * @param {Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'runner_manager' | 'pipeline_revision'>} [fields] Additional fields to return
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RunsApi
      */
-    public getRun(projectId: string, id: string, fields?: Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'pipeline_revision'>, options?: any) {
+    public getRun(projectId: string, id: string, fields?: Array<'events' | 'operations' | 'variables' | 'outputs' | 'job' | 'pipeline' | 'runner_agent' | 'runner_manager' | 'pipeline_revision'>, options?: any) {
         return RunsApiFp(this.configuration).getRun(projectId, id, fields, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -9363,12 +10759,12 @@ export class RunsApi extends BaseAPI {
      * @param {'created_desc' | 'created_asc'} [sort] 
      * @param {number} [limit] 
      * @param {number} [offset] 
-     * @param {Array<'job' | 'pipeline' | 'runner_agent'>} [fields] Additional fields to return
+     * @param {Array<'job' | 'pipeline' | 'runner_agent' | 'runner_manager'>} [fields] Additional fields to return
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RunsApi
      */
-    public listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent'>, options?: any) {
+    public listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'runner_manager'>, options?: any) {
         return RunsApiFp(this.configuration).listProjectRuns(projectId, pipelineId, jobId, statuses, startDate, endDate, sort, limit, offset, fields, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -10819,7 +12215,7 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizationGroups(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20019>> {
+        async listOrganizationGroups(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20020>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizationGroups(organizationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -10830,7 +12226,7 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizationInvites(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20018>> {
+        async listOrganizationInvites(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20019>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizationInvites(organizationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -11127,7 +12523,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizationGroups(organizationId: string, options?: any): AxiosPromise<InlineResponse20019> {
+        listOrganizationGroups(organizationId: string, options?: any): AxiosPromise<InlineResponse20020> {
             return localVarFp.listOrganizationGroups(organizationId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -11137,7 +12533,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizationInvites(organizationId: string, options?: any): AxiosPromise<InlineResponse20018> {
+        listOrganizationInvites(organizationId: string, options?: any): AxiosPromise<InlineResponse20019> {
             return localVarFp.listOrganizationInvites(organizationId, options).then((request) => request(axios, basePath));
         },
         /**
