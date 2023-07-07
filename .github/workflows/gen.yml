@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Download schema from external URL
-        run: curl https://api.refactr.it/v1/spec -o new_schema.json
+        run: curl https://api.factory.sophos.com/v1/spec -o new_schema.json
 
       - name: Compare specs
         id: cmp
