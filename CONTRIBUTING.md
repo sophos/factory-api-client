@@ -2,7 +2,7 @@
 
 Contributions are welcome!
 
-Please note the library is generated from the OpenAPI schema at: `https://api.refactr.it/v1`.
+Please note the library is generated from the OpenAPI schema at: `https://api.factory.sophos.com/v1`.
 
 This repository generates the schema (at [`spec/schema.json`](spec/schema.json)) using [a workflow](.github/workflows/gen.yml).
 

@@ -5,12 +5,12 @@
     "title": "Sophos Factory API v1",
     "description": "",
     "contact": {
-      "email": "support@refactr.it"
+      "email": "factory.support@sophos.com"
     }
   },
   "servers": [
     {
-      "url": "https://api.refactr.it/v1",
+      "url": "https://api.factory.sophos.com/v1",
       "description": "Sophos Factory API v1"
     }
   ],
