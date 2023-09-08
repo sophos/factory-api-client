@@ -17,11 +17,13 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Download schema from external URL
-        run: curl https://api.factory.sophos.com/v1/spec -o new_schema.json
+        run: -|
+          curl https://api.factory.sophos.com/v1/spec -o new_api.json
+          curl https://auth.factory.sophos.com/v1/spec -o new_authApi.json
 
       - name: Compare specs
         id: cmp
-        if: ${{ hashFiles('./new_schema.json') != hashFiles('./spec/schema.json') }}
+        if: ${{ hashFiles('./new_api.json') != hashFiles('./spec/api.json') || hashFiles('./new_authApi.json') != hashFiles('./spec/authApi.json') }}
         run: |
           echo "need_regenerate=1" >> $GITHUB_OUTPUT
 
@@ -76,5 +78,5 @@ jobs:
           title: Update client
           body: |
             This is an automatically generated PR for updating the specification schema. (`gen.yml`)
-          assignees: sophos-victoria, sophos-daniels, marcfieser
-          reviewers: sophos-victoria, sophos-daniels, marcfieser
+          assignees: sophos-rickc, sophos-daniels, marcfieser
+          reviewers: sophos-rickc, sophos-daniels, marcfieser
