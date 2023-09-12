@@ -50,9 +50,13 @@ jobs:
               const res = await client.getProject(proj);
               if (res.data.name.includes('CRUD Testing')) console.info('Everything looks good!');
           })().catch(e => {
-              console.error(`Request failed with status code: ${e.response.status}`);
-              console.error('Response body:');
-              console.error(e.response.data);
+              if (e.response & e.response.status) {
+                console.error(`Request failed with status code: ${e.response.status}`);
+                console.error('Response body:');
+                console.error(e.response.data);
+              } else {
+                console.error(`Request failed with error: ${e}`);
+              }
           });
           SCRIPT
           cat << SCRIPT > ./testOrganizations.js
@@ -67,9 +71,13 @@ jobs:
               const res = await client.getOrganizationsPublic();
               if (res.length > 0) console.info('Everything looks good!');
           })().catch(e => {
-              console.error(`Request failed with status code: ${e.response.status}`);
-              console.error('Response body:');
-              console.error(e.response.data);
+              if (e.response & e.response.status) {
+                console.error(`Request failed with status code: ${e.response.status}`);
+                console.error('Response body:');
+                console.error(e.response.data);
+              } else {
+                console.error(`Request failed with error: ${e}`);
+              }
           });
           SCRIPT
       - name: Run Smoke Test
