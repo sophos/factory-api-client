@@ -23,7 +23,10 @@ export default {
 		resolve({ extensions }),
 		babel({
 			extensions,
-			exclude: 'node_modules/**',
+			exclude: [
+				'node_modules/**',
+				'examples/'
+			],
 			babelHelpers: 'bundled'
 		}),
 		commonjs(),
