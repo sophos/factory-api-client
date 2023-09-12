@@ -50,7 +50,7 @@ jobs:
               const res = await client.getProject(proj);
               if (res.data.name.includes('CRUD Testing')) console.info('Everything looks good!');
           })().catch(e => {
-              if (e.response & e.response.status) {
+              if (e.response && e.response.status) {
                 console.error(`Request failed with status code: ${e.response.status}`);
                 console.error('Response body:');
                 console.error(e.response.data);
@@ -71,7 +71,7 @@ jobs:
               const res = await client.getOrganizationsPublic();
               if (res.length > 0) console.info('Everything looks good!');
           })().catch(e => {
-              if (e.response & e.response.status) {
+              if (e.response && e.response.status) {
                 console.error(`Request failed with status code: ${e.response.status}`);
                 console.error('Response body:');
                 console.error(e.response.data);
