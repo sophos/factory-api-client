@@ -1,6 +1,6 @@
 {
   "name": "@sophos-factory/api-client",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Official Sophos Factory API client library for JavaScript.",
   "keywords": [
     "Sophos",
@@ -21,6 +21,7 @@
   "module": "dist/index.mjs",
   "types": "./types",
   "files": [
+    "examples/",
     "package.json",
     "dist",
     "types",
@@ -48,7 +49,11 @@
   },
   "scripts": {
     "build": "rollup -c && tsc",
-    "fetch": "mkdir -p spec && curl -s https://api.factory.sophos.com/v1/spec | jq '.' > ./spec/schema.json",
-    "generate": "openapi-generator-cli generate -i ./spec/schema.json -g typescript-axios -o ./src/generated"
+    "fetch:api": "mkdir -p spec && curl -s https://api.factory.sophos.com/v1/spec | jq '.' > ./spec/api.json",
+    "fetch:authApi": "mkdir -p spec && curl -s https://auth.dev.factory.sophos.com/v1/spec | jq '.' > ./spec/authApi.json",
+    "fetch": "npm run fetch:api && npm run fetch:authApi",
+    "generate:api": "openapi-generator-cli generate -i ./spec/api.json -g typescript-axios -o ./src/generated/api",
+    "generate:authApi": "openapi-generator-cli generate -i ./spec/authApi.json -g typescript-axios -o ./src/generated/authApi",
+    "generate": "npm run generate:api && npm run generate:authApi"
   }
 }

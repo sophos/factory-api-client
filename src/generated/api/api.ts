@@ -53,10 +53,10 @@ export interface CatalogAccess {
     catalog_id?: string;
     /**
      * 
-     * @type {InlineResponse20011Projects}
+     * @type {InlineResponse2009Projects}
      * @memberof CatalogAccess
      */
-    organization?: InlineResponse20011Projects;
+    organization?: InlineResponse2009Projects;
 }
 /**
  * 
@@ -188,29 +188,29 @@ export interface InlineObject {
      * @type {string}
      * @memberof InlineObject
      */
-    name: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject
-     */
-    expire?: number;
+    group_id: string;
     /**
      * 
      * @type {string}
      * @memberof InlineObject
      */
-    expire_unit?: InlineObjectExpireUnitEnum;
+    role: InlineObjectRoleEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject
+     */
+    run: boolean;
 }
 
 /**
     * @export
     * @enum {string}
     */
-export enum InlineObjectExpireUnitEnum {
-    Hours = 'hours',
-    Days = 'days',
-    Years = 'years'
+export enum InlineObjectRoleEnum {
+    Read = 'read',
+    Write = 'write',
+    Admin = 'admin'
 }
 
 /**
@@ -224,8 +224,25 @@ export interface InlineObject1 {
      * @type {string}
      * @memberof InlineObject1
      */
-    name?: string;
+    role?: InlineObject1RoleEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject1
+     */
+    run?: boolean;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject1RoleEnum {
+    Read = 'read',
+    Write = 'write',
+    Admin = 'admin'
+}
+
 /**
  * 
  * @export
@@ -234,23 +251,55 @@ export interface InlineObject1 {
 export interface InlineObject10 {
     /**
      * 
-     * @type {string}
+     * @type {object}
      * @memberof InlineObject10
      */
-    project_id?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject10
-     */
-    name?: string;
+    variables?: object;
     /**
      * 
      * @type {boolean}
      * @memberof InlineObject10
      */
-    recursive?: boolean;
+    suppress_vars?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject10
+     */
+    suppress_events?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject10
+     */
+    suppress_outputs?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject10
+     */
+    max_retries?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject10
+     */
+    verbosity?: InlineObject10VerbosityEnum;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject10VerbosityEnum {
+    Error = 'error',
+    Warn = 'warn',
+    Info = 'info',
+    Debug = 'debug',
+    Trace = 'trace',
+    Empty = ''
+}
+
 /**
  * 
  * @export
@@ -259,55 +308,29 @@ export interface InlineObject10 {
 export interface InlineObject11 {
     /**
      * 
-     * @type {object}
+     * @type {string}
      * @memberof InlineObject11
      */
-    variables?: object;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineObject11
-     */
-    suppress_vars?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineObject11
-     */
-    suppress_events?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineObject11
-     */
-    suppress_outputs?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject11
-     */
-    max_retries?: number;
+    _id?: string;
     /**
      * 
      * @type {string}
      * @memberof InlineObject11
      */
-    verbosity?: InlineObject11VerbosityEnum;
+    created?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject11
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject11
+     */
+    id?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject11VerbosityEnum {
-    Error = 'error',
-    Warn = 'warn',
-    Info = 'info',
-    Debug = 'debug',
-    Trace = 'trace',
-    Empty = ''
-}
-
 /**
  * 
  * @export
@@ -316,78 +339,47 @@ export enum InlineObject11VerbosityEnum {
 export interface InlineObject12 {
     /**
      * 
-     * @type {string}
-     * @memberof InlineObject12
-     */
-    _id?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject12
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject12
-     */
-    name?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject12
-     */
-    id?: string;
-}
-/**
- * 
- * @export
- * @interface InlineObject13
- */
-export interface InlineObject13 {
-    /**
-     * 
      * @type {object}
-     * @memberof InlineObject13
+     * @memberof InlineObject12
      */
     variables?: object;
     /**
      * 
      * @type {boolean}
-     * @memberof InlineObject13
+     * @memberof InlineObject12
      */
     suppress_vars?: boolean;
     /**
      * 
      * @type {boolean}
-     * @memberof InlineObject13
+     * @memberof InlineObject12
      */
     suppress_events?: boolean;
     /**
      * 
      * @type {boolean}
-     * @memberof InlineObject13
+     * @memberof InlineObject12
      */
     suppress_outputs?: boolean;
     /**
      * 
      * @type {number}
-     * @memberof InlineObject13
+     * @memberof InlineObject12
      */
     max_retries?: number;
     /**
      * 
      * @type {string}
-     * @memberof InlineObject13
+     * @memberof InlineObject12
      */
-    verbosity?: InlineObject13VerbosityEnum;
+    verbosity?: InlineObject12VerbosityEnum;
 }
 
 /**
     * @export
     * @enum {string}
     */
-export enum InlineObject13VerbosityEnum {
+export enum InlineObject12VerbosityEnum {
     Error = 'error',
     Warn = 'warn',
     Info = 'info',
@@ -399,35 +391,35 @@ export enum InlineObject13VerbosityEnum {
 /**
  * 
  * @export
- * @interface InlineObject14
+ * @interface InlineObject13
  */
-export interface InlineObject14 {
+export interface InlineObject13 {
     /**
      * 
      * @type {boolean}
-     * @memberof InlineObject14
+     * @memberof InlineObject13
      */
     retained?: boolean;
 }
 /**
  * 
  * @export
- * @interface InlineObject15
+ * @interface InlineObject14
  */
-export interface InlineObject15 {
+export interface InlineObject14 {
     /**
      * 
      * @type {string}
-     * @memberof InlineObject15
+     * @memberof InlineObject14
      */
-    verbosity?: InlineObject15VerbosityEnum;
+    verbosity?: InlineObject14VerbosityEnum;
 }
 
 /**
     * @export
     * @enum {string}
     */
-export enum InlineObject15VerbosityEnum {
+export enum InlineObject14VerbosityEnum {
     Error = 'error',
     Warn = 'warn',
     Info = 'info',
@@ -438,21 +430,34 @@ export enum InlineObject15VerbosityEnum {
 /**
  * 
  * @export
- * @interface InlineObject16
+ * @interface InlineObject15
  */
-export interface InlineObject16 {
+export interface InlineObject15 {
     /**
      * 
      * @type {boolean}
-     * @memberof InlineObject16
+     * @memberof InlineObject15
      */
     catalog?: boolean;
     /**
      * 
      * @type {string}
-     * @memberof InlineObject16
+     * @memberof InlineObject15
      */
     catalog_scope?: string;
+}
+/**
+ * 
+ * @export
+ * @interface InlineObject16
+ */
+export interface InlineObject16 {
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject16
+     */
+    shared_organization_id?: string;
 }
 /**
  * 
@@ -465,7 +470,7 @@ export interface InlineObject17 {
      * @type {string}
      * @memberof InlineObject17
      */
-    shared_organization_id?: string;
+    status?: string;
 }
 /**
  * 
@@ -478,7 +483,19 @@ export interface InlineObject18 {
      * @type {string}
      * @memberof InlineObject18
      */
-    status?: string;
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject18
+     */
+    type?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject18
+     */
+    project_ids?: Array<string>;
 }
 /**
  * 
@@ -491,13 +508,13 @@ export interface InlineObject19 {
      * @type {string}
      * @memberof InlineObject19
      */
-    email?: string;
+    name?: string;
     /**
      * 
-     * @type {Set<string>}
+     * @type {OrganizationsOrganizationIdAgentsIdOptions}
      * @memberof InlineObject19
      */
-    group_ids?: Set<string>;
+    options?: OrganizationsOrganizationIdAgentsIdOptions;
 }
 /**
  * 
@@ -510,19 +527,19 @@ export interface InlineObject2 {
      * @type {string}
      * @memberof InlineObject2
      */
-    current_password?: string;
+    email?: string;
     /**
      * 
      * @type {string}
      * @memberof InlineObject2
      */
-    password?: string;
+    role?: string;
     /**
      * 
-     * @type {string}
+     * @type {boolean}
      * @memberof InlineObject2
      */
-    confirm_password?: string;
+    run?: boolean;
 }
 /**
  * 
@@ -532,10 +549,34 @@ export interface InlineObject2 {
 export interface InlineObject20 {
     /**
      * 
-     * @type {Set<string>}
+     * @type {string}
      * @memberof InlineObject20
      */
-    group_ids?: Set<string>;
+    name?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject20
+     */
+    hosted?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject20
+     */
+    provider?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject20
+     */
+    project_ids?: Array<string>;
+    /**
+     * 
+     * @type {OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions}
+     * @memberof InlineObject20
+     */
+    runner_manager_options?: OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions;
 }
 /**
  * 
@@ -551,101 +592,20 @@ export interface InlineObject21 {
     name?: string;
     /**
      * 
-     * @type {string}
-     * @memberof InlineObject21
-     */
-    type?: string;
-    /**
-     * 
      * @type {Array<string>}
      * @memberof InlineObject21
-     */
-    project_ids?: Array<string>;
-}
-/**
- * 
- * @export
- * @interface InlineObject22
- */
-export interface InlineObject22 {
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject22
-     */
-    name?: string;
-    /**
-     * 
-     * @type {OrganizationsOrganizationIdAgentsIdOptions}
-     * @memberof InlineObject22
-     */
-    options?: OrganizationsOrganizationIdAgentsIdOptions;
-}
-/**
- * 
- * @export
- * @interface InlineObject23
- */
-export interface InlineObject23 {
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject23
-     */
-    name?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineObject23
-     */
-    hosted?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject23
-     */
-    provider?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject23
      */
     project_ids?: Array<string>;
     /**
      * 
      * @type {OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions}
-     * @memberof InlineObject23
-     */
-    runner_manager_options?: OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions;
-}
-/**
- * 
- * @export
- * @interface InlineObject24
- */
-export interface InlineObject24 {
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject24
-     */
-    name?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject24
-     */
-    project_ids?: Array<string>;
-    /**
-     * 
-     * @type {OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions}
-     * @memberof InlineObject24
+     * @memberof InlineObject21
      */
     runner_manager_options?: OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions;
     /**
      * 
      * @type {OrganizationsOrganizationIdAgentsIdOptions}
-     * @memberof InlineObject24
+     * @memberof InlineObject21
      */
     runner_options?: OrganizationsOrganizationIdAgentsIdOptions;
 }
@@ -660,13 +620,7 @@ export interface InlineObject3 {
      * @type {string}
      * @memberof InlineObject3
      */
-    email?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject3
-     */
-    role?: string;
+    role?: InlineObject3RoleEnum;
     /**
      * 
      * @type {boolean}
@@ -674,6 +628,17 @@ export interface InlineObject3 {
      */
     run?: boolean;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject3RoleEnum {
+    Read = 'read',
+    Write = 'write',
+    Admin = 'admin'
+}
+
 /**
  * 
  * @export
@@ -685,25 +650,14 @@ export interface InlineObject4 {
      * @type {string}
      * @memberof InlineObject4
      */
-    role?: InlineObject4RoleEnum;
+    image_id?: string;
     /**
      * 
-     * @type {boolean}
+     * @type {string}
      * @memberof InlineObject4
      */
-    run?: boolean;
+    icon_name?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject4RoleEnum {
-    Read = 'read',
-    Write = 'write',
-    Admin = 'admin'
-}
-
 /**
  * 
  * @export
@@ -715,31 +669,8 @@ export interface InlineObject5 {
      * @type {string}
      * @memberof InlineObject5
      */
-    group_id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject5
-     */
-    role: InlineObject5RoleEnum;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineObject5
-     */
-    run: boolean;
+    comment?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject5RoleEnum {
-    Read = 'read',
-    Write = 'write',
-    Admin = 'admin'
-}
-
 /**
  * 
  * @export
@@ -751,25 +682,14 @@ export interface InlineObject6 {
      * @type {string}
      * @memberof InlineObject6
      */
-    role?: InlineObject6RoleEnum;
+    image_id?: string;
     /**
      * 
-     * @type {boolean}
+     * @type {string}
      * @memberof InlineObject6
      */
-    run?: boolean;
+    icon_name?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject6RoleEnum {
-    Read = 'read',
-    Write = 'write',
-    Admin = 'admin'
-}
-
 /**
  * 
  * @export
@@ -781,7 +701,19 @@ export interface InlineObject7 {
      * @type {string}
      * @memberof InlineObject7
      */
-    comment?: string;
+    project_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject7
+     */
+    name?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject7
+     */
+    recursive?: boolean;
 }
 /**
  * 
@@ -797,17 +729,55 @@ export interface InlineObject8 {
     project_id?: string;
     /**
      * 
-     * @type {string}
+     * @type {object}
      * @memberof InlineObject8
      */
-    name?: string;
+    variables?: object;
     /**
      * 
      * @type {boolean}
      * @memberof InlineObject8
      */
-    recursive?: boolean;
+    suppress_vars?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject8
+     */
+    suppress_events?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject8
+     */
+    suppress_outputs?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject8
+     */
+    max_retries?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject8
+     */
+    verbosity?: InlineObject8VerbosityEnum;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject8VerbosityEnum {
+    Error = 'error',
+    Warn = 'warn',
+    Info = 'info',
+    Debug = 'debug',
+    Trace = 'trace',
+    Empty = ''
+}
+
 /**
  * 
  * @export
@@ -822,55 +792,17 @@ export interface InlineObject9 {
     project_id?: string;
     /**
      * 
-     * @type {object}
-     * @memberof InlineObject9
-     */
-    variables?: object;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineObject9
-     */
-    suppress_vars?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineObject9
-     */
-    suppress_events?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineObject9
-     */
-    suppress_outputs?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject9
-     */
-    max_retries?: number;
-    /**
-     * 
      * @type {string}
      * @memberof InlineObject9
      */
-    verbosity?: InlineObject9VerbosityEnum;
+    name?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject9
+     */
+    recursive?: boolean;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject9VerbosityEnum {
-    Error = 'error',
-    Warn = 'warn',
-    Info = 'info',
-    Debug = 'debug',
-    Trace = 'trace',
-    Empty = ''
-}
-
 /**
  * 
  * @export
@@ -879,10 +811,10 @@ export enum InlineObject9VerbosityEnum {
 export interface InlineResponse200 {
     /**
      * 
-     * @type {Array<Token>}
+     * @type {Array<InlineResponse200Users>}
      * @memberof InlineResponse200
      */
-    tokens?: Array<Token>;
+    users?: Array<InlineResponse200Users>;
 }
 /**
  * 
@@ -892,10 +824,10 @@ export interface InlineResponse200 {
 export interface InlineResponse2001 {
     /**
      * 
-     * @type {Array<UserActivity>}
+     * @type {Array<User>}
      * @memberof InlineResponse2001
      */
-    user_activity?: Array<UserActivity>;
+    users?: Array<User>;
 }
 /**
  * 
@@ -905,10 +837,10 @@ export interface InlineResponse2001 {
 export interface InlineResponse20010 {
     /**
      * 
-     * @type {Array<Credential>}
+     * @type {Array<Job>}
      * @memberof InlineResponse20010
      */
-    credentials?: Array<Credential>;
+    jobs?: Array<Job>;
 }
 /**
  * 
@@ -918,35 +850,10 @@ export interface InlineResponse20010 {
 export interface InlineResponse20011 {
     /**
      * 
-     * @type {Array<InlineResponse20011Projects>}
+     * @type {Array<RunnerManager>}
      * @memberof InlineResponse20011
      */
-    projects?: Array<InlineResponse20011Projects>;
-}
-/**
- * 
- * @export
- * @interface InlineResponse20011Projects
- */
-export interface InlineResponse20011Projects {
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20011Projects
-     */
-    _id?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20011Projects
-     */
-    name?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20011Projects
-     */
-    image_id?: string;
+    runner_managers?: Array<RunnerManager>;
 }
 /**
  * 
@@ -956,10 +863,10 @@ export interface InlineResponse20011Projects {
 export interface InlineResponse20012 {
     /**
      * 
-     * @type {Array<Job>}
+     * @type {Array<RunnerAgent>}
      * @memberof InlineResponse20012
      */
-    jobs?: Array<Job>;
+    runner_agents?: Array<RunnerAgent>;
 }
 /**
  * 
@@ -969,10 +876,10 @@ export interface InlineResponse20012 {
 export interface InlineResponse20013 {
     /**
      * 
-     * @type {Array<RunnerManager>}
+     * @type {Array<Run>}
      * @memberof InlineResponse20013
      */
-    runner_managers?: Array<RunnerManager>;
+    runs?: Array<Run>;
 }
 /**
  * 
@@ -982,10 +889,10 @@ export interface InlineResponse20013 {
 export interface InlineResponse20014 {
     /**
      * 
-     * @type {Array<RunnerAgent>}
+     * @type {Array<CatalogAccessRequest>}
      * @memberof InlineResponse20014
      */
-    runner_agents?: Array<RunnerAgent>;
+    users?: Array<CatalogAccessRequest>;
 }
 /**
  * 
@@ -995,62 +902,10 @@ export interface InlineResponse20014 {
 export interface InlineResponse20015 {
     /**
      * 
-     * @type {Array<Run>}
+     * @type {Array<CatalogAccess>}
      * @memberof InlineResponse20015
      */
-    runs?: Array<Run>;
-}
-/**
- * 
- * @export
- * @interface InlineResponse20016
- */
-export interface InlineResponse20016 {
-    /**
-     * 
-     * @type {Array<Organization>}
-     * @memberof InlineResponse20016
-     */
-    organizations?: Array<Organization>;
-}
-/**
- * 
- * @export
- * @interface InlineResponse20017
- */
-export interface InlineResponse20017 {
-    /**
-     * 
-     * @type {Array<CatalogAccessRequest>}
-     * @memberof InlineResponse20017
-     */
-    users?: Array<CatalogAccessRequest>;
-}
-/**
- * 
- * @export
- * @interface InlineResponse20018
- */
-export interface InlineResponse20018 {
-    /**
-     * 
-     * @type {Array<CatalogAccess>}
-     * @memberof InlineResponse20018
-     */
     catalog_access?: Array<CatalogAccess>;
-}
-/**
- * 
- * @export
- * @interface InlineResponse20019
- */
-export interface InlineResponse20019 {
-    /**
-     * 
-     * @type {Array<OrganizationInvite>}
-     * @memberof InlineResponse20019
-     */
-    users?: Array<OrganizationInvite>;
 }
 /**
  * 
@@ -1060,23 +915,10 @@ export interface InlineResponse20019 {
 export interface InlineResponse2002 {
     /**
      * 
-     * @type {Array<User>}
+     * @type {Array<ProjectInvite>}
      * @memberof InlineResponse2002
      */
-    users?: Array<User>;
-}
-/**
- * 
- * @export
- * @interface InlineResponse20020
- */
-export interface InlineResponse20020 {
-    /**
-     * 
-     * @type {Array<UserGroup>}
-     * @memberof InlineResponse20020
-     */
-    users?: Array<UserGroup>;
+    users?: Array<ProjectInvite>;
 }
 /**
  * 
@@ -1086,53 +928,11 @@ export interface InlineResponse20020 {
 export interface InlineResponse2003 {
     /**
      * 
-     * @type {Array<InlineResponse2003Users>}
+     * @type {Array<Pipeline>}
      * @memberof InlineResponse2003
      */
-    users?: Array<InlineResponse2003Users>;
+    pipelines?: Array<Pipeline>;
 }
-/**
- * 
- * @export
- * @interface InlineResponse2003Users
- */
-export interface InlineResponse2003Users {
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2003Users
-     */
-    _id?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2003Users
-     */
-    group_id?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2003Users
-     */
-    role?: InlineResponse2003UsersRoleEnum;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse2003Users
-     */
-    run?: boolean;
-}
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse2003UsersRoleEnum {
-    Read = 'read',
-    Write = 'write',
-    Admin = 'admin'
-}
-
 /**
  * 
  * @export
@@ -1141,10 +941,10 @@ export enum InlineResponse2003UsersRoleEnum {
 export interface InlineResponse2004 {
     /**
      * 
-     * @type {Array<ProjectInvite>}
+     * @type {Array<PipelineRevision>}
      * @memberof InlineResponse2004
      */
-    users?: Array<ProjectInvite>;
+    pipeline_revisions?: Array<PipelineRevision>;
 }
 /**
  * 
@@ -1154,10 +954,16 @@ export interface InlineResponse2004 {
 export interface InlineResponse2005 {
     /**
      * 
-     * @type {Array<Pipeline>}
+     * @type {string}
      * @memberof InlineResponse2005
      */
-    pipelines?: Array<Pipeline>;
+    id?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse2005
+     */
+    revision?: number;
 }
 /**
  * 
@@ -1170,7 +976,7 @@ export interface InlineResponse2006 {
      * @type {Array<PipelineRevision>}
      * @memberof InlineResponse2006
      */
-    pipeline_revisions?: Array<PipelineRevision>;
+    pipelines?: Array<PipelineRevision>;
 }
 /**
  * 
@@ -1180,16 +986,10 @@ export interface InlineResponse2006 {
 export interface InlineResponse2007 {
     /**
      * 
-     * @type {string}
+     * @type {Array<Project>}
      * @memberof InlineResponse2007
      */
-    id?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse2007
-     */
-    revision?: number;
+    projects?: Array<Project>;
 }
 /**
  * 
@@ -1199,10 +999,10 @@ export interface InlineResponse2007 {
 export interface InlineResponse2008 {
     /**
      * 
-     * @type {Array<PipelineRevision>}
+     * @type {Array<Credential>}
      * @memberof InlineResponse2008
      */
-    pipelines?: Array<PipelineRevision>;
+    credentials?: Array<Credential>;
 }
 /**
  * 
@@ -1212,11 +1012,78 @@ export interface InlineResponse2008 {
 export interface InlineResponse2009 {
     /**
      * 
-     * @type {Array<Project>}
+     * @type {Array<InlineResponse2009Projects>}
      * @memberof InlineResponse2009
      */
-    projects?: Array<Project>;
+    projects?: Array<InlineResponse2009Projects>;
 }
+/**
+ * 
+ * @export
+ * @interface InlineResponse2009Projects
+ */
+export interface InlineResponse2009Projects {
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2009Projects
+     */
+    _id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2009Projects
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2009Projects
+     */
+    image_id?: string;
+}
+/**
+ * 
+ * @export
+ * @interface InlineResponse200Users
+ */
+export interface InlineResponse200Users {
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse200Users
+     */
+    _id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse200Users
+     */
+    group_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse200Users
+     */
+    role?: InlineResponse200UsersRoleEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineResponse200Users
+     */
+    run?: boolean;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse200UsersRoleEnum {
+    Read = 'read',
+    Write = 'write',
+    Admin = 'admin'
+}
+
 /**
  * 
  * @export
@@ -3440,15 +3307,15 @@ export const AgentsApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary Create runner agent
          * @param {string} organizationId Organization ID
-         * @param {InlineObject21} inlineObject21 
+         * @param {InlineObject18} inlineObject18 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createRunnerAgent: async (organizationId: string, inlineObject21: InlineObject21, options: any = {}): Promise<RequestArgs> => {
+        createRunnerAgent: async (organizationId: string, inlineObject18: InlineObject18, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationId' is not null or undefined
             assertParamExists('createRunnerAgent', 'organizationId', organizationId)
-            // verify required parameter 'inlineObject21' is not null or undefined
-            assertParamExists('createRunnerAgent', 'inlineObject21', inlineObject21)
+            // verify required parameter 'inlineObject18' is not null or undefined
+            assertParamExists('createRunnerAgent', 'inlineObject18', inlineObject18)
             const localVarPath = `/organizations/{organization_id}/agents`
                 .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -3473,7 +3340,7 @@ export const AgentsApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject21, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject18, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3776,17 +3643,17 @@ export const AgentsApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary Update runner agent
          * @param {string} organizationId Organization ID
          * @param {string} id Agent ID
-         * @param {InlineObject22} inlineObject22 
+         * @param {InlineObject19} inlineObject19 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateRunnerAgent: async (organizationId: string, id: string, inlineObject22: InlineObject22, options: any = {}): Promise<RequestArgs> => {
+        updateRunnerAgent: async (organizationId: string, id: string, inlineObject19: InlineObject19, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationId' is not null or undefined
             assertParamExists('updateRunnerAgent', 'organizationId', organizationId)
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateRunnerAgent', 'id', id)
-            // verify required parameter 'inlineObject22' is not null or undefined
-            assertParamExists('updateRunnerAgent', 'inlineObject22', inlineObject22)
+            // verify required parameter 'inlineObject19' is not null or undefined
+            assertParamExists('updateRunnerAgent', 'inlineObject19', inlineObject19)
             const localVarPath = `/organizations/{organization_id}/agents/{_id}`
                 .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
                 .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
@@ -3812,7 +3679,7 @@ export const AgentsApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject22, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject19, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3833,12 +3700,12 @@ export const AgentsApiFp = function(configuration?: Configuration) {
          * 
          * @summary Create runner agent
          * @param {string} organizationId Organization ID
-         * @param {InlineObject21} inlineObject21 
+         * @param {InlineObject18} inlineObject18 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createRunnerAgent(organizationId: string, inlineObject21: InlineObject21, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createRunnerAgent(organizationId, inlineObject21, options);
+        async createRunnerAgent(organizationId: string, inlineObject18: InlineObject18, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createRunnerAgent(organizationId, inlineObject18, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -3873,7 +3740,7 @@ export const AgentsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizationRunnerAgents(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20014>> {
+        async listOrganizationRunnerAgents(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20012>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizationRunnerAgents(organizationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3884,7 +3751,7 @@ export const AgentsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listProjectRunnerAgents(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20014>> {
+        async listProjectRunnerAgents(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20012>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listProjectRunnerAgents(projectId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3929,12 +3796,12 @@ export const AgentsApiFp = function(configuration?: Configuration) {
          * @summary Update runner agent
          * @param {string} organizationId Organization ID
          * @param {string} id Agent ID
-         * @param {InlineObject22} inlineObject22 
+         * @param {InlineObject19} inlineObject19 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateRunnerAgent(organizationId: string, id: string, inlineObject22: InlineObject22, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateRunnerAgent(organizationId, id, inlineObject22, options);
+        async updateRunnerAgent(organizationId: string, id: string, inlineObject19: InlineObject19, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateRunnerAgent(organizationId, id, inlineObject19, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -3951,12 +3818,12 @@ export const AgentsApiFactory = function (configuration?: Configuration, basePat
          * 
          * @summary Create runner agent
          * @param {string} organizationId Organization ID
-         * @param {InlineObject21} inlineObject21 
+         * @param {InlineObject18} inlineObject18 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createRunnerAgent(organizationId: string, inlineObject21: InlineObject21, options?: any): AxiosPromise<void> {
-            return localVarFp.createRunnerAgent(organizationId, inlineObject21, options).then((request) => request(axios, basePath));
+        createRunnerAgent(organizationId: string, inlineObject18: InlineObject18, options?: any): AxiosPromise<void> {
+            return localVarFp.createRunnerAgent(organizationId, inlineObject18, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3988,7 +3855,7 @@ export const AgentsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizationRunnerAgents(organizationId: string, options?: any): AxiosPromise<InlineResponse20014> {
+        listOrganizationRunnerAgents(organizationId: string, options?: any): AxiosPromise<InlineResponse20012> {
             return localVarFp.listOrganizationRunnerAgents(organizationId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3998,7 +3865,7 @@ export const AgentsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjectRunnerAgents(projectId: string, options?: any): AxiosPromise<InlineResponse20014> {
+        listProjectRunnerAgents(projectId: string, options?: any): AxiosPromise<InlineResponse20012> {
             return localVarFp.listProjectRunnerAgents(projectId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4039,12 +3906,12 @@ export const AgentsApiFactory = function (configuration?: Configuration, basePat
          * @summary Update runner agent
          * @param {string} organizationId Organization ID
          * @param {string} id Agent ID
-         * @param {InlineObject22} inlineObject22 
+         * @param {InlineObject19} inlineObject19 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateRunnerAgent(organizationId: string, id: string, inlineObject22: InlineObject22, options?: any): AxiosPromise<void> {
-            return localVarFp.updateRunnerAgent(organizationId, id, inlineObject22, options).then((request) => request(axios, basePath));
+        updateRunnerAgent(organizationId: string, id: string, inlineObject19: InlineObject19, options?: any): AxiosPromise<void> {
+            return localVarFp.updateRunnerAgent(organizationId, id, inlineObject19, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4060,13 +3927,13 @@ export class AgentsApi extends BaseAPI {
      * 
      * @summary Create runner agent
      * @param {string} organizationId Organization ID
-     * @param {InlineObject21} inlineObject21 
+     * @param {InlineObject18} inlineObject18 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AgentsApi
      */
-    public createRunnerAgent(organizationId: string, inlineObject21: InlineObject21, options?: any) {
-        return AgentsApiFp(this.configuration).createRunnerAgent(organizationId, inlineObject21, options).then((request) => request(this.axios, this.basePath));
+    public createRunnerAgent(organizationId: string, inlineObject18: InlineObject18, options?: any) {
+        return AgentsApiFp(this.configuration).createRunnerAgent(organizationId, inlineObject18, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4164,13 +4031,13 @@ export class AgentsApi extends BaseAPI {
      * @summary Update runner agent
      * @param {string} organizationId Organization ID
      * @param {string} id Agent ID
-     * @param {InlineObject22} inlineObject22 
+     * @param {InlineObject19} inlineObject19 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AgentsApi
      */
-    public updateRunnerAgent(organizationId: string, id: string, inlineObject22: InlineObject22, options?: any) {
-        return AgentsApiFp(this.configuration).updateRunnerAgent(organizationId, id, inlineObject22, options).then((request) => request(this.axios, this.basePath));
+    public updateRunnerAgent(organizationId: string, id: string, inlineObject19: InlineObject19, options?: any) {
+        return AgentsApiFp(this.configuration).updateRunnerAgent(organizationId, id, inlineObject19, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -4187,19 +4054,19 @@ export const CatalogsApiAxiosParamCreator = function (configuration?: Configurat
          * @param {string} catalogId Catalog ID
          * @param {string} pipelineId Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject8} inlineObject8 
+         * @param {InlineObject7} inlineObject7 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cloneCatalogPipeline: async (catalogId: string, pipelineId: string, revisionId: string, inlineObject8: InlineObject8, options: any = {}): Promise<RequestArgs> => {
+        cloneCatalogPipeline: async (catalogId: string, pipelineId: string, revisionId: string, inlineObject7: InlineObject7, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'catalogId' is not null or undefined
             assertParamExists('cloneCatalogPipeline', 'catalogId', catalogId)
             // verify required parameter 'pipelineId' is not null or undefined
             assertParamExists('cloneCatalogPipeline', 'pipelineId', pipelineId)
             // verify required parameter 'revisionId' is not null or undefined
             assertParamExists('cloneCatalogPipeline', 'revisionId', revisionId)
-            // verify required parameter 'inlineObject8' is not null or undefined
-            assertParamExists('cloneCatalogPipeline', 'inlineObject8', inlineObject8)
+            // verify required parameter 'inlineObject7' is not null or undefined
+            assertParamExists('cloneCatalogPipeline', 'inlineObject7', inlineObject7)
             const localVarPath = `/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}/clone`
                 .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)))
                 .replace(`{${"pipeline_id"}}`, encodeURIComponent(String(pipelineId)))
@@ -4226,7 +4093,7 @@ export const CatalogsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject8, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject7, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -4238,17 +4105,17 @@ export const CatalogsApiAxiosParamCreator = function (configuration?: Configurat
          * @summary Create a catalog access request
          * @param {string} organizationId Organization ID
          * @param {string} catalogId Catalog ID
-         * @param {InlineObject17} inlineObject17 
+         * @param {InlineObject16} inlineObject16 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createCatalogAccessRequest: async (organizationId: string, catalogId: string, inlineObject17: InlineObject17, options: any = {}): Promise<RequestArgs> => {
+        createCatalogAccessRequest: async (organizationId: string, catalogId: string, inlineObject16: InlineObject16, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationId' is not null or undefined
             assertParamExists('createCatalogAccessRequest', 'organizationId', organizationId)
             // verify required parameter 'catalogId' is not null or undefined
             assertParamExists('createCatalogAccessRequest', 'catalogId', catalogId)
-            // verify required parameter 'inlineObject17' is not null or undefined
-            assertParamExists('createCatalogAccessRequest', 'inlineObject17', inlineObject17)
+            // verify required parameter 'inlineObject16' is not null or undefined
+            assertParamExists('createCatalogAccessRequest', 'inlineObject16', inlineObject16)
             const localVarPath = `/organizations/{organization_id}/catalogs/{catalog_id}/access_requests`
                 .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
                 .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)));
@@ -4274,7 +4141,7 @@ export const CatalogsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject17, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject16, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -4932,19 +4799,19 @@ export const CatalogsApiAxiosParamCreator = function (configuration?: Configurat
          * @param {string} catalogId Catalog ID
          * @param {string} pipelineId Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject9} inlineObject9 
+         * @param {InlineObject8} inlineObject8 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        runCatalogPipeline: async (catalogId: string, pipelineId: string, revisionId: string, inlineObject9: InlineObject9, options: any = {}): Promise<RequestArgs> => {
+        runCatalogPipeline: async (catalogId: string, pipelineId: string, revisionId: string, inlineObject8: InlineObject8, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'catalogId' is not null or undefined
             assertParamExists('runCatalogPipeline', 'catalogId', catalogId)
             // verify required parameter 'pipelineId' is not null or undefined
             assertParamExists('runCatalogPipeline', 'pipelineId', pipelineId)
             // verify required parameter 'revisionId' is not null or undefined
             assertParamExists('runCatalogPipeline', 'revisionId', revisionId)
-            // verify required parameter 'inlineObject9' is not null or undefined
-            assertParamExists('runCatalogPipeline', 'inlineObject9', inlineObject9)
+            // verify required parameter 'inlineObject8' is not null or undefined
+            assertParamExists('runCatalogPipeline', 'inlineObject8', inlineObject8)
             const localVarPath = `/catalogs/{catalog_id}/pipelines/{pipeline_id}/revisions/{revision_id}/run`
                 .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)))
                 .replace(`{${"pipeline_id"}}`, encodeURIComponent(String(pipelineId)))
@@ -4971,7 +4838,7 @@ export const CatalogsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject9, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject8, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -4984,19 +4851,19 @@ export const CatalogsApiAxiosParamCreator = function (configuration?: Configurat
          * @param {string} organizationId Organization ID
          * @param {string} catalogId Catalog ID
          * @param {string} accessRequestId Access Request ID
-         * @param {InlineObject18} inlineObject18 
+         * @param {InlineObject17} inlineObject17 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateCatalogAccessRequest: async (organizationId: string, catalogId: string, accessRequestId: string, inlineObject18: InlineObject18, options: any = {}): Promise<RequestArgs> => {
+        updateCatalogAccessRequest: async (organizationId: string, catalogId: string, accessRequestId: string, inlineObject17: InlineObject17, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationId' is not null or undefined
             assertParamExists('updateCatalogAccessRequest', 'organizationId', organizationId)
             // verify required parameter 'catalogId' is not null or undefined
             assertParamExists('updateCatalogAccessRequest', 'catalogId', catalogId)
             // verify required parameter 'accessRequestId' is not null or undefined
             assertParamExists('updateCatalogAccessRequest', 'accessRequestId', accessRequestId)
-            // verify required parameter 'inlineObject18' is not null or undefined
-            assertParamExists('updateCatalogAccessRequest', 'inlineObject18', inlineObject18)
+            // verify required parameter 'inlineObject17' is not null or undefined
+            assertParamExists('updateCatalogAccessRequest', 'inlineObject17', inlineObject17)
             const localVarPath = `/organizations/{organization_id}/catalogs/{catalog_id}/access_requests/{access_request_id}`
                 .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
                 .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)))
@@ -5023,7 +4890,7 @@ export const CatalogsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject18, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject17, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5046,12 +4913,12 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {string} catalogId Catalog ID
          * @param {string} pipelineId Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject8} inlineObject8 
+         * @param {InlineObject7} inlineObject7 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async cloneCatalogPipeline(catalogId: string, pipelineId: string, revisionId: string, inlineObject8: InlineObject8, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2011>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.cloneCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject8, options);
+        async cloneCatalogPipeline(catalogId: string, pipelineId: string, revisionId: string, inlineObject7: InlineObject7, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2011>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.cloneCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject7, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -5059,12 +4926,12 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @summary Create a catalog access request
          * @param {string} organizationId Organization ID
          * @param {string} catalogId Catalog ID
-         * @param {InlineObject17} inlineObject17 
+         * @param {InlineObject16} inlineObject16 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createCatalogAccessRequest(organizationId: string, catalogId: string, inlineObject17: InlineObject17, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createCatalogAccessRequest(organizationId, catalogId, inlineObject17, options);
+        async createCatalogAccessRequest(organizationId: string, catalogId: string, inlineObject16: InlineObject16, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createCatalogAccessRequest(organizationId, catalogId, inlineObject16, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -5075,7 +4942,7 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCatalog(catalogId: string, fields?: Array<'organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
+        async getCatalog(catalogId: string, fields?: Array<'organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2007>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCatalog(catalogId, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5114,7 +4981,7 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCatalogPipelineRevisionPipelineRevisions(catalogId: string, pipelineId: string, revisionId: string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2008>> {
+        async getCatalogPipelineRevisionPipelineRevisions(catalogId: string, pipelineId: string, revisionId: string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCatalogPipelineRevisionPipelineRevisions(catalogId, pipelineId, revisionId, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5127,7 +4994,7 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCatalogPipelineRevisionPipelines(catalogId: string, pipelineId: string, revisionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+        async getCatalogPipelineRevisionPipelines(catalogId: string, pipelineId: string, revisionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2003>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCatalogPipelineRevisionPipelines(catalogId, pipelineId, revisionId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5142,7 +5009,7 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCatalogPipelineRevisions(catalogId: string, pipelineId: string, fields?: Array<'variables' | 'outputs'>, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
+        async getCatalogPipelineRevisions(catalogId: string, pipelineId: string, fields?: Array<'variables' | 'outputs'>, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCatalogPipelineRevisions(catalogId, pipelineId, fields, limit, offset, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5154,7 +5021,7 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCatalogAccessRequests(organizationId: string, catalogId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20017>> {
+        async listCatalogAccessRequests(organizationId: string, catalogId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20014>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listCatalogAccessRequests(organizationId, catalogId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5167,7 +5034,7 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCatalogOrganizationAccess(organizationId: string, catalogId: string, fields?: Array<'shared_organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20018>> {
+        async listCatalogOrganizationAccess(organizationId: string, catalogId: string, fields?: Array<'shared_organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20015>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listCatalogOrganizationAccess(organizationId, catalogId, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5184,7 +5051,7 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCatalogPipelines(catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+        async listCatalogPipelines(catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2003>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listCatalogPipelines(catalogId, sort, limit, offset, search, pinned, tags, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5195,7 +5062,7 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizationSharedCatalogAccessRequests(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20017>> {
+        async listOrganizationSharedCatalogAccessRequests(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20014>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizationSharedCatalogAccessRequests(organizationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5215,7 +5082,7 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizationSharedCatalogs(organizationId: string, scope: 'all' | 'accessible', sort?: 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, ownerOrganizationId?: string, tags?: Set<CatalogTags>, fields?: Array<'organization' | 'pending_access_request'>, draft?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
+        async listOrganizationSharedCatalogs(organizationId: string, scope: 'all' | 'accessible', sort?: 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, ownerOrganizationId?: string, tags?: Set<CatalogTags>, fields?: Array<'organization' | 'pending_access_request'>, draft?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2007>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizationSharedCatalogs(organizationId, scope, sort, search, limit, offset, ownerOrganizationId, tags, fields, draft, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5225,7 +5092,7 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listSharingCatalogsOrganizations(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20011>> {
+        async listSharingCatalogsOrganizations(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listSharingCatalogsOrganizations(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5248,12 +5115,12 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {string} catalogId Catalog ID
          * @param {string} pipelineId Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject9} inlineObject9 
+         * @param {InlineObject8} inlineObject8 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async runCatalogPipeline(catalogId: string, pipelineId: string, revisionId: string, inlineObject9: InlineObject9, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.runCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject9, options);
+        async runCatalogPipeline(catalogId: string, pipelineId: string, revisionId: string, inlineObject8: InlineObject8, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.runCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject8, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -5262,12 +5129,12 @@ export const CatalogsApiFp = function(configuration?: Configuration) {
          * @param {string} organizationId Organization ID
          * @param {string} catalogId Catalog ID
          * @param {string} accessRequestId Access Request ID
-         * @param {InlineObject18} inlineObject18 
+         * @param {InlineObject17} inlineObject17 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateCatalogAccessRequest(organizationId: string, catalogId: string, accessRequestId: string, inlineObject18: InlineObject18, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCatalogAccessRequest(organizationId, catalogId, accessRequestId, inlineObject18, options);
+        async updateCatalogAccessRequest(organizationId: string, catalogId: string, accessRequestId: string, inlineObject17: InlineObject17, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCatalogAccessRequest(organizationId, catalogId, accessRequestId, inlineObject17, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -5286,24 +5153,24 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {string} catalogId Catalog ID
          * @param {string} pipelineId Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject8} inlineObject8 
+         * @param {InlineObject7} inlineObject7 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cloneCatalogPipeline(catalogId: string, pipelineId: string, revisionId: string, inlineObject8: InlineObject8, options?: any): AxiosPromise<InlineResponse2011> {
-            return localVarFp.cloneCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject8, options).then((request) => request(axios, basePath));
+        cloneCatalogPipeline(catalogId: string, pipelineId: string, revisionId: string, inlineObject7: InlineObject7, options?: any): AxiosPromise<InlineResponse2011> {
+            return localVarFp.cloneCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject7, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Create a catalog access request
          * @param {string} organizationId Organization ID
          * @param {string} catalogId Catalog ID
-         * @param {InlineObject17} inlineObject17 
+         * @param {InlineObject16} inlineObject16 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createCatalogAccessRequest(organizationId: string, catalogId: string, inlineObject17: InlineObject17, options?: any): AxiosPromise<void> {
-            return localVarFp.createCatalogAccessRequest(organizationId, catalogId, inlineObject17, options).then((request) => request(axios, basePath));
+        createCatalogAccessRequest(organizationId: string, catalogId: string, inlineObject16: InlineObject16, options?: any): AxiosPromise<void> {
+            return localVarFp.createCatalogAccessRequest(organizationId, catalogId, inlineObject16, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5313,7 +5180,7 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalog(catalogId: string, fields?: Array<'organization'>, options?: any): AxiosPromise<InlineResponse2009> {
+        getCatalog(catalogId: string, fields?: Array<'organization'>, options?: any): AxiosPromise<InlineResponse2007> {
             return localVarFp.getCatalog(catalogId, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5349,7 +5216,7 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogPipelineRevisionPipelineRevisions(catalogId: string, pipelineId: string, revisionId: string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): AxiosPromise<InlineResponse2008> {
+        getCatalogPipelineRevisionPipelineRevisions(catalogId: string, pipelineId: string, revisionId: string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): AxiosPromise<InlineResponse2006> {
             return localVarFp.getCatalogPipelineRevisionPipelineRevisions(catalogId, pipelineId, revisionId, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5361,7 +5228,7 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogPipelineRevisionPipelines(catalogId: string, pipelineId: string, revisionId: string, options?: any): AxiosPromise<InlineResponse2005> {
+        getCatalogPipelineRevisionPipelines(catalogId: string, pipelineId: string, revisionId: string, options?: any): AxiosPromise<InlineResponse2003> {
             return localVarFp.getCatalogPipelineRevisionPipelines(catalogId, pipelineId, revisionId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5375,7 +5242,7 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogPipelineRevisions(catalogId: string, pipelineId: string, fields?: Array<'variables' | 'outputs'>, limit?: number, offset?: number, options?: any): AxiosPromise<InlineResponse2006> {
+        getCatalogPipelineRevisions(catalogId: string, pipelineId: string, fields?: Array<'variables' | 'outputs'>, limit?: number, offset?: number, options?: any): AxiosPromise<InlineResponse2004> {
             return localVarFp.getCatalogPipelineRevisions(catalogId, pipelineId, fields, limit, offset, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5386,7 +5253,7 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCatalogAccessRequests(organizationId: string, catalogId: string, options?: any): AxiosPromise<InlineResponse20017> {
+        listCatalogAccessRequests(organizationId: string, catalogId: string, options?: any): AxiosPromise<InlineResponse20014> {
             return localVarFp.listCatalogAccessRequests(organizationId, catalogId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5398,7 +5265,7 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCatalogOrganizationAccess(organizationId: string, catalogId: string, fields?: Array<'shared_organization'>, options?: any): AxiosPromise<InlineResponse20018> {
+        listCatalogOrganizationAccess(organizationId: string, catalogId: string, fields?: Array<'shared_organization'>, options?: any): AxiosPromise<InlineResponse20015> {
             return localVarFp.listCatalogOrganizationAccess(organizationId, catalogId, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5414,7 +5281,7 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCatalogPipelines(catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options?: any): AxiosPromise<InlineResponse2005> {
+        listCatalogPipelines(catalogId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options?: any): AxiosPromise<InlineResponse2003> {
             return localVarFp.listCatalogPipelines(catalogId, sort, limit, offset, search, pinned, tags, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5424,7 +5291,7 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizationSharedCatalogAccessRequests(organizationId: string, options?: any): AxiosPromise<InlineResponse20017> {
+        listOrganizationSharedCatalogAccessRequests(organizationId: string, options?: any): AxiosPromise<InlineResponse20014> {
             return localVarFp.listOrganizationSharedCatalogAccessRequests(organizationId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5443,7 +5310,7 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizationSharedCatalogs(organizationId: string, scope: 'all' | 'accessible', sort?: 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, ownerOrganizationId?: string, tags?: Set<CatalogTags>, fields?: Array<'organization' | 'pending_access_request'>, draft?: boolean, options?: any): AxiosPromise<InlineResponse2009> {
+        listOrganizationSharedCatalogs(organizationId: string, scope: 'all' | 'accessible', sort?: 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, ownerOrganizationId?: string, tags?: Set<CatalogTags>, fields?: Array<'organization' | 'pending_access_request'>, draft?: boolean, options?: any): AxiosPromise<InlineResponse2007> {
             return localVarFp.listOrganizationSharedCatalogs(organizationId, scope, sort, search, limit, offset, ownerOrganizationId, tags, fields, draft, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5452,7 +5319,7 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listSharingCatalogsOrganizations(options?: any): AxiosPromise<InlineResponse20011> {
+        listSharingCatalogsOrganizations(options?: any): AxiosPromise<InlineResponse2009> {
             return localVarFp.listSharingCatalogsOrganizations(options).then((request) => request(axios, basePath));
         },
         /**
@@ -5473,12 +5340,12 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {string} catalogId Catalog ID
          * @param {string} pipelineId Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject9} inlineObject9 
+         * @param {InlineObject8} inlineObject8 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        runCatalogPipeline(catalogId: string, pipelineId: string, revisionId: string, inlineObject9: InlineObject9, options?: any): AxiosPromise<InlineResponse201> {
-            return localVarFp.runCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject9, options).then((request) => request(axios, basePath));
+        runCatalogPipeline(catalogId: string, pipelineId: string, revisionId: string, inlineObject8: InlineObject8, options?: any): AxiosPromise<InlineResponse201> {
+            return localVarFp.runCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject8, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5486,12 +5353,12 @@ export const CatalogsApiFactory = function (configuration?: Configuration, baseP
          * @param {string} organizationId Organization ID
          * @param {string} catalogId Catalog ID
          * @param {string} accessRequestId Access Request ID
-         * @param {InlineObject18} inlineObject18 
+         * @param {InlineObject17} inlineObject17 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateCatalogAccessRequest(organizationId: string, catalogId: string, accessRequestId: string, inlineObject18: InlineObject18, options?: any): AxiosPromise<void> {
-            return localVarFp.updateCatalogAccessRequest(organizationId, catalogId, accessRequestId, inlineObject18, options).then((request) => request(axios, basePath));
+        updateCatalogAccessRequest(organizationId: string, catalogId: string, accessRequestId: string, inlineObject17: InlineObject17, options?: any): AxiosPromise<void> {
+            return localVarFp.updateCatalogAccessRequest(organizationId, catalogId, accessRequestId, inlineObject17, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -5509,13 +5376,13 @@ export class CatalogsApi extends BaseAPI {
      * @param {string} catalogId Catalog ID
      * @param {string} pipelineId Pipeline ID
      * @param {string} revisionId Pipeline revision ID
-     * @param {InlineObject8} inlineObject8 
+     * @param {InlineObject7} inlineObject7 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CatalogsApi
      */
-    public cloneCatalogPipeline(catalogId: string, pipelineId: string, revisionId: string, inlineObject8: InlineObject8, options?: any) {
-        return CatalogsApiFp(this.configuration).cloneCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject8, options).then((request) => request(this.axios, this.basePath));
+    public cloneCatalogPipeline(catalogId: string, pipelineId: string, revisionId: string, inlineObject7: InlineObject7, options?: any) {
+        return CatalogsApiFp(this.configuration).cloneCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject7, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5523,13 +5390,13 @@ export class CatalogsApi extends BaseAPI {
      * @summary Create a catalog access request
      * @param {string} organizationId Organization ID
      * @param {string} catalogId Catalog ID
-     * @param {InlineObject17} inlineObject17 
+     * @param {InlineObject16} inlineObject16 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CatalogsApi
      */
-    public createCatalogAccessRequest(organizationId: string, catalogId: string, inlineObject17: InlineObject17, options?: any) {
-        return CatalogsApiFp(this.configuration).createCatalogAccessRequest(organizationId, catalogId, inlineObject17, options).then((request) => request(this.axios, this.basePath));
+    public createCatalogAccessRequest(organizationId: string, catalogId: string, inlineObject16: InlineObject16, options?: any) {
+        return CatalogsApiFp(this.configuration).createCatalogAccessRequest(organizationId, catalogId, inlineObject16, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5726,13 +5593,13 @@ export class CatalogsApi extends BaseAPI {
      * @param {string} catalogId Catalog ID
      * @param {string} pipelineId Pipeline ID
      * @param {string} revisionId Pipeline revision ID
-     * @param {InlineObject9} inlineObject9 
+     * @param {InlineObject8} inlineObject8 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CatalogsApi
      */
-    public runCatalogPipeline(catalogId: string, pipelineId: string, revisionId: string, inlineObject9: InlineObject9, options?: any) {
-        return CatalogsApiFp(this.configuration).runCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject9, options).then((request) => request(this.axios, this.basePath));
+    public runCatalogPipeline(catalogId: string, pipelineId: string, revisionId: string, inlineObject8: InlineObject8, options?: any) {
+        return CatalogsApiFp(this.configuration).runCatalogPipeline(catalogId, pipelineId, revisionId, inlineObject8, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5741,13 +5608,13 @@ export class CatalogsApi extends BaseAPI {
      * @param {string} organizationId Organization ID
      * @param {string} catalogId Catalog ID
      * @param {string} accessRequestId Access Request ID
-     * @param {InlineObject18} inlineObject18 
+     * @param {InlineObject17} inlineObject17 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CatalogsApi
      */
-    public updateCatalogAccessRequest(organizationId: string, catalogId: string, accessRequestId: string, inlineObject18: InlineObject18, options?: any) {
-        return CatalogsApiFp(this.configuration).updateCatalogAccessRequest(organizationId, catalogId, accessRequestId, inlineObject18, options).then((request) => request(this.axios, this.basePath));
+    public updateCatalogAccessRequest(organizationId: string, catalogId: string, accessRequestId: string, inlineObject17: InlineObject17, options?: any) {
+        return CatalogsApiFp(this.configuration).updateCatalogAccessRequest(organizationId, catalogId, accessRequestId, inlineObject17, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5954,17 +5821,17 @@ export const CredentialsApiAxiosParamCreator = function (configuration?: Configu
          * @summary Update credential
          * @param {string} projectId Project ID
          * @param {string} id Credential ID
-         * @param {InlineObject12} inlineObject12 
+         * @param {InlineObject11} inlineObject11 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateCredential: async (projectId: string, id: string, inlineObject12: InlineObject12, options: any = {}): Promise<RequestArgs> => {
+        updateCredential: async (projectId: string, id: string, inlineObject11: InlineObject11, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('updateCredential', 'projectId', projectId)
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateCredential', 'id', id)
-            // verify required parameter 'inlineObject12' is not null or undefined
-            assertParamExists('updateCredential', 'inlineObject12', inlineObject12)
+            // verify required parameter 'inlineObject11' is not null or undefined
+            assertParamExists('updateCredential', 'inlineObject11', inlineObject11)
             const localVarPath = `/projects/{project_id}/credentials/{_id}`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
@@ -5990,7 +5857,7 @@ export const CredentialsApiAxiosParamCreator = function (configuration?: Configu
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject12, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject11, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6055,7 +5922,7 @@ export const CredentialsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role' | 'cis_license_bundle'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, search?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20010>> {
+        async listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role' | 'cis_license_bundle'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, search?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2008>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listCredentials(projectId, type, sort, offset, limit, search, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6064,12 +5931,12 @@ export const CredentialsApiFp = function(configuration?: Configuration) {
          * @summary Update credential
          * @param {string} projectId Project ID
          * @param {string} id Credential ID
-         * @param {InlineObject12} inlineObject12 
+         * @param {InlineObject11} inlineObject11 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateCredential(projectId: string, id: string, inlineObject12: InlineObject12, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCredential(projectId, id, inlineObject12, options);
+        async updateCredential(projectId: string, id: string, inlineObject11: InlineObject11, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCredential(projectId, id, inlineObject11, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -6127,7 +5994,7 @@ export const CredentialsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role' | 'cis_license_bundle'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, search?: string, options?: any): AxiosPromise<InlineResponse20010> {
+        listCredentials(projectId: string, type?: Array<'generic' | 'username_password' | 'ssh_key' | 'bearer_token' | 'api_token' | 'azure_service_principal' | 'google_service_account' | 'aws_access_key' | 'vault_app_role' | 'cis_license_bundle'>, sort?: 'created_asc' | 'created_desc', offset?: number, limit?: number, search?: string, options?: any): AxiosPromise<InlineResponse2008> {
             return localVarFp.listCredentials(projectId, type, sort, offset, limit, search, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6135,12 +6002,12 @@ export const CredentialsApiFactory = function (configuration?: Configuration, ba
          * @summary Update credential
          * @param {string} projectId Project ID
          * @param {string} id Credential ID
-         * @param {InlineObject12} inlineObject12 
+         * @param {InlineObject11} inlineObject11 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateCredential(projectId: string, id: string, inlineObject12: InlineObject12, options?: any): AxiosPromise<InlineResponse201> {
-            return localVarFp.updateCredential(projectId, id, inlineObject12, options).then((request) => request(axios, basePath));
+        updateCredential(projectId: string, id: string, inlineObject11: InlineObject11, options?: any): AxiosPromise<InlineResponse201> {
+            return localVarFp.updateCredential(projectId, id, inlineObject11, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -6213,13 +6080,13 @@ export class CredentialsApi extends BaseAPI {
      * @summary Update credential
      * @param {string} projectId Project ID
      * @param {string} id Credential ID
-     * @param {InlineObject12} inlineObject12 
+     * @param {InlineObject11} inlineObject11 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CredentialsApi
      */
-    public updateCredential(projectId: string, id: string, inlineObject12: InlineObject12, options?: any) {
-        return CredentialsApiFp(this.configuration).updateCredential(projectId, id, inlineObject12, options).then((request) => request(this.axios, this.basePath));
+    public updateCredential(projectId: string, id: string, inlineObject11: InlineObject11, options?: any) {
+        return CredentialsApiFp(this.configuration).updateCredential(projectId, id, inlineObject11, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -6478,17 +6345,17 @@ export const JobsApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary Run job
          * @param {string} projectId Project ID
          * @param {string} id Job ID
-         * @param {InlineObject13} inlineObject13 
+         * @param {InlineObject12} inlineObject12 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        runJob: async (projectId: string, id: string, inlineObject13: InlineObject13, options: any = {}): Promise<RequestArgs> => {
+        runJob: async (projectId: string, id: string, inlineObject12: InlineObject12, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('runJob', 'projectId', projectId)
             // verify required parameter 'id' is not null or undefined
             assertParamExists('runJob', 'id', id)
-            // verify required parameter 'inlineObject13' is not null or undefined
-            assertParamExists('runJob', 'inlineObject13', inlineObject13)
+            // verify required parameter 'inlineObject12' is not null or undefined
+            assertParamExists('runJob', 'inlineObject12', inlineObject12)
             const localVarPath = `/projects/{project_id}/jobs/{_id}/run`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
@@ -6514,7 +6381,7 @@ export const JobsApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject13, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject12, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6629,7 +6496,7 @@ export const JobsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, search?: string, pinned?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20012>> {
+        async listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, search?: string, pinned?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20010>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listJobs(projectId, sort, limit, offset, fields, search, pinned, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6650,12 +6517,12 @@ export const JobsApiFp = function(configuration?: Configuration) {
          * @summary Run job
          * @param {string} projectId Project ID
          * @param {string} id Job ID
-         * @param {InlineObject13} inlineObject13 
+         * @param {InlineObject12} inlineObject12 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async runJob(projectId: string, id: string, inlineObject13: InlineObject13, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.runJob(projectId, id, inlineObject13, options);
+        async runJob(projectId: string, id: string, inlineObject12: InlineObject12, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.runJob(projectId, id, inlineObject12, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -6728,7 +6595,7 @@ export const JobsApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, search?: string, pinned?: boolean, options?: any): AxiosPromise<InlineResponse20012> {
+        listJobs(projectId: string, sort?: 'created_asc' | 'created_desc' | 'last_run_asc' | 'last_run_desc', limit?: number, offset?: number, fields?: Array<'pipeline' | 'pipeline_revision'>, search?: string, pinned?: boolean, options?: any): AxiosPromise<InlineResponse20010> {
             return localVarFp.listJobs(projectId, sort, limit, offset, fields, search, pinned, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6747,12 +6614,12 @@ export const JobsApiFactory = function (configuration?: Configuration, basePath?
          * @summary Run job
          * @param {string} projectId Project ID
          * @param {string} id Job ID
-         * @param {InlineObject13} inlineObject13 
+         * @param {InlineObject12} inlineObject12 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        runJob(projectId: string, id: string, inlineObject13: InlineObject13, options?: any): AxiosPromise<InlineResponse201> {
-            return localVarFp.runJob(projectId, id, inlineObject13, options).then((request) => request(axios, basePath));
+        runJob(projectId: string, id: string, inlineObject12: InlineObject12, options?: any): AxiosPromise<InlineResponse201> {
+            return localVarFp.runJob(projectId, id, inlineObject12, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6852,13 +6719,13 @@ export class JobsApi extends BaseAPI {
      * @summary Run job
      * @param {string} projectId Project ID
      * @param {string} id Job ID
-     * @param {InlineObject13} inlineObject13 
+     * @param {InlineObject12} inlineObject12 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof JobsApi
      */
-    public runJob(projectId: string, id: string, inlineObject13: InlineObject13, options?: any) {
-        return JobsApiFp(this.configuration).runJob(projectId, id, inlineObject13, options).then((request) => request(this.axios, this.basePath));
+    public runJob(projectId: string, id: string, inlineObject12: InlineObject12, options?: any) {
+        return JobsApiFp(this.configuration).runJob(projectId, id, inlineObject12, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6878,512 +6745,6 @@ export class JobsApi extends BaseAPI {
 
 
 /**
- * OrganizationsApi - axios parameter creator
- * @export
- */
-export const OrganizationsApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @summary Add organization notification channel
-         * @param {string} organizationId Organization ID
-         * @param {NotificationChannel} notificationChannel 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addOrganizationNotificationChannel: async (organizationId: string, notificationChannel: NotificationChannel, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('addOrganizationNotificationChannel', 'organizationId', organizationId)
-            // verify required parameter 'notificationChannel' is not null or undefined
-            assertParamExists('addOrganizationNotificationChannel', 'notificationChannel', notificationChannel)
-            const localVarPath = `/organizations/{organization_id}/notification_channels`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(notificationChannel, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get organization
-         * @param {string} organizationId Organization ID
-         * @param {Array<'notification_channels'>} [fields] Additional fields to return
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getOrganization: async (organizationId: string, fields?: Array<'notification_channels'>, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('getOrganization', 'organizationId', organizationId)
-            const localVarPath = `/organizations/{organization_id}`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (fields) {
-                localVarQueryParameter['fields'] = fields;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary List organizations
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listOrganizations: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/organizations`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Remove organization notification channel
-         * @param {string} organizationId Organization ID
-         * @param {string} notificationChannelId Notification Channel ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        removeOrganizationNotificationChannel: async (organizationId: string, notificationChannelId: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('removeOrganizationNotificationChannel', 'organizationId', organizationId)
-            // verify required parameter 'notificationChannelId' is not null or undefined
-            assertParamExists('removeOrganizationNotificationChannel', 'notificationChannelId', notificationChannelId)
-            const localVarPath = `/organizations/{organization_id}/notification_channels/{notification_channel_id}`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
-                .replace(`{${"notification_channel_id"}}`, encodeURIComponent(String(notificationChannelId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Update organization
-         * @param {string} organizationId Organization ID
-         * @param {Organization} organization 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateOrganization: async (organizationId: string, organization: Organization, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('updateOrganization', 'organizationId', organizationId)
-            // verify required parameter 'organization' is not null or undefined
-            assertParamExists('updateOrganization', 'organization', organization)
-            const localVarPath = `/organizations/{organization_id}`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(organization, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Update organization notification channel
-         * @param {string} organizationId Organization ID
-         * @param {string} notificationChannelId Notification Channel ID
-         * @param {NotificationChannel} notificationChannel 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateOrganizationNotificationChannel: async (organizationId: string, notificationChannelId: string, notificationChannel: NotificationChannel, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('updateOrganizationNotificationChannel', 'organizationId', organizationId)
-            // verify required parameter 'notificationChannelId' is not null or undefined
-            assertParamExists('updateOrganizationNotificationChannel', 'notificationChannelId', notificationChannelId)
-            // verify required parameter 'notificationChannel' is not null or undefined
-            assertParamExists('updateOrganizationNotificationChannel', 'notificationChannel', notificationChannel)
-            const localVarPath = `/organizations/{organization_id}/notification_channels/{notification_channel_id}`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
-                .replace(`{${"notification_channel_id"}}`, encodeURIComponent(String(notificationChannelId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(notificationChannel, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * OrganizationsApi - functional programming interface
- * @export
- */
-export const OrganizationsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = OrganizationsApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @summary Add organization notification channel
-         * @param {string} organizationId Organization ID
-         * @param {NotificationChannel} notificationChannel 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async addOrganizationNotificationChannel(organizationId: string, notificationChannel: NotificationChannel, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addOrganizationNotificationChannel(organizationId, notificationChannel, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get organization
-         * @param {string} organizationId Organization ID
-         * @param {Array<'notification_channels'>} [fields] Additional fields to return
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getOrganization(organizationId: string, fields?: Array<'notification_channels'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Organization>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getOrganization(organizationId, fields, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary List organizations
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async listOrganizations(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20016>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizations(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Remove organization notification channel
-         * @param {string} organizationId Organization ID
-         * @param {string} notificationChannelId Notification Channel ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async removeOrganizationNotificationChannel(organizationId: string, notificationChannelId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.removeOrganizationNotificationChannel(organizationId, notificationChannelId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Update organization
-         * @param {string} organizationId Organization ID
-         * @param {Organization} organization 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateOrganization(organizationId: string, organization: Organization, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Organization>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOrganization(organizationId, organization, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Update organization notification channel
-         * @param {string} organizationId Organization ID
-         * @param {string} notificationChannelId Notification Channel ID
-         * @param {NotificationChannel} notificationChannel 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateOrganizationNotificationChannel(organizationId: string, notificationChannelId: string, notificationChannel: NotificationChannel, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOrganizationNotificationChannel(organizationId, notificationChannelId, notificationChannel, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * OrganizationsApi - factory interface
- * @export
- */
-export const OrganizationsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = OrganizationsApiFp(configuration)
-    return {
-        /**
-         * 
-         * @summary Add organization notification channel
-         * @param {string} organizationId Organization ID
-         * @param {NotificationChannel} notificationChannel 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addOrganizationNotificationChannel(organizationId: string, notificationChannel: NotificationChannel, options?: any): AxiosPromise<void> {
-            return localVarFp.addOrganizationNotificationChannel(organizationId, notificationChannel, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get organization
-         * @param {string} organizationId Organization ID
-         * @param {Array<'notification_channels'>} [fields] Additional fields to return
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getOrganization(organizationId: string, fields?: Array<'notification_channels'>, options?: any): AxiosPromise<Organization> {
-            return localVarFp.getOrganization(organizationId, fields, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary List organizations
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listOrganizations(options?: any): AxiosPromise<InlineResponse20016> {
-            return localVarFp.listOrganizations(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Remove organization notification channel
-         * @param {string} organizationId Organization ID
-         * @param {string} notificationChannelId Notification Channel ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        removeOrganizationNotificationChannel(organizationId: string, notificationChannelId: string, options?: any): AxiosPromise<void> {
-            return localVarFp.removeOrganizationNotificationChannel(organizationId, notificationChannelId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Update organization
-         * @param {string} organizationId Organization ID
-         * @param {Organization} organization 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateOrganization(organizationId: string, organization: Organization, options?: any): AxiosPromise<Organization> {
-            return localVarFp.updateOrganization(organizationId, organization, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Update organization notification channel
-         * @param {string} organizationId Organization ID
-         * @param {string} notificationChannelId Notification Channel ID
-         * @param {NotificationChannel} notificationChannel 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateOrganizationNotificationChannel(organizationId: string, notificationChannelId: string, notificationChannel: NotificationChannel, options?: any): AxiosPromise<void> {
-            return localVarFp.updateOrganizationNotificationChannel(organizationId, notificationChannelId, notificationChannel, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * OrganizationsApi - object-oriented interface
- * @export
- * @class OrganizationsApi
- * @extends {BaseAPI}
- */
-export class OrganizationsApi extends BaseAPI {
-    /**
-     * 
-     * @summary Add organization notification channel
-     * @param {string} organizationId Organization ID
-     * @param {NotificationChannel} notificationChannel 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrganizationsApi
-     */
-    public addOrganizationNotificationChannel(organizationId: string, notificationChannel: NotificationChannel, options?: any) {
-        return OrganizationsApiFp(this.configuration).addOrganizationNotificationChannel(organizationId, notificationChannel, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get organization
-     * @param {string} organizationId Organization ID
-     * @param {Array<'notification_channels'>} [fields] Additional fields to return
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrganizationsApi
-     */
-    public getOrganization(organizationId: string, fields?: Array<'notification_channels'>, options?: any) {
-        return OrganizationsApiFp(this.configuration).getOrganization(organizationId, fields, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary List organizations
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrganizationsApi
-     */
-    public listOrganizations(options?: any) {
-        return OrganizationsApiFp(this.configuration).listOrganizations(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Remove organization notification channel
-     * @param {string} organizationId Organization ID
-     * @param {string} notificationChannelId Notification Channel ID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrganizationsApi
-     */
-    public removeOrganizationNotificationChannel(organizationId: string, notificationChannelId: string, options?: any) {
-        return OrganizationsApiFp(this.configuration).removeOrganizationNotificationChannel(organizationId, notificationChannelId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Update organization
-     * @param {string} organizationId Organization ID
-     * @param {Organization} organization 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrganizationsApi
-     */
-    public updateOrganization(organizationId: string, organization: Organization, options?: any) {
-        return OrganizationsApiFp(this.configuration).updateOrganization(organizationId, organization, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Update organization notification channel
-     * @param {string} organizationId Organization ID
-     * @param {string} notificationChannelId Notification Channel ID
-     * @param {NotificationChannel} notificationChannel 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrganizationsApi
-     */
-    public updateOrganizationNotificationChannel(organizationId: string, notificationChannelId: string, notificationChannel: NotificationChannel, options?: any) {
-        return OrganizationsApiFp(this.configuration).updateOrganizationNotificationChannel(organizationId, notificationChannelId, notificationChannel, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
  * PipelinesApi - axios parameter creator
  * @export
  */
@@ -7395,19 +6756,19 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject10} inlineObject10 
+         * @param {InlineObject9} inlineObject9 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clonePipeline: async (projectId: string, id: string, revisionId: string, inlineObject10: InlineObject10, options: any = {}): Promise<RequestArgs> => {
+        clonePipeline: async (projectId: string, id: string, revisionId: string, inlineObject9: InlineObject9, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('clonePipeline', 'projectId', projectId)
             // verify required parameter 'id' is not null or undefined
             assertParamExists('clonePipeline', 'id', id)
             // verify required parameter 'revisionId' is not null or undefined
             assertParamExists('clonePipeline', 'revisionId', revisionId)
-            // verify required parameter 'inlineObject10' is not null or undefined
-            assertParamExists('clonePipeline', 'inlineObject10', inlineObject10)
+            // verify required parameter 'inlineObject9' is not null or undefined
+            assertParamExists('clonePipeline', 'inlineObject9', inlineObject9)
             const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}/clone`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"_id"}}`, encodeURIComponent(String(id)))
@@ -7434,7 +6795,7 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject10, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject9, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -7942,19 +7303,19 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject11} inlineObject11 
+         * @param {InlineObject10} inlineObject10 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        runPipeline: async (projectId: string, id: string, revisionId: string, inlineObject11: InlineObject11, options: any = {}): Promise<RequestArgs> => {
+        runPipeline: async (projectId: string, id: string, revisionId: string, inlineObject10: InlineObject10, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('runPipeline', 'projectId', projectId)
             // verify required parameter 'id' is not null or undefined
             assertParamExists('runPipeline', 'id', id)
             // verify required parameter 'revisionId' is not null or undefined
             assertParamExists('runPipeline', 'revisionId', revisionId)
-            // verify required parameter 'inlineObject11' is not null or undefined
-            assertParamExists('runPipeline', 'inlineObject11', inlineObject11)
+            // verify required parameter 'inlineObject10' is not null or undefined
+            assertParamExists('runPipeline', 'inlineObject10', inlineObject10)
             const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}/run`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"_id"}}`, encodeURIComponent(String(id)))
@@ -7981,7 +7342,7 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject11, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject10, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8042,19 +7403,19 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject7} inlineObject7 
+         * @param {InlineObject5} inlineObject5 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updatePipelineRevision: async (projectId: string, id: string, revisionId: string, inlineObject7: InlineObject7, options: any = {}): Promise<RequestArgs> => {
+        updatePipelineRevision: async (projectId: string, id: string, revisionId: string, inlineObject5: InlineObject5, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('updatePipelineRevision', 'projectId', projectId)
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updatePipelineRevision', 'id', id)
             // verify required parameter 'revisionId' is not null or undefined
             assertParamExists('updatePipelineRevision', 'revisionId', revisionId)
-            // verify required parameter 'inlineObject7' is not null or undefined
-            assertParamExists('updatePipelineRevision', 'inlineObject7', inlineObject7)
+            // verify required parameter 'inlineObject5' is not null or undefined
+            assertParamExists('updatePipelineRevision', 'inlineObject5', inlineObject5)
             const localVarPath = `/projects/{project_id}/pipelines/{_id}/revisions/{revision_id}`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"_id"}}`, encodeURIComponent(String(id)))
@@ -8081,7 +7442,7 @@ export const PipelinesApiAxiosParamCreator = function (configuration?: Configura
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject7, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject5, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8104,12 +7465,12 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject10} inlineObject10 
+         * @param {InlineObject9} inlineObject9 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async clonePipeline(projectId: string, id: string, revisionId: string, inlineObject10: InlineObject10, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2011>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.clonePipeline(projectId, id, revisionId, inlineObject10, options);
+        async clonePipeline(projectId: string, id: string, revisionId: string, inlineObject9: InlineObject9, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2011>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.clonePipeline(projectId, id, revisionId, inlineObject9, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -8133,7 +7494,7 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createPipelineRevision(projectId: string, id: string, pipelineRevision: PipelineRevision, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2007>> {
+        async createPipelineRevision(projectId: string, id: string, pipelineRevision: PipelineRevision, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createPipelineRevision(projectId, id, pipelineRevision, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8184,7 +7545,7 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPipelineRevisionPipelineRevisions(projectId: string, id: string, revisionId: string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2008>> {
+        async getPipelineRevisionPipelineRevisions(projectId: string, id: string, revisionId: string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPipelineRevisionPipelineRevisions(projectId, id, revisionId, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8197,7 +7558,7 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPipelineRevisionPipelines(projectId: string, id: string, revisionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+        async getPipelineRevisionPipelines(projectId: string, id: string, revisionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2003>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPipelineRevisionPipelines(projectId, id, revisionId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8213,7 +7574,7 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user' | 'outputs'>, limit?: number, offset?: number, published?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
+        async getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user' | 'outputs'>, limit?: number, offset?: number, published?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPipelineRevisions(projectId, id, fields, limit, offset, published, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8230,7 +7591,7 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listPipelines(projectId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+        async listPipelines(projectId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2003>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listPipelines(projectId, sort, limit, offset, search, pinned, tags, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8253,12 +7614,12 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject11} inlineObject11 
+         * @param {InlineObject10} inlineObject10 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async runPipeline(projectId: string, id: string, revisionId: string, inlineObject11: InlineObject11, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.runPipeline(projectId, id, revisionId, inlineObject11, options);
+        async runPipeline(projectId: string, id: string, revisionId: string, inlineObject10: InlineObject10, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.runPipeline(projectId, id, revisionId, inlineObject10, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -8280,12 +7641,12 @@ export const PipelinesApiFp = function(configuration?: Configuration) {
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject7} inlineObject7 
+         * @param {InlineObject5} inlineObject5 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updatePipelineRevision(projectId: string, id: string, revisionId: string, inlineObject7: InlineObject7, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updatePipelineRevision(projectId, id, revisionId, inlineObject7, options);
+        async updatePipelineRevision(projectId: string, id: string, revisionId: string, inlineObject5: InlineObject5, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updatePipelineRevision(projectId, id, revisionId, inlineObject5, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -8304,12 +7665,12 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject10} inlineObject10 
+         * @param {InlineObject9} inlineObject9 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clonePipeline(projectId: string, id: string, revisionId: string, inlineObject10: InlineObject10, options?: any): AxiosPromise<InlineResponse2011> {
-            return localVarFp.clonePipeline(projectId, id, revisionId, inlineObject10, options).then((request) => request(axios, basePath));
+        clonePipeline(projectId: string, id: string, revisionId: string, inlineObject9: InlineObject9, options?: any): AxiosPromise<InlineResponse2011> {
+            return localVarFp.clonePipeline(projectId, id, revisionId, inlineObject9, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -8331,7 +7692,7 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createPipelineRevision(projectId: string, id: string, pipelineRevision: PipelineRevision, options?: any): AxiosPromise<InlineResponse2007> {
+        createPipelineRevision(projectId: string, id: string, pipelineRevision: PipelineRevision, options?: any): AxiosPromise<InlineResponse2005> {
             return localVarFp.createPipelineRevision(projectId, id, pipelineRevision, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8378,7 +7739,7 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPipelineRevisionPipelineRevisions(projectId: string, id: string, revisionId: string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): AxiosPromise<InlineResponse2008> {
+        getPipelineRevisionPipelineRevisions(projectId: string, id: string, revisionId: string, fields?: Array<'variables' | 'outputs' | 'steps' | 'layout'>, options?: any): AxiosPromise<InlineResponse2006> {
             return localVarFp.getPipelineRevisionPipelineRevisions(projectId, id, revisionId, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8390,7 +7751,7 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPipelineRevisionPipelines(projectId: string, id: string, revisionId: string, options?: any): AxiosPromise<InlineResponse2005> {
+        getPipelineRevisionPipelines(projectId: string, id: string, revisionId: string, options?: any): AxiosPromise<InlineResponse2003> {
             return localVarFp.getPipelineRevisionPipelines(projectId, id, revisionId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8405,7 +7766,7 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user' | 'outputs'>, limit?: number, offset?: number, published?: boolean, options?: any): AxiosPromise<InlineResponse2006> {
+        getPipelineRevisions(projectId: string, id: string, fields?: Array<'variables' | 'user' | 'outputs'>, limit?: number, offset?: number, published?: boolean, options?: any): AxiosPromise<InlineResponse2004> {
             return localVarFp.getPipelineRevisions(projectId, id, fields, limit, offset, published, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8421,7 +7782,7 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listPipelines(projectId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options?: any): AxiosPromise<InlineResponse2005> {
+        listPipelines(projectId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', limit?: number, offset?: number, search?: string, pinned?: boolean, tags?: Array<string>, options?: any): AxiosPromise<InlineResponse2003> {
             return localVarFp.listPipelines(projectId, sort, limit, offset, search, pinned, tags, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8442,12 +7803,12 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject11} inlineObject11 
+         * @param {InlineObject10} inlineObject10 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        runPipeline(projectId: string, id: string, revisionId: string, inlineObject11: InlineObject11, options?: any): AxiosPromise<InlineResponse201> {
-            return localVarFp.runPipeline(projectId, id, revisionId, inlineObject11, options).then((request) => request(axios, basePath));
+        runPipeline(projectId: string, id: string, revisionId: string, inlineObject10: InlineObject10, options?: any): AxiosPromise<InlineResponse201> {
+            return localVarFp.runPipeline(projectId, id, revisionId, inlineObject10, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -8467,12 +7828,12 @@ export const PipelinesApiFactory = function (configuration?: Configuration, base
          * @param {string} projectId Project ID
          * @param {string} id Pipeline ID
          * @param {string} revisionId Pipeline revision ID
-         * @param {InlineObject7} inlineObject7 
+         * @param {InlineObject5} inlineObject5 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updatePipelineRevision(projectId: string, id: string, revisionId: string, inlineObject7: InlineObject7, options?: any): AxiosPromise<void> {
-            return localVarFp.updatePipelineRevision(projectId, id, revisionId, inlineObject7, options).then((request) => request(axios, basePath));
+        updatePipelineRevision(projectId: string, id: string, revisionId: string, inlineObject5: InlineObject5, options?: any): AxiosPromise<void> {
+            return localVarFp.updatePipelineRevision(projectId, id, revisionId, inlineObject5, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -8490,13 +7851,13 @@ export class PipelinesApi extends BaseAPI {
      * @param {string} projectId Project ID
      * @param {string} id Pipeline ID
      * @param {string} revisionId Pipeline revision ID
-     * @param {InlineObject10} inlineObject10 
+     * @param {InlineObject9} inlineObject9 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PipelinesApi
      */
-    public clonePipeline(projectId: string, id: string, revisionId: string, inlineObject10: InlineObject10, options?: any) {
-        return PipelinesApiFp(this.configuration).clonePipeline(projectId, id, revisionId, inlineObject10, options).then((request) => request(this.axios, this.basePath));
+    public clonePipeline(projectId: string, id: string, revisionId: string, inlineObject9: InlineObject9, options?: any) {
+        return PipelinesApiFp(this.configuration).clonePipeline(projectId, id, revisionId, inlineObject9, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -8650,13 +8011,13 @@ export class PipelinesApi extends BaseAPI {
      * @param {string} projectId Project ID
      * @param {string} id Pipeline ID
      * @param {string} revisionId Pipeline revision ID
-     * @param {InlineObject11} inlineObject11 
+     * @param {InlineObject10} inlineObject10 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PipelinesApi
      */
-    public runPipeline(projectId: string, id: string, revisionId: string, inlineObject11: InlineObject11, options?: any) {
-        return PipelinesApiFp(this.configuration).runPipeline(projectId, id, revisionId, inlineObject11, options).then((request) => request(this.axios, this.basePath));
+    public runPipeline(projectId: string, id: string, revisionId: string, inlineObject10: InlineObject10, options?: any) {
+        return PipelinesApiFp(this.configuration).runPipeline(projectId, id, revisionId, inlineObject10, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -8679,13 +8040,13 @@ export class PipelinesApi extends BaseAPI {
      * @param {string} projectId Project ID
      * @param {string} id Pipeline ID
      * @param {string} revisionId Pipeline revision ID
-     * @param {InlineObject7} inlineObject7 
+     * @param {InlineObject5} inlineObject5 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PipelinesApi
      */
-    public updatePipelineRevision(projectId: string, id: string, revisionId: string, inlineObject7: InlineObject7, options?: any) {
-        return PipelinesApiFp(this.configuration).updatePipelineRevision(projectId, id, revisionId, inlineObject7, options).then((request) => request(this.axios, this.basePath));
+    public updatePipelineRevision(projectId: string, id: string, revisionId: string, inlineObject5: InlineObject5, options?: any) {
+        return PipelinesApiFp(this.configuration).updatePipelineRevision(projectId, id, revisionId, inlineObject5, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -8986,15 +8347,15 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
          * 
          * @summary Publish project catalog
          * @param {string} projectId Project ID
-         * @param {InlineObject16} inlineObject16 
+         * @param {InlineObject15} inlineObject15 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publishProjectCatalog: async (projectId: string, inlineObject16: InlineObject16, options: any = {}): Promise<RequestArgs> => {
+        publishProjectCatalog: async (projectId: string, inlineObject15: InlineObject15, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('publishProjectCatalog', 'projectId', projectId)
-            // verify required parameter 'inlineObject16' is not null or undefined
-            assertParamExists('publishProjectCatalog', 'inlineObject16', inlineObject16)
+            // verify required parameter 'inlineObject15' is not null or undefined
+            assertParamExists('publishProjectCatalog', 'inlineObject15', inlineObject15)
             const localVarPath = `/projects/{project_id}/publish`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -9019,7 +8380,7 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject16, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject15, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9062,6 +8423,94 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Set image of a pipeline
+         * @param {string} projectId Project ID
+         * @param {string} id Pipeline ID
+         * @param {InlineObject6} [inlineObject6] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setPipelineImage: async (projectId: string, id: string, inlineObject6?: InlineObject6, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('setPipelineImage', 'projectId', projectId)
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('setPipelineImage', 'id', id)
+            const localVarPath = `/projects/{project_id}/pipelines/{_id}/image`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject6, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Set image of a project
+         * @param {string} projectId Project ID
+         * @param {InlineObject4} [inlineObject4] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setProjectImage: async (projectId: string, inlineObject4?: InlineObject4, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('setProjectImage', 'projectId', projectId)
+            const localVarPath = `/projects/{project_id}/image`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject4, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9228,7 +8677,7 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizationProjects(organizationId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, offset?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
+        async listOrganizationProjects(organizationId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, offset?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2007>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizationProjects(organizationId, sort, search, offset, limit, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9243,7 +8692,7 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listProjects(sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, fields?: Array<'organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
+        async listProjects(sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, fields?: Array<'organization'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2007>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listProjects(sort, search, limit, offset, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9251,12 +8700,12 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          * 
          * @summary Publish project catalog
          * @param {string} projectId Project ID
-         * @param {InlineObject16} inlineObject16 
+         * @param {InlineObject15} inlineObject15 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async publishProjectCatalog(projectId: string, inlineObject16: InlineObject16, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.publishProjectCatalog(projectId, inlineObject16, options);
+        async publishProjectCatalog(projectId: string, inlineObject15: InlineObject15, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.publishProjectCatalog(projectId, inlineObject15, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -9269,6 +8718,31 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          */
         async removeProjectNotificationChannel(projectId: string, notificationChannelId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.removeProjectNotificationChannel(projectId, notificationChannelId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Set image of a pipeline
+         * @param {string} projectId Project ID
+         * @param {string} id Pipeline ID
+         * @param {InlineObject6} [inlineObject6] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setPipelineImage(projectId: string, id: string, inlineObject6?: InlineObject6, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setPipelineImage(projectId, id, inlineObject6, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Set image of a project
+         * @param {string} projectId Project ID
+         * @param {InlineObject4} [inlineObject4] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setProjectImage(projectId: string, inlineObject4?: InlineObject4, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setProjectImage(projectId, inlineObject4, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -9360,7 +8834,7 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizationProjects(organizationId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, offset?: number, limit?: number, options?: any): AxiosPromise<InlineResponse2009> {
+        listOrganizationProjects(organizationId: string, sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, offset?: number, limit?: number, options?: any): AxiosPromise<InlineResponse2007> {
             return localVarFp.listOrganizationProjects(organizationId, sort, search, offset, limit, options).then((request) => request(axios, basePath));
         },
         /**
@@ -9374,19 +8848,19 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjects(sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, fields?: Array<'organization'>, options?: any): AxiosPromise<InlineResponse2009> {
+        listProjects(sort?: 'modified_asc' | 'modified_desc' | 'name_asc' | 'name_desc', search?: string, limit?: number, offset?: number, fields?: Array<'organization'>, options?: any): AxiosPromise<InlineResponse2007> {
             return localVarFp.listProjects(sort, search, limit, offset, fields, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Publish project catalog
          * @param {string} projectId Project ID
-         * @param {InlineObject16} inlineObject16 
+         * @param {InlineObject15} inlineObject15 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publishProjectCatalog(projectId: string, inlineObject16: InlineObject16, options?: any): AxiosPromise<void> {
-            return localVarFp.publishProjectCatalog(projectId, inlineObject16, options).then((request) => request(axios, basePath));
+        publishProjectCatalog(projectId: string, inlineObject15: InlineObject15, options?: any): AxiosPromise<void> {
+            return localVarFp.publishProjectCatalog(projectId, inlineObject15, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9398,6 +8872,29 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          */
         removeProjectNotificationChannel(projectId: string, notificationChannelId: string, options?: any): AxiosPromise<void> {
             return localVarFp.removeProjectNotificationChannel(projectId, notificationChannelId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Set image of a pipeline
+         * @param {string} projectId Project ID
+         * @param {string} id Pipeline ID
+         * @param {InlineObject6} [inlineObject6] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setPipelineImage(projectId: string, id: string, inlineObject6?: InlineObject6, options?: any): AxiosPromise<InlineResponse201> {
+            return localVarFp.setPipelineImage(projectId, id, inlineObject6, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Set image of a project
+         * @param {string} projectId Project ID
+         * @param {InlineObject4} [inlineObject4] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setProjectImage(projectId: string, inlineObject4?: InlineObject4, options?: any): AxiosPromise<InlineResponse201> {
+            return localVarFp.setProjectImage(projectId, inlineObject4, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9519,13 +9016,13 @@ export class ProjectsApi extends BaseAPI {
      * 
      * @summary Publish project catalog
      * @param {string} projectId Project ID
-     * @param {InlineObject16} inlineObject16 
+     * @param {InlineObject15} inlineObject15 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    public publishProjectCatalog(projectId: string, inlineObject16: InlineObject16, options?: any) {
-        return ProjectsApiFp(this.configuration).publishProjectCatalog(projectId, inlineObject16, options).then((request) => request(this.axios, this.basePath));
+    public publishProjectCatalog(projectId: string, inlineObject15: InlineObject15, options?: any) {
+        return ProjectsApiFp(this.configuration).publishProjectCatalog(projectId, inlineObject15, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9539,6 +9036,33 @@ export class ProjectsApi extends BaseAPI {
      */
     public removeProjectNotificationChannel(projectId: string, notificationChannelId: string, options?: any) {
         return ProjectsApiFp(this.configuration).removeProjectNotificationChannel(projectId, notificationChannelId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Set image of a pipeline
+     * @param {string} projectId Project ID
+     * @param {string} id Pipeline ID
+     * @param {InlineObject6} [inlineObject6] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public setPipelineImage(projectId: string, id: string, inlineObject6?: InlineObject6, options?: any) {
+        return ProjectsApiFp(this.configuration).setPipelineImage(projectId, id, inlineObject6, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Set image of a project
+     * @param {string} projectId Project ID
+     * @param {InlineObject4} [inlineObject4] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public setProjectImage(projectId: string, inlineObject4?: InlineObject4, options?: any) {
+        return ProjectsApiFp(this.configuration).setProjectImage(projectId, inlineObject4, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9580,15 +9104,15 @@ export const RunnerPoolsApiAxiosParamCreator = function (configuration?: Configu
          * 
          * @summary Create runner manager
          * @param {string} organizationId Organization ID
-         * @param {InlineObject23} inlineObject23 
+         * @param {InlineObject20} inlineObject20 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createRunnerManager: async (organizationId: string, inlineObject23: InlineObject23, options: any = {}): Promise<RequestArgs> => {
+        createRunnerManager: async (organizationId: string, inlineObject20: InlineObject20, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationId' is not null or undefined
             assertParamExists('createRunnerManager', 'organizationId', organizationId)
-            // verify required parameter 'inlineObject23' is not null or undefined
-            assertParamExists('createRunnerManager', 'inlineObject23', inlineObject23)
+            // verify required parameter 'inlineObject20' is not null or undefined
+            assertParamExists('createRunnerManager', 'inlineObject20', inlineObject20)
             const localVarPath = `/organizations/{organization_id}/runner_managers`
                 .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -9613,7 +9137,7 @@ export const RunnerPoolsApiAxiosParamCreator = function (configuration?: Configu
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject23, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject20, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9857,17 +9381,17 @@ export const RunnerPoolsApiAxiosParamCreator = function (configuration?: Configu
          * @summary Update runner manager
          * @param {string} organizationId Organization ID
          * @param {string} id Manager ID
-         * @param {InlineObject24} inlineObject24 
+         * @param {InlineObject21} inlineObject21 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateRunnerManager: async (organizationId: string, id: string, inlineObject24: InlineObject24, options: any = {}): Promise<RequestArgs> => {
+        updateRunnerManager: async (organizationId: string, id: string, inlineObject21: InlineObject21, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationId' is not null or undefined
             assertParamExists('updateRunnerManager', 'organizationId', organizationId)
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateRunnerManager', 'id', id)
-            // verify required parameter 'inlineObject24' is not null or undefined
-            assertParamExists('updateRunnerManager', 'inlineObject24', inlineObject24)
+            // verify required parameter 'inlineObject21' is not null or undefined
+            assertParamExists('updateRunnerManager', 'inlineObject21', inlineObject21)
             const localVarPath = `/organizations/{organization_id}/runner_managers/{_id}`
                 .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
                 .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
@@ -9893,7 +9417,7 @@ export const RunnerPoolsApiAxiosParamCreator = function (configuration?: Configu
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject24, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject21, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9914,12 +9438,12 @@ export const RunnerPoolsApiFp = function(configuration?: Configuration) {
          * 
          * @summary Create runner manager
          * @param {string} organizationId Organization ID
-         * @param {InlineObject23} inlineObject23 
+         * @param {InlineObject20} inlineObject20 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createRunnerManager(organizationId: string, inlineObject23: InlineObject23, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunnerManager>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createRunnerManager(organizationId, inlineObject23, options);
+        async createRunnerManager(organizationId: string, inlineObject20: InlineObject20, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunnerManager>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createRunnerManager(organizationId, inlineObject20, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -9957,7 +9481,7 @@ export const RunnerPoolsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOrganizationRunnerManagers(organizationId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20013>> {
+        async listOrganizationRunnerManagers(organizationId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20011>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizationRunnerManagers(organizationId, runners, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9970,7 +9494,7 @@ export const RunnerPoolsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listProjectManagers(projectId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20013>> {
+        async listProjectManagers(projectId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20011>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listProjectManagers(projectId, runners, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9991,12 +9515,12 @@ export const RunnerPoolsApiFp = function(configuration?: Configuration) {
          * @summary Update runner manager
          * @param {string} organizationId Organization ID
          * @param {string} id Manager ID
-         * @param {InlineObject24} inlineObject24 
+         * @param {InlineObject21} inlineObject21 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateRunnerManager(organizationId: string, id: string, inlineObject24: InlineObject24, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateRunnerManager(organizationId, id, inlineObject24, options);
+        async updateRunnerManager(organizationId: string, id: string, inlineObject21: InlineObject21, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateRunnerManager(organizationId, id, inlineObject21, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -10013,12 +9537,12 @@ export const RunnerPoolsApiFactory = function (configuration?: Configuration, ba
          * 
          * @summary Create runner manager
          * @param {string} organizationId Organization ID
-         * @param {InlineObject23} inlineObject23 
+         * @param {InlineObject20} inlineObject20 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createRunnerManager(organizationId: string, inlineObject23: InlineObject23, options?: any): AxiosPromise<RunnerManager> {
-            return localVarFp.createRunnerManager(organizationId, inlineObject23, options).then((request) => request(axios, basePath));
+        createRunnerManager(organizationId: string, inlineObject20: InlineObject20, options?: any): AxiosPromise<RunnerManager> {
+            return localVarFp.createRunnerManager(organizationId, inlineObject20, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -10053,7 +9577,7 @@ export const RunnerPoolsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOrganizationRunnerManagers(organizationId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options?: any): AxiosPromise<InlineResponse20013> {
+        listOrganizationRunnerManagers(organizationId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options?: any): AxiosPromise<InlineResponse20011> {
             return localVarFp.listOrganizationRunnerManagers(organizationId, runners, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -10065,7 +9589,7 @@ export const RunnerPoolsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjectManagers(projectId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options?: any): AxiosPromise<InlineResponse20013> {
+        listProjectManagers(projectId: string, runners?: boolean, fields?: Array<'runner_options' | 'runner_manager_options' | 'instances'>, options?: any): AxiosPromise<InlineResponse20011> {
             return localVarFp.listProjectManagers(projectId, runners, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -10084,12 +9608,12 @@ export const RunnerPoolsApiFactory = function (configuration?: Configuration, ba
          * @summary Update runner manager
          * @param {string} organizationId Organization ID
          * @param {string} id Manager ID
-         * @param {InlineObject24} inlineObject24 
+         * @param {InlineObject21} inlineObject21 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateRunnerManager(organizationId: string, id: string, inlineObject24: InlineObject24, options?: any): AxiosPromise<void> {
-            return localVarFp.updateRunnerManager(organizationId, id, inlineObject24, options).then((request) => request(axios, basePath));
+        updateRunnerManager(organizationId: string, id: string, inlineObject21: InlineObject21, options?: any): AxiosPromise<void> {
+            return localVarFp.updateRunnerManager(organizationId, id, inlineObject21, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -10105,13 +9629,13 @@ export class RunnerPoolsApi extends BaseAPI {
      * 
      * @summary Create runner manager
      * @param {string} organizationId Organization ID
-     * @param {InlineObject23} inlineObject23 
+     * @param {InlineObject20} inlineObject20 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RunnerPoolsApi
      */
-    public createRunnerManager(organizationId: string, inlineObject23: InlineObject23, options?: any) {
-        return RunnerPoolsApiFp(this.configuration).createRunnerManager(organizationId, inlineObject23, options).then((request) => request(this.axios, this.basePath));
+    public createRunnerManager(organizationId: string, inlineObject20: InlineObject20, options?: any) {
+        return RunnerPoolsApiFp(this.configuration).createRunnerManager(organizationId, inlineObject20, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10188,13 +9712,13 @@ export class RunnerPoolsApi extends BaseAPI {
      * @summary Update runner manager
      * @param {string} organizationId Organization ID
      * @param {string} id Manager ID
-     * @param {InlineObject24} inlineObject24 
+     * @param {InlineObject21} inlineObject21 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RunnerPoolsApi
      */
-    public updateRunnerManager(organizationId: string, id: string, inlineObject24: InlineObject24, options?: any) {
-        return RunnerPoolsApiFp(this.configuration).updateRunnerManager(organizationId, id, inlineObject24, options).then((request) => request(this.axios, this.basePath));
+    public updateRunnerManager(organizationId: string, id: string, inlineObject21: InlineObject21, options?: any) {
+        return RunnerPoolsApiFp(this.configuration).updateRunnerManager(organizationId, id, inlineObject21, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -10428,11 +9952,11 @@ export const RunsApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary Rerun a run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {InlineObject15} [inlineObject15] 
+         * @param {InlineObject14} [inlineObject14] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        rerunRun: async (projectId: string, id: string, inlineObject15?: InlineObject15, options: any = {}): Promise<RequestArgs> => {
+        rerunRun: async (projectId: string, id: string, inlineObject14?: InlineObject14, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('rerunRun', 'projectId', projectId)
             // verify required parameter 'id' is not null or undefined
@@ -10462,7 +9986,7 @@ export const RunsApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject15, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject14, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -10474,17 +9998,17 @@ export const RunsApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary Update a run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {InlineObject14} inlineObject14 
+         * @param {InlineObject13} inlineObject13 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateRun: async (projectId: string, id: string, inlineObject14: InlineObject14, options: any = {}): Promise<RequestArgs> => {
+        updateRun: async (projectId: string, id: string, inlineObject13: InlineObject13, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('updateRun', 'projectId', projectId)
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateRun', 'id', id)
-            // verify required parameter 'inlineObject14' is not null or undefined
-            assertParamExists('updateRun', 'inlineObject14', inlineObject14)
+            // verify required parameter 'inlineObject13' is not null or undefined
+            assertParamExists('updateRun', 'inlineObject13', inlineObject13)
             const localVarPath = `/projects/{project_id}/runs/{_id}`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
@@ -10510,7 +10034,7 @@ export const RunsApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject14, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject13, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -10580,7 +10104,7 @@ export const RunsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'runner_manager'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20015>> {
+        async listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'runner_manager'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20013>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listProjectRuns(projectId, pipelineId, jobId, statuses, startDate, endDate, sort, limit, offset, fields, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -10589,12 +10113,12 @@ export const RunsApiFp = function(configuration?: Configuration) {
          * @summary Rerun a run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {InlineObject15} [inlineObject15] 
+         * @param {InlineObject14} [inlineObject14] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rerunRun(projectId: string, id: string, inlineObject15?: InlineObject15, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.rerunRun(projectId, id, inlineObject15, options);
+        async rerunRun(projectId: string, id: string, inlineObject14?: InlineObject14, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.rerunRun(projectId, id, inlineObject14, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -10602,12 +10126,12 @@ export const RunsApiFp = function(configuration?: Configuration) {
          * @summary Update a run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {InlineObject14} inlineObject14 
+         * @param {InlineObject13} inlineObject13 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateRun(projectId: string, id: string, inlineObject14: InlineObject14, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateRun(projectId, id, inlineObject14, options);
+        async updateRun(projectId: string, id: string, inlineObject13: InlineObject13, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateRun(projectId, id, inlineObject13, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -10670,7 +10194,7 @@ export const RunsApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'runner_manager'>, options?: any): AxiosPromise<InlineResponse20015> {
+        listProjectRuns(projectId: string, pipelineId?: string, jobId?: string, statuses?: Array<'Queued' | 'Running' | 'Pending' | 'Failed' | 'Canceled' | 'Canceling' | 'Skipped' | 'Succeeded'>, startDate?: string, endDate?: string, sort?: 'created_desc' | 'created_asc', limit?: number, offset?: number, fields?: Array<'job' | 'pipeline' | 'runner_agent' | 'runner_manager'>, options?: any): AxiosPromise<InlineResponse20013> {
             return localVarFp.listProjectRuns(projectId, pipelineId, jobId, statuses, startDate, endDate, sort, limit, offset, fields, options).then((request) => request(axios, basePath));
         },
         /**
@@ -10678,24 +10202,24 @@ export const RunsApiFactory = function (configuration?: Configuration, basePath?
          * @summary Rerun a run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {InlineObject15} [inlineObject15] 
+         * @param {InlineObject14} [inlineObject14] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        rerunRun(projectId: string, id: string, inlineObject15?: InlineObject15, options?: any): AxiosPromise<InlineResponse201> {
-            return localVarFp.rerunRun(projectId, id, inlineObject15, options).then((request) => request(axios, basePath));
+        rerunRun(projectId: string, id: string, inlineObject14?: InlineObject14, options?: any): AxiosPromise<InlineResponse201> {
+            return localVarFp.rerunRun(projectId, id, inlineObject14, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Update a run
          * @param {string} projectId Project ID
          * @param {string} id Run ID
-         * @param {InlineObject14} inlineObject14 
+         * @param {InlineObject13} inlineObject13 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateRun(projectId: string, id: string, inlineObject14: InlineObject14, options?: any): AxiosPromise<void> {
-            return localVarFp.updateRun(projectId, id, inlineObject14, options).then((request) => request(axios, basePath));
+        updateRun(projectId: string, id: string, inlineObject13: InlineObject13, options?: any): AxiosPromise<void> {
+            return localVarFp.updateRun(projectId, id, inlineObject13, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -10773,13 +10297,13 @@ export class RunsApi extends BaseAPI {
      * @summary Rerun a run
      * @param {string} projectId Project ID
      * @param {string} id Run ID
-     * @param {InlineObject15} [inlineObject15] 
+     * @param {InlineObject14} [inlineObject14] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RunsApi
      */
-    public rerunRun(projectId: string, id: string, inlineObject15?: InlineObject15, options?: any) {
-        return RunsApiFp(this.configuration).rerunRun(projectId, id, inlineObject15, options).then((request) => request(this.axios, this.basePath));
+    public rerunRun(projectId: string, id: string, inlineObject14?: InlineObject14, options?: any) {
+        return RunsApiFp(this.configuration).rerunRun(projectId, id, inlineObject14, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10787,32 +10311,38 @@ export class RunsApi extends BaseAPI {
      * @summary Update a run
      * @param {string} projectId Project ID
      * @param {string} id Run ID
-     * @param {InlineObject14} inlineObject14 
+     * @param {InlineObject13} inlineObject13 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RunsApi
      */
-    public updateRun(projectId: string, id: string, inlineObject14: InlineObject14, options?: any) {
-        return RunsApiFp(this.configuration).updateRun(projectId, id, inlineObject14, options).then((request) => request(this.axios, this.basePath));
+    public updateRun(projectId: string, id: string, inlineObject13: InlineObject13, options?: any) {
+        return RunsApiFp(this.configuration).updateRun(projectId, id, inlineObject13, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
 
 /**
- * TokensApi - axios parameter creator
+ * UsersApi - axios parameter creator
  * @export
  */
-export const TokensApiAxiosParamCreator = function (configuration?: Configuration) {
+export const UsersApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Create authorization token
-         * @param {InlineObject} [inlineObject] 
+         * @summary Add project group
+         * @param {string} projectId Project ID
+         * @param {InlineObject} inlineObject 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createToken: async (inlineObject?: InlineObject, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/tokens`;
+        addProjectGroup: async (projectId: string, inlineObject: InlineObject, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('addProjectGroup', 'projectId', projectId)
+            // verify required parameter 'inlineObject' is not null or undefined
+            assertParamExists('addProjectGroup', 'inlineObject', inlineObject)
+            const localVarPath = `/projects/{project_id}/groups`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -10844,311 +10374,17 @@ export const TokensApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary Delete token
-         * @param {string} id Token ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteToken: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deleteToken', 'id', id)
-            const localVarPath = `/tokens/{_id}`
-                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary List authorization tokens
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listTokens: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/tokens`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * TokensApi - functional programming interface
- * @export
- */
-export const TokensApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = TokensApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @summary Create authorization token
-         * @param {InlineObject} [inlineObject] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createToken(inlineObject?: InlineObject, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Token>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createToken(inlineObject, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Delete token
-         * @param {string} id Token ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteToken(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Token>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteToken(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary List authorization tokens
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async listTokens(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listTokens(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * TokensApi - factory interface
- * @export
- */
-export const TokensApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = TokensApiFp(configuration)
-    return {
-        /**
-         * 
-         * @summary Create authorization token
-         * @param {InlineObject} [inlineObject] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createToken(inlineObject?: InlineObject, options?: any): AxiosPromise<Token> {
-            return localVarFp.createToken(inlineObject, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Delete token
-         * @param {string} id Token ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteToken(id: string, options?: any): AxiosPromise<Token> {
-            return localVarFp.deleteToken(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary List authorization tokens
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listTokens(options?: any): AxiosPromise<InlineResponse200> {
-            return localVarFp.listTokens(options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * TokensApi - object-oriented interface
- * @export
- * @class TokensApi
- * @extends {BaseAPI}
- */
-export class TokensApi extends BaseAPI {
-    /**
-     * 
-     * @summary Create authorization token
-     * @param {InlineObject} [inlineObject] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TokensApi
-     */
-    public createToken(inlineObject?: InlineObject, options?: any) {
-        return TokensApiFp(this.configuration).createToken(inlineObject, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Delete token
-     * @param {string} id Token ID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TokensApi
-     */
-    public deleteToken(id: string, options?: any) {
-        return TokensApiFp(this.configuration).deleteToken(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary List authorization tokens
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TokensApi
-     */
-    public listTokens(options?: any) {
-        return TokensApiFp(this.configuration).listTokens(options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
- * UsersApi - axios parameter creator
- * @export
- */
-export const UsersApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @summary Add organization user
-         * @param {string} organizationId Organization ID
-         * @param {InlineObject19} inlineObject19 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addOrganizationUser: async (organizationId: string, inlineObject19: InlineObject19, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('addOrganizationUser', 'organizationId', organizationId)
-            // verify required parameter 'inlineObject19' is not null or undefined
-            assertParamExists('addOrganizationUser', 'inlineObject19', inlineObject19)
-            const localVarPath = `/organizations/{organization_id}/users`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject19, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Add project group
-         * @param {string} projectId Project ID
-         * @param {InlineObject5} inlineObject5 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addProjectGroup: async (projectId: string, inlineObject5: InlineObject5, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'projectId' is not null or undefined
-            assertParamExists('addProjectGroup', 'projectId', projectId)
-            // verify required parameter 'inlineObject5' is not null or undefined
-            assertParamExists('addProjectGroup', 'inlineObject5', inlineObject5)
-            const localVarPath = `/projects/{project_id}/groups`
-                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject5, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Add project user
          * @param {string} projectId Project ID
-         * @param {InlineObject3} inlineObject3 
+         * @param {InlineObject2} inlineObject2 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addProjectUser: async (projectId: string, inlineObject3: InlineObject3, options: any = {}): Promise<RequestArgs> => {
+        addProjectUser: async (projectId: string, inlineObject2: InlineObject2, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('addProjectUser', 'projectId', projectId)
-            // verify required parameter 'inlineObject3' is not null or undefined
-            assertParamExists('addProjectUser', 'inlineObject3', inlineObject3)
+            // verify required parameter 'inlineObject2' is not null or undefined
+            assertParamExists('addProjectUser', 'inlineObject2', inlineObject2)
             const localVarPath = `/projects/{project_id}/users`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -11173,241 +10409,7 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject3, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Create organization group
-         * @param {string} organizationId Organization ID
-         * @param {UserGroup} userGroup 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createOrganizationGroup: async (organizationId: string, userGroup: UserGroup, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('createOrganizationGroup', 'organizationId', organizationId)
-            // verify required parameter 'userGroup' is not null or undefined
-            assertParamExists('createOrganizationGroup', 'userGroup', userGroup)
-            const localVarPath = `/organizations/{organization_id}/groups`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(userGroup, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Delete organization group
-         * @param {string} organizationId Organization ID
-         * @param {string} groupId Group ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteOrganizationGroup: async (organizationId: string, groupId: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('deleteOrganizationGroup', 'organizationId', organizationId)
-            // verify required parameter 'groupId' is not null or undefined
-            assertParamExists('deleteOrganizationGroup', 'groupId', groupId)
-            const localVarPath = `/organizations/{organization_id}/groups/{group_id}`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
-                .replace(`{${"group_id"}}`, encodeURIComponent(String(groupId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get user
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getUser: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/user`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary List organization groups
-         * @param {string} organizationId Organization ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listOrganizationGroups: async (organizationId: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('listOrganizationGroups', 'organizationId', organizationId)
-            const localVarPath = `/organizations/{organization_id}/groups`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary List organization invites
-         * @param {string} organizationId Organization ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listOrganizationInvites: async (organizationId: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('listOrganizationInvites', 'organizationId', organizationId)
-            const localVarPath = `/organizations/{organization_id}/invites`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary List organization users
-         * @param {string} organizationId Organization ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listOrganizationUsers: async (organizationId: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('listOrganizationUsers', 'organizationId', organizationId)
-            const localVarPath = `/organizations/{organization_id}/users`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject2, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -11530,82 +10532,6 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
-         * @summary List user activity
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listUserActivity: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/user/activity`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Remove organization user
-         * @param {string} organizationId Organization ID
-         * @param {string} id User ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        removeOrganizationUser: async (organizationId: string, id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('removeOrganizationUser', 'organizationId', organizationId)
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('removeOrganizationUser', 'id', id)
-            const localVarPath = `/organizations/{organization_id}/users/{_id}`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
-                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Remove project group
          * @param {string} projectId Project ID
          * @param {string} groupId Group ID
@@ -11690,48 +10616,6 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
-         * @summary Resend organization invite
-         * @param {string} organizationId Organization ID
-         * @param {string} id Invite ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        resendOrganizationInvite: async (organizationId: string, id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('resendOrganizationInvite', 'organizationId', organizationId)
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('resendOrganizationInvite', 'id', id)
-            const localVarPath = `/organizations/{organization_id}/invites/{_id}/resend`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
-                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Resend project invite
          * @param {string} projectId Project ID
          * @param {string} id Invite ID
@@ -11754,48 +10638,6 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             }
 
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Revoke organization invite
-         * @param {string} organizationId Organization ID
-         * @param {string} id Invite ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        revokeOrganizationInvite: async (organizationId: string, id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('revokeOrganizationInvite', 'organizationId', organizationId)
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('revokeOrganizationInvite', 'id', id)
-            const localVarPath = `/organizations/{organization_id}/invites/{_id}`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
-                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -11858,247 +10700,23 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
-         * @summary Update organization group
-         * @param {string} organizationId Organization ID
-         * @param {string} groupId Group ID
-         * @param {UserGroup} userGroup 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateOrganizationGroup: async (organizationId: string, groupId: string, userGroup: UserGroup, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('updateOrganizationGroup', 'organizationId', organizationId)
-            // verify required parameter 'groupId' is not null or undefined
-            assertParamExists('updateOrganizationGroup', 'groupId', groupId)
-            // verify required parameter 'userGroup' is not null or undefined
-            assertParamExists('updateOrganizationGroup', 'userGroup', userGroup)
-            const localVarPath = `/organizations/{organization_id}/groups/{group_id}`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
-                .replace(`{${"group_id"}}`, encodeURIComponent(String(groupId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(userGroup, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Update organization user
-         * @param {string} organizationId Organization ID
-         * @param {string} id User ID
-         * @param {InlineObject20} inlineObject20 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateOrganizationUser: async (organizationId: string, id: string, inlineObject20: InlineObject20, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'organizationId' is not null or undefined
-            assertParamExists('updateOrganizationUser', 'organizationId', organizationId)
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('updateOrganizationUser', 'id', id)
-            // verify required parameter 'inlineObject20' is not null or undefined
-            assertParamExists('updateOrganizationUser', 'inlineObject20', inlineObject20)
-            const localVarPath = `/organizations/{organization_id}/users/{_id}`
-                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
-                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject20, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Update project group
          * @param {string} projectId Project ID
          * @param {string} groupId Group ID
-         * @param {InlineObject6} inlineObject6 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateProjectGroup: async (projectId: string, groupId: string, inlineObject6: InlineObject6, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'projectId' is not null or undefined
-            assertParamExists('updateProjectGroup', 'projectId', projectId)
-            // verify required parameter 'groupId' is not null or undefined
-            assertParamExists('updateProjectGroup', 'groupId', groupId)
-            // verify required parameter 'inlineObject6' is not null or undefined
-            assertParamExists('updateProjectGroup', 'inlineObject6', inlineObject6)
-            const localVarPath = `/projects/{project_id}/groups/{group_id}`
-                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
-                .replace(`{${"group_id"}}`, encodeURIComponent(String(groupId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject6, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Update project user
-         * @param {string} projectId Project ID
-         * @param {string} id User ID
-         * @param {InlineObject4} inlineObject4 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateProjectUser: async (projectId: string, id: string, inlineObject4: InlineObject4, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'projectId' is not null or undefined
-            assertParamExists('updateProjectUser', 'projectId', projectId)
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('updateProjectUser', 'id', id)
-            // verify required parameter 'inlineObject4' is not null or undefined
-            assertParamExists('updateProjectUser', 'inlineObject4', inlineObject4)
-            const localVarPath = `/projects/{project_id}/users/{_id}`
-                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
-                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject4, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Update user password
-         * @param {InlineObject2} inlineObject2 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateUserPassword: async (inlineObject2: InlineObject2, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'inlineObject2' is not null or undefined
-            assertParamExists('updateUserPassword', 'inlineObject2', inlineObject2)
-            const localVarPath = `/user/password`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject2, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Update user profile
          * @param {InlineObject1} inlineObject1 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUserProfile: async (inlineObject1: InlineObject1, options: any = {}): Promise<RequestArgs> => {
+        updateProjectGroup: async (projectId: string, groupId: string, inlineObject1: InlineObject1, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('updateProjectGroup', 'projectId', projectId)
+            // verify required parameter 'groupId' is not null or undefined
+            assertParamExists('updateProjectGroup', 'groupId', groupId)
             // verify required parameter 'inlineObject1' is not null or undefined
-            assertParamExists('updateUserProfile', 'inlineObject1', inlineObject1)
-            const localVarPath = `/user/profile`;
+            assertParamExists('updateProjectGroup', 'inlineObject1', inlineObject1)
+            const localVarPath = `/projects/{project_id}/groups/{group_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"group_id"}}`, encodeURIComponent(String(groupId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -12128,6 +10746,54 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Update project user
+         * @param {string} projectId Project ID
+         * @param {string} id User ID
+         * @param {InlineObject3} inlineObject3 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateProjectUser: async (projectId: string, id: string, inlineObject3: InlineObject3, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('updateProjectUser', 'projectId', projectId)
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateProjectUser', 'id', id)
+            // verify required parameter 'inlineObject3' is not null or undefined
+            assertParamExists('updateProjectUser', 'inlineObject3', inlineObject3)
+            const localVarPath = `/projects/{project_id}/users/{_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"_id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject3, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -12140,105 +10806,26 @@ export const UsersApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Add organization user
-         * @param {string} organizationId Organization ID
-         * @param {InlineObject19} inlineObject19 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async addOrganizationUser(organizationId: string, inlineObject19: InlineObject19, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addOrganizationUser(organizationId, inlineObject19, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Add project group
          * @param {string} projectId Project ID
-         * @param {InlineObject5} inlineObject5 
+         * @param {InlineObject} inlineObject 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addProjectGroup(projectId: string, inlineObject5: InlineObject5, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addProjectGroup(projectId, inlineObject5, options);
+        async addProjectGroup(projectId: string, inlineObject: InlineObject, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addProjectGroup(projectId, inlineObject, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary Add project user
          * @param {string} projectId Project ID
-         * @param {InlineObject3} inlineObject3 
+         * @param {InlineObject2} inlineObject2 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addProjectUser(projectId: string, inlineObject3: InlineObject3, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addProjectUser(projectId, inlineObject3, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Create organization group
-         * @param {string} organizationId Organization ID
-         * @param {UserGroup} userGroup 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createOrganizationGroup(organizationId: string, userGroup: UserGroup, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createOrganizationGroup(organizationId, userGroup, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Delete organization group
-         * @param {string} organizationId Organization ID
-         * @param {string} groupId Group ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteOrganizationGroup(organizationId: string, groupId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteOrganizationGroup(organizationId, groupId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get user
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getUser(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUser(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary List organization groups
-         * @param {string} organizationId Organization ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async listOrganizationGroups(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20020>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizationGroups(organizationId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary List organization invites
-         * @param {string} organizationId Organization ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async listOrganizationInvites(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20019>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizationInvites(organizationId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary List organization users
-         * @param {string} organizationId Organization ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async listOrganizationUsers(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2002>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listOrganizationUsers(organizationId, options);
+        async addProjectUser(projectId: string, inlineObject2: InlineObject2, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addProjectUser(projectId, inlineObject2, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -12248,7 +10835,7 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listProjectGroups(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2003>> {
+        async listProjectGroups(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listProjectGroups(projectId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -12259,7 +10846,7 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listProjectInvites(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
+        async listProjectInvites(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2002>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listProjectInvites(projectId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -12270,30 +10857,8 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listProjectUsers(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2002>> {
+        async listProjectUsers(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2001>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listProjectUsers(projectId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary List user activity
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async listUserActivity(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2001>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listUserActivity(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Remove organization user
-         * @param {string} organizationId Organization ID
-         * @param {string} id User ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async removeOrganizationUser(organizationId: string, id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.removeOrganizationUser(organizationId, id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -12322,18 +10887,6 @@ export const UsersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Resend organization invite
-         * @param {string} organizationId Organization ID
-         * @param {string} id Invite ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async resendOrganizationInvite(organizationId: string, id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.resendOrganizationInvite(organizationId, id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Resend project invite
          * @param {string} projectId Project ID
          * @param {string} id Invite ID
@@ -12342,18 +10895,6 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         async resendProjectInvite(projectId: string, id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.resendProjectInvite(projectId, id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Revoke organization invite
-         * @param {string} organizationId Organization ID
-         * @param {string} id Invite ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async revokeOrganizationInvite(organizationId: string, id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.revokeOrganizationInvite(organizationId, id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -12370,41 +10911,15 @@ export const UsersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Update organization group
-         * @param {string} organizationId Organization ID
-         * @param {string} groupId Group ID
-         * @param {UserGroup} userGroup 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateOrganizationGroup(organizationId: string, groupId: string, userGroup: UserGroup, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOrganizationGroup(organizationId, groupId, userGroup, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Update organization user
-         * @param {string} organizationId Organization ID
-         * @param {string} id User ID
-         * @param {InlineObject20} inlineObject20 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateOrganizationUser(organizationId: string, id: string, inlineObject20: InlineObject20, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOrganizationUser(organizationId, id, inlineObject20, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Update project group
          * @param {string} projectId Project ID
          * @param {string} groupId Group ID
-         * @param {InlineObject6} inlineObject6 
+         * @param {InlineObject1} inlineObject1 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateProjectGroup(projectId: string, groupId: string, inlineObject6: InlineObject6, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateProjectGroup(projectId, groupId, inlineObject6, options);
+        async updateProjectGroup(projectId: string, groupId: string, inlineObject1: InlineObject1, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateProjectGroup(projectId, groupId, inlineObject1, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -12412,34 +10927,12 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @summary Update project user
          * @param {string} projectId Project ID
          * @param {string} id User ID
-         * @param {InlineObject4} inlineObject4 
+         * @param {InlineObject3} inlineObject3 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateProjectUser(projectId: string, id: string, inlineObject4: InlineObject4, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateProjectUser(projectId, id, inlineObject4, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Update user password
-         * @param {InlineObject2} inlineObject2 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateUserPassword(inlineObject2: InlineObject2, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUserPassword(inlineObject2, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Update user profile
-         * @param {InlineObject1} inlineObject1 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateUserProfile(inlineObject1: InlineObject1, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUserProfile(inlineObject1, options);
+        async updateProjectUser(projectId: string, id: string, inlineObject3: InlineObject3, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateProjectUser(projectId, id, inlineObject3, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -12454,97 +10947,25 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
     return {
         /**
          * 
-         * @summary Add organization user
-         * @param {string} organizationId Organization ID
-         * @param {InlineObject19} inlineObject19 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addOrganizationUser(organizationId: string, inlineObject19: InlineObject19, options?: any): AxiosPromise<void> {
-            return localVarFp.addOrganizationUser(organizationId, inlineObject19, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Add project group
          * @param {string} projectId Project ID
-         * @param {InlineObject5} inlineObject5 
+         * @param {InlineObject} inlineObject 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addProjectGroup(projectId: string, inlineObject5: InlineObject5, options?: any): AxiosPromise<void> {
-            return localVarFp.addProjectGroup(projectId, inlineObject5, options).then((request) => request(axios, basePath));
+        addProjectGroup(projectId: string, inlineObject: InlineObject, options?: any): AxiosPromise<void> {
+            return localVarFp.addProjectGroup(projectId, inlineObject, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Add project user
          * @param {string} projectId Project ID
-         * @param {InlineObject3} inlineObject3 
+         * @param {InlineObject2} inlineObject2 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addProjectUser(projectId: string, inlineObject3: InlineObject3, options?: any): AxiosPromise<void> {
-            return localVarFp.addProjectUser(projectId, inlineObject3, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Create organization group
-         * @param {string} organizationId Organization ID
-         * @param {UserGroup} userGroup 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createOrganizationGroup(organizationId: string, userGroup: UserGroup, options?: any): AxiosPromise<void> {
-            return localVarFp.createOrganizationGroup(organizationId, userGroup, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Delete organization group
-         * @param {string} organizationId Organization ID
-         * @param {string} groupId Group ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteOrganizationGroup(organizationId: string, groupId: string, options?: any): AxiosPromise<void> {
-            return localVarFp.deleteOrganizationGroup(organizationId, groupId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get user
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getUser(options?: any): AxiosPromise<User> {
-            return localVarFp.getUser(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary List organization groups
-         * @param {string} organizationId Organization ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listOrganizationGroups(organizationId: string, options?: any): AxiosPromise<InlineResponse20020> {
-            return localVarFp.listOrganizationGroups(organizationId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary List organization invites
-         * @param {string} organizationId Organization ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listOrganizationInvites(organizationId: string, options?: any): AxiosPromise<InlineResponse20019> {
-            return localVarFp.listOrganizationInvites(organizationId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary List organization users
-         * @param {string} organizationId Organization ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listOrganizationUsers(organizationId: string, options?: any): AxiosPromise<InlineResponse2002> {
-            return localVarFp.listOrganizationUsers(organizationId, options).then((request) => request(axios, basePath));
+        addProjectUser(projectId: string, inlineObject2: InlineObject2, options?: any): AxiosPromise<void> {
+            return localVarFp.addProjectUser(projectId, inlineObject2, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -12553,7 +10974,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjectGroups(projectId: string, options?: any): AxiosPromise<InlineResponse2003> {
+        listProjectGroups(projectId: string, options?: any): AxiosPromise<InlineResponse200> {
             return localVarFp.listProjectGroups(projectId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -12563,7 +10984,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjectInvites(projectId: string, options?: any): AxiosPromise<InlineResponse2004> {
+        listProjectInvites(projectId: string, options?: any): AxiosPromise<InlineResponse2002> {
             return localVarFp.listProjectInvites(projectId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -12573,28 +10994,8 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listProjectUsers(projectId: string, options?: any): AxiosPromise<InlineResponse2002> {
+        listProjectUsers(projectId: string, options?: any): AxiosPromise<InlineResponse2001> {
             return localVarFp.listProjectUsers(projectId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary List user activity
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listUserActivity(options?: any): AxiosPromise<InlineResponse2001> {
-            return localVarFp.listUserActivity(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Remove organization user
-         * @param {string} organizationId Organization ID
-         * @param {string} id User ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        removeOrganizationUser(organizationId: string, id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.removeOrganizationUser(organizationId, id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -12620,17 +11021,6 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
-         * @summary Resend organization invite
-         * @param {string} organizationId Organization ID
-         * @param {string} id Invite ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        resendOrganizationInvite(organizationId: string, id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.resendOrganizationInvite(organizationId, id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Resend project invite
          * @param {string} projectId Project ID
          * @param {string} id Invite ID
@@ -12639,17 +11029,6 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          */
         resendProjectInvite(projectId: string, id: string, options?: any): AxiosPromise<void> {
             return localVarFp.resendProjectInvite(projectId, id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Revoke organization invite
-         * @param {string} organizationId Organization ID
-         * @param {string} id Invite ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        revokeOrganizationInvite(organizationId: string, id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.revokeOrganizationInvite(organizationId, id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -12664,71 +11043,27 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
-         * @summary Update organization group
-         * @param {string} organizationId Organization ID
-         * @param {string} groupId Group ID
-         * @param {UserGroup} userGroup 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateOrganizationGroup(organizationId: string, groupId: string, userGroup: UserGroup, options?: any): AxiosPromise<void> {
-            return localVarFp.updateOrganizationGroup(organizationId, groupId, userGroup, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Update organization user
-         * @param {string} organizationId Organization ID
-         * @param {string} id User ID
-         * @param {InlineObject20} inlineObject20 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateOrganizationUser(organizationId: string, id: string, inlineObject20: InlineObject20, options?: any): AxiosPromise<void> {
-            return localVarFp.updateOrganizationUser(organizationId, id, inlineObject20, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Update project group
          * @param {string} projectId Project ID
          * @param {string} groupId Group ID
-         * @param {InlineObject6} inlineObject6 
+         * @param {InlineObject1} inlineObject1 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateProjectGroup(projectId: string, groupId: string, inlineObject6: InlineObject6, options?: any): AxiosPromise<void> {
-            return localVarFp.updateProjectGroup(projectId, groupId, inlineObject6, options).then((request) => request(axios, basePath));
+        updateProjectGroup(projectId: string, groupId: string, inlineObject1: InlineObject1, options?: any): AxiosPromise<void> {
+            return localVarFp.updateProjectGroup(projectId, groupId, inlineObject1, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Update project user
          * @param {string} projectId Project ID
          * @param {string} id User ID
-         * @param {InlineObject4} inlineObject4 
+         * @param {InlineObject3} inlineObject3 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateProjectUser(projectId: string, id: string, inlineObject4: InlineObject4, options?: any): AxiosPromise<void> {
-            return localVarFp.updateProjectUser(projectId, id, inlineObject4, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Update user password
-         * @param {InlineObject2} inlineObject2 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateUserPassword(inlineObject2: InlineObject2, options?: any): AxiosPromise<void> {
-            return localVarFp.updateUserPassword(inlineObject2, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Update user profile
-         * @param {InlineObject1} inlineObject1 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateUserProfile(inlineObject1: InlineObject1, options?: any): AxiosPromise<void> {
-            return localVarFp.updateUserProfile(inlineObject1, options).then((request) => request(axios, basePath));
+        updateProjectUser(projectId: string, id: string, inlineObject3: InlineObject3, options?: any): AxiosPromise<void> {
+            return localVarFp.updateProjectUser(projectId, id, inlineObject3, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -12742,114 +11077,28 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
 export class UsersApi extends BaseAPI {
     /**
      * 
-     * @summary Add organization user
-     * @param {string} organizationId Organization ID
-     * @param {InlineObject19} inlineObject19 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public addOrganizationUser(organizationId: string, inlineObject19: InlineObject19, options?: any) {
-        return UsersApiFp(this.configuration).addOrganizationUser(organizationId, inlineObject19, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Add project group
      * @param {string} projectId Project ID
-     * @param {InlineObject5} inlineObject5 
+     * @param {InlineObject} inlineObject 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public addProjectGroup(projectId: string, inlineObject5: InlineObject5, options?: any) {
-        return UsersApiFp(this.configuration).addProjectGroup(projectId, inlineObject5, options).then((request) => request(this.axios, this.basePath));
+    public addProjectGroup(projectId: string, inlineObject: InlineObject, options?: any) {
+        return UsersApiFp(this.configuration).addProjectGroup(projectId, inlineObject, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Add project user
      * @param {string} projectId Project ID
-     * @param {InlineObject3} inlineObject3 
+     * @param {InlineObject2} inlineObject2 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public addProjectUser(projectId: string, inlineObject3: InlineObject3, options?: any) {
-        return UsersApiFp(this.configuration).addProjectUser(projectId, inlineObject3, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Create organization group
-     * @param {string} organizationId Organization ID
-     * @param {UserGroup} userGroup 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public createOrganizationGroup(organizationId: string, userGroup: UserGroup, options?: any) {
-        return UsersApiFp(this.configuration).createOrganizationGroup(organizationId, userGroup, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Delete organization group
-     * @param {string} organizationId Organization ID
-     * @param {string} groupId Group ID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public deleteOrganizationGroup(organizationId: string, groupId: string, options?: any) {
-        return UsersApiFp(this.configuration).deleteOrganizationGroup(organizationId, groupId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get user
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public getUser(options?: any) {
-        return UsersApiFp(this.configuration).getUser(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary List organization groups
-     * @param {string} organizationId Organization ID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public listOrganizationGroups(organizationId: string, options?: any) {
-        return UsersApiFp(this.configuration).listOrganizationGroups(organizationId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary List organization invites
-     * @param {string} organizationId Organization ID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public listOrganizationInvites(organizationId: string, options?: any) {
-        return UsersApiFp(this.configuration).listOrganizationInvites(organizationId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary List organization users
-     * @param {string} organizationId Organization ID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public listOrganizationUsers(organizationId: string, options?: any) {
-        return UsersApiFp(this.configuration).listOrganizationUsers(organizationId, options).then((request) => request(this.axios, this.basePath));
+    public addProjectUser(projectId: string, inlineObject2: InlineObject2, options?: any) {
+        return UsersApiFp(this.configuration).addProjectUser(projectId, inlineObject2, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -12890,30 +11139,6 @@ export class UsersApi extends BaseAPI {
 
     /**
      * 
-     * @summary List user activity
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public listUserActivity(options?: any) {
-        return UsersApiFp(this.configuration).listUserActivity(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Remove organization user
-     * @param {string} organizationId Organization ID
-     * @param {string} id User ID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public removeOrganizationUser(organizationId: string, id: string, options?: any) {
-        return UsersApiFp(this.configuration).removeOrganizationUser(organizationId, id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Remove project group
      * @param {string} projectId Project ID
      * @param {string} groupId Group ID
@@ -12940,19 +11165,6 @@ export class UsersApi extends BaseAPI {
 
     /**
      * 
-     * @summary Resend organization invite
-     * @param {string} organizationId Organization ID
-     * @param {string} id Invite ID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public resendOrganizationInvite(organizationId: string, id: string, options?: any) {
-        return UsersApiFp(this.configuration).resendOrganizationInvite(organizationId, id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Resend project invite
      * @param {string} projectId Project ID
      * @param {string} id Invite ID
@@ -12962,19 +11174,6 @@ export class UsersApi extends BaseAPI {
      */
     public resendProjectInvite(projectId: string, id: string, options?: any) {
         return UsersApiFp(this.configuration).resendProjectInvite(projectId, id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Revoke organization invite
-     * @param {string} organizationId Organization ID
-     * @param {string} id Invite ID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public revokeOrganizationInvite(organizationId: string, id: string, options?: any) {
-        return UsersApiFp(this.configuration).revokeOrganizationInvite(organizationId, id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -12992,44 +11191,16 @@ export class UsersApi extends BaseAPI {
 
     /**
      * 
-     * @summary Update organization group
-     * @param {string} organizationId Organization ID
-     * @param {string} groupId Group ID
-     * @param {UserGroup} userGroup 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public updateOrganizationGroup(organizationId: string, groupId: string, userGroup: UserGroup, options?: any) {
-        return UsersApiFp(this.configuration).updateOrganizationGroup(organizationId, groupId, userGroup, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Update organization user
-     * @param {string} organizationId Organization ID
-     * @param {string} id User ID
-     * @param {InlineObject20} inlineObject20 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public updateOrganizationUser(organizationId: string, id: string, inlineObject20: InlineObject20, options?: any) {
-        return UsersApiFp(this.configuration).updateOrganizationUser(organizationId, id, inlineObject20, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Update project group
      * @param {string} projectId Project ID
      * @param {string} groupId Group ID
-     * @param {InlineObject6} inlineObject6 
+     * @param {InlineObject1} inlineObject1 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public updateProjectGroup(projectId: string, groupId: string, inlineObject6: InlineObject6, options?: any) {
-        return UsersApiFp(this.configuration).updateProjectGroup(projectId, groupId, inlineObject6, options).then((request) => request(this.axios, this.basePath));
+    public updateProjectGroup(projectId: string, groupId: string, inlineObject1: InlineObject1, options?: any) {
+        return UsersApiFp(this.configuration).updateProjectGroup(projectId, groupId, inlineObject1, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -13037,37 +11208,13 @@ export class UsersApi extends BaseAPI {
      * @summary Update project user
      * @param {string} projectId Project ID
      * @param {string} id User ID
-     * @param {InlineObject4} inlineObject4 
+     * @param {InlineObject3} inlineObject3 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public updateProjectUser(projectId: string, id: string, inlineObject4: InlineObject4, options?: any) {
-        return UsersApiFp(this.configuration).updateProjectUser(projectId, id, inlineObject4, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Update user password
-     * @param {InlineObject2} inlineObject2 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public updateUserPassword(inlineObject2: InlineObject2, options?: any) {
-        return UsersApiFp(this.configuration).updateUserPassword(inlineObject2, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Update user profile
-     * @param {InlineObject1} inlineObject1 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public updateUserProfile(inlineObject1: InlineObject1, options?: any) {
-        return UsersApiFp(this.configuration).updateUserProfile(inlineObject1, options).then((request) => request(this.axios, this.basePath));
+    public updateProjectUser(projectId: string, id: string, inlineObject3: InlineObject3, options?: any) {
+        return UsersApiFp(this.configuration).updateProjectUser(projectId, id, inlineObject3, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

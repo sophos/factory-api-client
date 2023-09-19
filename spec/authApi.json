@@ -1,0 +1,3779 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Sophos Factory Auth API v1",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Manage sessions for Factory"
+    },
+    {
+      "name": "users",
+      "description": "Manage organization users and groups"
+    },
+    {
+      "name": "organizations",
+      "description": "Manage organizations"
+    },
+    {
+      "name": "admin",
+      "description": "Factory Platform Administration"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "NotificationChannel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "email"
+            ]
+          },
+          "settings": {
+            "type": "object",
+            "properties": {
+              "recipients": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "auth": {
+            "type": "object"
+          }
+        }
+      },
+      "Organization": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string"
+          },
+          "contact_name": {
+            "type": "string"
+          },
+          "contact_email": {
+            "type": "string"
+          },
+          "image_id": {
+            "type": "string"
+          },
+          "plan": {
+            "type": "string"
+          },
+          "plan_quotas": {
+            "type": "object",
+            "properties": {
+              "project_count": {
+                "type": "integer"
+              },
+              "user_count": {
+                "type": "integer"
+              },
+              "agent_count": {
+                "type": "integer"
+              }
+            }
+          },
+          "notification_channels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationChannel"
+            }
+          }
+        }
+      },
+      "OrganizationInvite": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "organization_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "email": {
+            "type": "string"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "expire": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 999
+          },
+          "expire_unit": {
+            "type": "string",
+            "enum": [
+              "hours",
+              "days",
+              "weeks",
+              "years"
+            ]
+          },
+          "token": {
+            "type": "string",
+            "readOnly": true
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "organization_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "user_mfa_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "mfaEnabled": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "email": {
+            "type": "string",
+            "maxLength": 256,
+            "readOnly": true
+          },
+          "last_login": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "admin": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "blocked": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        }
+      },
+      "UserActivity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "operation_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "occurred": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "UserGroup": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "default_project_run",
+          "create_projects",
+          "organization_admin"
+        ],
+        "properties": {
+          "group_id": {
+            "type": "string"
+          },
+          "default_project_role": {
+            "type": "string",
+            "nullable": true
+          },
+          "default_project_run": {
+            "type": "boolean"
+          },
+          "create_projects": {
+            "type": "boolean"
+          },
+          "organization_admin": {
+            "type": "boolean"
+          },
+          "user_count": {
+            "type": "integer",
+            "readOnly": true
+          }
+        }
+      },
+      "FactoryStats": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "users": {
+            "type": "number"
+          },
+          "organizations": {
+            "type": "number"
+          },
+          "credits": {
+            "type": "number"
+          },
+          "runnerPools": {
+            "type": "number"
+          },
+          "runners": {
+            "type": "number"
+          },
+          "runs": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "total": {
+                "type": "number"
+              },
+              "succeeded": {
+                "type": "number"
+              },
+              "failed": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "AppAlert": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expires": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "title": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "ack_text": {
+            "type": "string"
+          },
+          "link_url": {
+            "type": "string"
+          },
+          "link_text": {
+            "type": "string"
+          },
+          "icon_name": {
+            "type": "string"
+          },
+          "icon_color": {
+            "type": "string"
+          },
+          "acks": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "user_id": {
+                "type": "string"
+              },
+              "occurred": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "apikey"
+      }
+    },
+    "responses": {
+      "Forbidden": {
+        "description": "Forbidden"
+      },
+      "NotFound": {
+        "description": "Not Found"
+      },
+      "Unauthorized": {
+        "description": "Unauthorized"
+      }
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/admin/stats": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Retrieve stats of the Factory platform",
+        "description": "",
+        "operationId": "handleGetFactoryStats",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "organizations": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Organization"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/admin/users": {
+      "get": {
+        "tags": [
+          "admin",
+          "users"
+        ],
+        "summary": "List all users",
+        "description": "",
+        "operationId": "handleGetAllUsers",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/admin/alerts": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "List all app alerts",
+        "description": "",
+        "operationId": "handleGetAppAlerts",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/AppAlert"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Create an App Alert",
+        "description": "",
+        "operationId": "handleCreateAppAlert",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppAlert"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppAlert"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/admin/alerts/session": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "List all app alerts that have not been acknowledged by the session",
+        "description": "",
+        "operationId": "handleGetSessionAlerts",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/AppAlert"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/admin/alerts/{alert_id}": {
+      "delete": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Delete an App Alert",
+        "description": "",
+        "operationId": "handleDeleteAppAlert",
+        "parameters": [
+          {
+            "name": "alert_id",
+            "in": "path",
+            "description": "Alert ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppAlert"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Acknowledges an alert",
+        "description": "",
+        "operationId": "handleSessionAcknowledgeAlert",
+        "parameters": [
+          {
+            "name": "alert_id",
+            "in": "path",
+            "description": "Alert ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppAlert"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/auth/renew": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Renew session with an existing session",
+        "description": "",
+        "operationId": "handleRenew",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/auth/validate": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Validate a session is valid, and returns back context",
+        "description": "",
+        "operationId": "handleValidateSession",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "orgId": {
+                    "type": "string"
+                  },
+                  "returnGroups": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "User Registration",
+        "description": "",
+        "operationId": "handleSignup",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Reset token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Destroys session",
+        "description": "",
+        "operationId": "handleLogout",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Generates session by authenticating user by password",
+        "description": "",
+        "operationId": "login",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/auth/login/mfa": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Complete MFA login flow",
+        "description": "",
+        "operationId": "handleLoginMfaComplete",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "MFA Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/auth/login/mfa/callback": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "MFA callback endpoint used by Authy",
+        "description": "",
+        "operationId": "handleLoginMfaCallback",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "uuid": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "authy_id": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "uuid",
+                  "status",
+                  "authy_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/auth/login/mfa/status": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Polled by client during MFA flow",
+        "description": "",
+        "operationId": "handleLoginMfaStatus",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "MFA Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "description": "Returns a response if the service is active",
+        "responses": {
+          "200": {
+            "description": "Service is Up"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "description": "Returns Status of the Service",
+        "responses": {
+          "200": {
+            "description": "Auth service and dependent services are online"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/groups": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "List organization groups",
+        "description": "",
+        "operationId": "listOrganizationGroups",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/UserGroup"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Create organization groups",
+        "description": "",
+        "operationId": "createOrganizationGroup",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserGroup"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/UserGroup"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/groups/{group_id}": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Update organization group",
+        "description": "",
+        "operationId": "updateOrganizationGroup",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "group_id",
+            "in": "path",
+            "description": "Group ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserGroup"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/UserGroup"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Delete organization group",
+        "description": "",
+        "operationId": "deleteOrganizationGroup",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "group_id",
+            "in": "path",
+            "description": "Group ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/images": {
+      "post": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Set organization image",
+        "description": "",
+        "operationId": "handleUploadOrganizationImage",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/images/set": {
+      "post": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Set organization image",
+        "description": "",
+        "operationId": "handleSetOrganizationImage",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "image_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/projects/{project_id}": {
+      "post": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Upload project image",
+        "description": "",
+        "operationId": "handleUploadProjectImage",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Get project images",
+        "description": "",
+        "operationId": "handleGetProjectImage",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/images/projects/{project_id}": {
+      "delete": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Delete organization image",
+        "description": "",
+        "operationId": "handleDeleteOrganizationProjectImage",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/images/{image_id}": {
+      "delete": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Delete organization image",
+        "description": "",
+        "operationId": "handleDeleteOrganizationImage",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "image_id",
+            "in": "path",
+            "description": "Image ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "List all organizations that belong to the current session user",
+        "description": "",
+        "operationId": "handleGetSessionOrganizations",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "organizations": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Organization"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/all": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Admin API to list All Organizations",
+        "description": "",
+        "operationId": "handleGetOrgs",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "organizations": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Organization"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/all/public": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "API to list All Public Organizations. Returns only basic meta-data about each organization",
+        "description": "",
+        "operationId": "handleGetOrgsPublic",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "organizations": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Organization"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "API to list All Public Organizations",
+        "description": "",
+        "operationId": "handleGetPublicOrganizationsById",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "organizations": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Organization"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/invites/consume": {
+      "get": {
+        "tags": [
+          "organizations",
+          "invites"
+        ],
+        "summary": "Consume Invite",
+        "description": "",
+        "operationId": "handleConsumeInvite",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Invite token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/OrganizationInvite"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Get organization by UUID",
+        "description": "",
+        "operationId": "handleGetOrganizationById",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Additional fields to return",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "notification_channels"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "organizations",
+          "admin"
+        ],
+        "summary": "Delete organization by UUID, for use by platform Admins",
+        "description": "",
+        "operationId": "handleDeleteOrganization",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "organizations",
+          "admin"
+        ],
+        "summary": "Update organization plan",
+        "description": "",
+        "operationId": "handleUpdateOrganizationPlan",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Organization",
+                "type": "object",
+                "properties": {
+                  "plan": {
+                    "type": "string"
+                  },
+                  "plan_quotas": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/public": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Retrieve public-facing information of an organization",
+        "description": "",
+        "operationId": "handleGetPublicOrganizationById",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Additional fields to return",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "notification_channels"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Update organization",
+        "description": "",
+        "operationId": "handleSetOrganizationPublic",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Organization"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/admin": {
+      "get": {
+        "tags": [
+          "organizations",
+          "admin"
+        ],
+        "summary": "Get organization by UUID, for use by platform Admins",
+        "description": "",
+        "operationId": "handleGetOrganizationByIdAdmin",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Additional fields to return",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "notification_channels"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/capabilities": {
+      "post": {
+        "tags": [
+          "organizations",
+          "admin"
+        ],
+        "summary": "Update organization capabilities",
+        "description": "",
+        "operationId": "handleUpdateOrganizationCapabilities",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "capabilities": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/invites": {
+      "get": {
+        "tags": [
+          "organizations",
+          "invites"
+        ],
+        "summary": "List organization invites",
+        "description": "",
+        "operationId": "handleGetInvites",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/OrganizationInvite"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/invites/{invite_id}": {
+      "delete": {
+        "tags": [
+          "organizations",
+          "invites"
+        ],
+        "summary": "Delete organization invite",
+        "description": "",
+        "operationId": "handleDeleteInvite",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "invite_id",
+            "in": "path",
+            "description": "Invite ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/OrganizationInvite"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/invites/{invite_id}/resend": {
+      "post": {
+        "tags": [
+          "organizations",
+          "invites"
+        ],
+        "summary": "Resend organization invite",
+        "description": "",
+        "operationId": "handleResendInvite",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "invite_id",
+            "in": "path",
+            "description": "Invite ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/notification_channels": {
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Add organization notification channel",
+        "description": "",
+        "operationId": "addOrganizationNotificationChannel",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotificationChannel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/notification_channels/{notification_channel_id}": {
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Update organization notification channel",
+        "description": "",
+        "operationId": "updateOrganizationNotificationChannel",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "notification_channel_id",
+            "in": "path",
+            "description": "Notification Channel ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotificationChannel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Remove organization notification channel",
+        "description": "",
+        "operationId": "removeOrganizationNotificationChannel",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "notification_channel_id",
+            "in": "path",
+            "description": "Notification Channel ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/users": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "List users that belong to a organization",
+        "description": "",
+        "operationId": "handleGetOrgUsers",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Add an existing user to an organization",
+        "description": "",
+        "operationId": "handleAddUserOrg",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "group_ids": {
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/users/invite": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Invites a new user to an organization",
+        "description": "",
+        "operationId": "handleInviteUserOrg",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "group_ids": {
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/users/find": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Find an organization user by email",
+        "description": "",
+        "operationId": "handleFindOrgUserByEmail",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/users/projects/{project_id}": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Generate a list of users that have access to a project",
+        "description": "",
+        "operationId": "handleGetOrgProjectUserList",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/users/{user_id}": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Update organization user",
+        "description": "",
+        "operationId": "handleUpdateOrgUser",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "group_ids": {
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Remove organization user",
+        "description": "",
+        "operationId": "handleDeleteOrgUser",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Removed"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/users/forgot": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Request reset password",
+        "description": "",
+        "operationId": "forgotPassword",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/users/reset": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Request reset password using token",
+        "description": "",
+        "operationId": "resetPassword",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Reset token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User",
+        "description": "",
+        "operationId": "handleGetUserById",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user",
+          "admin"
+        ],
+        "summary": "Delete a User by UUID",
+        "description": "Removes user from every organization",
+        "operationId": "handleDeleteUser",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "user",
+          "admin"
+        ],
+        "summary": "Update user information (except password)",
+        "description": "",
+        "operationId": "handleUpdateuserById",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/profile": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user profile name",
+        "description": "",
+        "operationId": "updateUserProfile",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/password": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user password",
+        "description": "",
+        "operationId": "updateUserPassword",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "current_password": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "confirm_password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "current_password",
+                  "password",
+                  "confirm_password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/activity": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "List User Activity",
+        "description": "",
+        "operationId": "listUserActivity",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Report User Activity",
+        "description": "",
+        "operationId": "handleReportUserActivity",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/user/{user_id}/mfa": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Initalizes user MFA configuration workflow",
+        "description": "",
+        "operationId": "handleConfigureMfa",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phone_number": {
+                    "type": "string"
+                  },
+                  "country_code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "phone_number",
+                  "country_code"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Deletes user MFA configuration workflow",
+        "description": "",
+        "operationId": "handleDeleteMfa",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/user/{user_id}/mfa/verify": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Validates an MFA configuration request",
+        "description": "",
+        "operationId": "handleMfaVerify",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/user/{user_id}/organizations": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "List User Organizations",
+        "description": "",
+        "operationId": "handleGetUserOrgs",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "organizations": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Organization"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/user/{user_id}/organizations/{organization_id}": {
+      "post": {
+        "tags": [
+          "user",
+          "admin"
+        ],
+        "summary": "Set a user primary organization",
+        "description": "",
+        "operationId": "handleSetUserPrimaryOrganization",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/user/{user_id}/tokens": {
+      "get": {
+        "tags": [
+          "tokens",
+          "user"
+        ],
+        "summary": "List authorization tokens",
+        "description": "",
+        "operationId": "listTokens",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tokens": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Token"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "tokens",
+          "user"
+        ],
+        "summary": "Create authorization token",
+        "description": "",
+        "operationId": "createToken",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "expire": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 999
+                  },
+                  "expire_unit": {
+                    "type": "string",
+                    "enum": [
+                      "hours",
+                      "days",
+                      "years"
+                    ]
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/user/{user_id}/tokens/{token_id}": {
+      "delete": {
+        "tags": [
+          "tokens",
+          "user"
+        ],
+        "summary": "Delete token",
+        "description": "",
+        "operationId": "deleteToken",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "token_id",
+            "in": "path",
+            "description": "Token ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Removed"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    }
+  }
+}
