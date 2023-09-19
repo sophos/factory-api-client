@@ -121,6 +121,17 @@
               }
             }
           },
+          "tenant": {
+            "type": "object",
+            "properties": {
+              "region": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              }
+            }
+          },
           "notification_channels": {
             "type": "array",
             "items": {
