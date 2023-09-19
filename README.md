@@ -41,7 +41,7 @@ The Factory API Client Library is generated from the following Sophos Factory AP
 | Factory API      | `https://api.factory.sophos.com/v1`  | `https://api.factory.sophos.com/v1/spec`  | [`spec/api.json`](spec/api.json)         |
 | Factory Auth API | `https://auth.factory.sophos.com/v1` | `https://auth.factory.sophos.com/v1/spec` | [`spec/authApi.json`](spec/authApi.json) |
 
-This repository generates two OpenAPI clients for the above schemas using a GitHub Action workflow [`.github/workflows/gen.yml`]](.github/workflows/gen.yml).
+This repository generates two OpenAPI clients for the above schemas using a GitHub Action workflow [`.github/workflows/gen.yml`](.github/workflows/gen.yml).
 
 The GitHub Action workflow runs on a schedule and can also be dispatched manually. It compares the last updated schemas with the current schemas downloaded
 from the online specs. If there is any difference in the schemas, the workflow regenerates the client library, then opens a pull request with the changes.
