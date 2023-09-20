@@ -420,7 +420,7 @@
         ],
         "summary": "Retrieve stats of the Factory platform",
         "description": "",
-        "operationId": "handleGetFactoryStats",
+        "operationId": "getFactoryStats",
         "responses": {
           "200": {
             "description": "OK",
@@ -460,7 +460,7 @@
         ],
         "summary": "List all users",
         "description": "",
-        "operationId": "handleGetAllUsers",
+        "operationId": "getAllUsers",
         "responses": {
           "200": {
             "description": "OK",
@@ -499,7 +499,7 @@
         ],
         "summary": "List all app alerts",
         "description": "",
-        "operationId": "handleGetAppAlerts",
+        "operationId": "getAppAlerts",
         "parameters": [
           {
             "name": "offset",
@@ -559,7 +559,7 @@
         ],
         "summary": "Create an App Alert",
         "description": "",
-        "operationId": "handleCreateAppAlert",
+        "operationId": "createAppAlert",
         "requestBody": {
           "required": true,
           "content": {
@@ -600,7 +600,7 @@
         ],
         "summary": "List all app alerts that have not been acknowledged by the session",
         "description": "",
-        "operationId": "handleGetSessionAlerts",
+        "operationId": "getSessionAlerts",
         "parameters": [
           {
             "name": "offset",
@@ -662,7 +662,7 @@
         ],
         "summary": "Delete an App Alert",
         "description": "",
-        "operationId": "handleDeleteAppAlert",
+        "operationId": "deleteAppAlert",
         "parameters": [
           {
             "name": "alert_id",
@@ -703,7 +703,7 @@
         ],
         "summary": "Acknowledges an alert",
         "description": "",
-        "operationId": "handleSessionAcknowledgeAlert",
+        "operationId": "sessionAcknowledgeAlert",
         "parameters": [
           {
             "name": "alert_id",
@@ -746,7 +746,7 @@
         ],
         "summary": "Renew session with an existing session",
         "description": "",
-        "operationId": "handleRenew",
+        "operationId": "renew",
         "responses": {
           "200": {
             "description": "OK"
@@ -770,7 +770,7 @@
         ],
         "summary": "Validate a session is valid, and returns back context",
         "description": "",
-        "operationId": "handleValidateSession",
+        "operationId": "validateSession",
         "requestBody": {
           "content": {
             "application/json": {
@@ -811,7 +811,7 @@
         ],
         "summary": "User Registration",
         "description": "",
-        "operationId": "handleSignup",
+        "operationId": "signup",
         "parameters": [
           {
             "name": "token",
@@ -872,7 +872,7 @@
         ],
         "summary": "Destroys session",
         "description": "",
-        "operationId": "handleLogout",
+        "operationId": "logout",
         "responses": {
           "200": {
             "description": "OK"
@@ -943,7 +943,7 @@
         ],
         "summary": "Complete MFA login flow",
         "description": "",
-        "operationId": "handleLoginMfaComplete",
+        "operationId": "loginMfaComplete",
         "parameters": [
           {
             "name": "token",
@@ -996,7 +996,7 @@
         ],
         "summary": "MFA callback endpoint used by Authy",
         "description": "",
-        "operationId": "handleLoginMfaCallback",
+        "operationId": "loginMfaCallback",
         "requestBody": {
           "required": true,
           "content": {
@@ -1046,7 +1046,7 @@
         ],
         "summary": "Polled by client during MFA flow",
         "description": "",
-        "operationId": "handleLoginMfaStatus",
+        "operationId": "loginMfaStatus",
         "parameters": [
           {
             "name": "token",
@@ -1344,7 +1344,7 @@
         ],
         "summary": "Set organization image",
         "description": "",
-        "operationId": "handleUploadOrganizationImage",
+        "operationId": "uploadOrganizationImage",
         "parameters": [
           {
             "name": "organization_id",
@@ -1391,7 +1391,7 @@
         ],
         "summary": "Set organization image",
         "description": "",
-        "operationId": "handleSetOrganizationImage",
+        "operationId": "setOrganizationImage",
         "parameters": [
           {
             "name": "organization_id",
@@ -1445,7 +1445,7 @@
         ],
         "summary": "Upload project image",
         "description": "",
-        "operationId": "handleUploadProjectImage",
+        "operationId": "uploadProjectImage",
         "parameters": [
           {
             "name": "organization_id",
@@ -1500,7 +1500,7 @@
         ],
         "summary": "Get project images",
         "description": "",
-        "operationId": "handleGetProjectImage",
+        "operationId": "getProjectImage",
         "parameters": [
           {
             "name": "organization_id",
@@ -1546,7 +1546,7 @@
         ],
         "summary": "Delete organization image",
         "description": "",
-        "operationId": "handleDeleteOrganizationProjectImage",
+        "operationId": "deleteOrganizationProjectImage",
         "parameters": [
           {
             "name": "organization_id",
@@ -1592,7 +1592,7 @@
         ],
         "summary": "Delete organization image",
         "description": "",
-        "operationId": "handleDeleteOrganizationImage",
+        "operationId": "deleteOrganizationImage",
         "parameters": [
           {
             "name": "organization_id",
@@ -1638,7 +1638,7 @@
         ],
         "summary": "List all organizations that belong to the current session user",
         "description": "",
-        "operationId": "handleGetSessionOrganizations",
+        "operationId": "getSessionOrganizations",
         "responses": {
           "200": {
             "description": "OK",
@@ -1677,7 +1677,7 @@
         ],
         "summary": "Admin API to list All Organizations",
         "description": "",
-        "operationId": "handleGetOrgs",
+        "operationId": "getOrganizations",
         "responses": {
           "200": {
             "description": "OK",
@@ -1716,7 +1716,7 @@
         ],
         "summary": "API to list All Public Organizations. Returns only basic meta-data about each organization",
         "description": "",
-        "operationId": "handleGetOrgsPublic",
+        "operationId": "getOrganizationsPublic",
         "responses": {
           "200": {
             "description": "OK",
@@ -1753,7 +1753,7 @@
         ],
         "summary": "API to list All Public Organizations",
         "description": "",
-        "operationId": "handleGetPublicOrganizationsById",
+        "operationId": "getPublicOrganizationsById",
         "responses": {
           "200": {
             "description": "OK",
@@ -1793,7 +1793,7 @@
         ],
         "summary": "Consume Invite",
         "description": "",
-        "operationId": "handleConsumeInvite",
+        "operationId": "consumeInvite",
         "parameters": [
           {
             "name": "token",
@@ -1843,7 +1843,7 @@
         ],
         "summary": "Get organization by UUID",
         "description": "",
-        "operationId": "handleGetOrganizationById",
+        "operationId": "getOrganizationById",
         "parameters": [
           {
             "name": "organization_id",
@@ -1900,7 +1900,7 @@
         ],
         "summary": "Delete organization by UUID, for use by platform Admins",
         "description": "",
-        "operationId": "handleDeleteOrganization",
+        "operationId": "deleteOrganization",
         "parameters": [
           {
             "name": "organization_id",
@@ -1935,7 +1935,7 @@
         ],
         "summary": "Update organization plan",
         "description": "",
-        "operationId": "handleUpdateOrganizationPlan",
+        "operationId": "updateOrganizationPlan",
         "parameters": [
           {
             "name": "organization_id",
@@ -1997,7 +1997,7 @@
         ],
         "summary": "Retrieve public-facing information of an organization",
         "description": "",
-        "operationId": "handleGetPublicOrganizationById",
+        "operationId": "getPublicOrganizationById",
         "parameters": [
           {
             "name": "organization_id",
@@ -2053,7 +2053,7 @@
         ],
         "summary": "Update organization",
         "description": "",
-        "operationId": "handleSetOrganizationPublic",
+        "operationId": "setOrganizationPublic",
         "parameters": [
           {
             "name": "organization_id",
@@ -2107,7 +2107,7 @@
         ],
         "summary": "Get organization by UUID, for use by platform Admins",
         "description": "",
-        "operationId": "handleGetOrganizationByIdAdmin",
+        "operationId": "getOrganizationByIdAdmin",
         "parameters": [
           {
             "name": "organization_id",
@@ -2166,7 +2166,7 @@
         ],
         "summary": "Update organization capabilities",
         "description": "",
-        "operationId": "handleUpdateOrganizationCapabilities",
+        "operationId": "updateOrganizationCapabilities",
         "parameters": [
           {
             "name": "organization_id",
@@ -2217,7 +2217,7 @@
         ],
         "summary": "List organization invites",
         "description": "",
-        "operationId": "handleGetInvites",
+        "operationId": "getInvites",
         "parameters": [
           {
             "name": "organization_id",
@@ -2269,7 +2269,7 @@
         ],
         "summary": "Delete organization invite",
         "description": "",
-        "operationId": "handleDeleteInvite",
+        "operationId": "deleteInvite",
         "parameters": [
           {
             "name": "organization_id",
@@ -2331,7 +2331,7 @@
         ],
         "summary": "Resend organization invite",
         "description": "",
-        "operationId": "handleResendInvite",
+        "operationId": "resendInvite",
         "parameters": [
           {
             "name": "organization_id",
@@ -2523,7 +2523,7 @@
         ],
         "summary": "List users that belong to a organization",
         "description": "",
-        "operationId": "handleGetOrgUsers",
+        "operationId": "getOrganizationUsers",
         "parameters": [
           {
             "name": "organization_id",
@@ -2593,7 +2593,7 @@
         ],
         "summary": "Add an existing user to an organization",
         "description": "",
-        "operationId": "handleAddUserOrg",
+        "operationId": "addUserOrganization",
         "parameters": [
           {
             "name": "organization_id",
@@ -2654,7 +2654,7 @@
         ],
         "summary": "Invites a new user to an organization",
         "description": "",
-        "operationId": "handleInviteUserOrg",
+        "operationId": "inviteUserOrganization",
         "parameters": [
           {
             "name": "organization_id",
@@ -2715,7 +2715,7 @@
         ],
         "summary": "Find an organization user by email",
         "description": "",
-        "operationId": "handleFindOrgUserByEmail",
+        "operationId": "findOrganizationUserByEmail",
         "parameters": [
           {
             "name": "organization_id",
@@ -2766,7 +2766,7 @@
         ],
         "summary": "Generate a list of users that have access to a project",
         "description": "",
-        "operationId": "handleGetOrgProjectUserList",
+        "operationId": "getOrganizationProjectUserList",
         "parameters": [
           {
             "name": "organization_id",
@@ -2827,7 +2827,7 @@
         ],
         "summary": "Update organization user",
         "description": "",
-        "operationId": "handleUpdateOrgUser",
+        "operationId": "updateOrganizationUser",
         "parameters": [
           {
             "name": "organization_id",
@@ -2892,7 +2892,7 @@
         ],
         "summary": "Remove organization user",
         "description": "",
-        "operationId": "handleDeleteOrgUser",
+        "operationId": "deleteOrganizationUser",
         "parameters": [
           {
             "name": "organization_id",
@@ -3034,7 +3034,7 @@
         ],
         "summary": "Get User",
         "description": "",
-        "operationId": "handleGetUserById",
+        "operationId": "getUserById",
         "parameters": [
           {
             "name": "user_id",
@@ -3075,7 +3075,7 @@
         ],
         "summary": "Delete a User by UUID",
         "description": "Removes user from every organization",
-        "operationId": "handleDeleteUser",
+        "operationId": "deleteUser",
         "parameters": [
           {
             "name": "user_id",
@@ -3109,7 +3109,7 @@
         ],
         "summary": "Update user information (except password)",
         "description": "",
-        "operationId": "handleUpdateuserById",
+        "operationId": "updateUserById",
         "parameters": [
           {
             "name": "user_id",
@@ -3322,7 +3322,7 @@
         ],
         "summary": "Report User Activity",
         "description": "",
-        "operationId": "handleReportUserActivity",
+        "operationId": "reportUserActivity",
         "parameters": [
           {
             "name": "user_id",
@@ -3383,7 +3383,7 @@
         ],
         "summary": "Initalizes user MFA configuration workflow",
         "description": "",
-        "operationId": "handleConfigureMfa",
+        "operationId": "configureMfa",
         "parameters": [
           {
             "name": "user_id",
@@ -3438,7 +3438,7 @@
         ],
         "summary": "Deletes user MFA configuration workflow",
         "description": "",
-        "operationId": "handleDeleteMfa",
+        "operationId": "deleteMfa",
         "parameters": [
           {
             "name": "user_id",
@@ -3473,7 +3473,7 @@
         ],
         "summary": "Validates an MFA configuration request",
         "description": "",
-        "operationId": "handleMfaVerify",
+        "operationId": "mfaVerify",
         "parameters": [
           {
             "name": "user_id",
@@ -3526,7 +3526,7 @@
         ],
         "summary": "List User Organizations",
         "description": "",
-        "operationId": "handleGetUserOrgs",
+        "operationId": "getUserOrganizations",
         "parameters": [
           {
             "name": "user_id",
@@ -3577,7 +3577,7 @@
         ],
         "summary": "Set a user primary organization",
         "description": "",
-        "operationId": "handleSetUserPrimaryOrganization",
+        "operationId": "setUserPrimaryOrganization",
         "parameters": [
           {
             "name": "organization_id",
@@ -3786,5 +3786,8 @@
         }
       }
     }
-  }
+  },
+  "servers": [
+    "https://app.dev.factory.sophos.com/v1"
+  ]
 }
