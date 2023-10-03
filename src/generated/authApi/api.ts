@@ -765,12 +765,6 @@ export interface Organization {
     plan_quotas?: OrganizationPlanQuotas;
     /**
      * 
-     * @type {OrganizationTenant}
-     * @memberof Organization
-     */
-    tenant?: OrganizationTenant;
-    /**
-     * 
      * @type {Array<NotificationChannel>}
      * @memberof Organization
      */
@@ -837,25 +831,6 @@ export interface OrganizationPlanQuotas {
      * @memberof OrganizationPlanQuotas
      */
     agent_count?: number;
-}
-/**
- * 
- * @export
- * @interface OrganizationTenant
- */
-export interface OrganizationTenant {
-    /**
-     * 
-     * @type {string}
-     * @memberof OrganizationTenant
-     */
-    region?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrganizationTenant
-     */
-    id?: string;
 }
 /**
  * 
