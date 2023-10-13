@@ -1668,6 +1668,46 @@
             "$ref": "#/components/responses/Forbidden"
           }
         }
+      },
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "API to add a new Organization",
+        "description": "",
+        "operationId": "createOrganization",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Organization"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
       }
     },
     "/organizations/all": {
@@ -3788,6 +3828,9 @@
     }
   },
   "servers": [
-    "https://app.dev.factory.sophos.com/v1"
+    {
+      "url": "https://auth.us-west-2.factory.sophos.com/v1",
+      "description": "Auth Server for the Factory platform."
+    }
   ]
 }
