@@ -18,8 +18,8 @@ jobs:
 
       - name: Download schema from external URL
         run: -|
-          curl https://api.us-west-2.factory.sophos.com/v1/spec -o new_api.json
-          curl https://auth.us-west-2.factory.sophos.com/v1/spec -o new_authApi.json
+          curl https://api.us-west-2.factory.sophos.com/v1/spec | jq '.' > new_api.json
+          curl https://auth.us-west-2.factory.sophos.com/v1/spec | jq '.' > new_authApi.json
 
       - name: Compare specs
         id: cmp
