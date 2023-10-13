@@ -63,8 +63,7 @@ jobs:
         run: npm install
 
       - name: Download schema from external URL
-        run: mkdir -p spec && curl -s https://api.staging.factory.sophos.com/v1/spec | jq '.' > ./spec/api.json
-        run: mkdir -p spec && curl -s https://auth.staging.factory.sophos.com/v1/spec | jq '.' > ./spec/apiAuth.json
+        run: npm run fetch:staging
 
       - name: Generating OpenAPI client
         run: npm run generate
