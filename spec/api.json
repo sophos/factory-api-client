@@ -5930,6 +5930,12 @@
                       "scaling": {
                         "type": "object",
                         "properties": {
+                          "minClusterSize": {
+                            "type": "number"
+                          },
+                          "maxClusterSize": {
+                            "type": "number"
+                          },
                           "queueDepthThreshold": {
                             "type": "number"
                           },

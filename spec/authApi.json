@@ -1693,7 +1693,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schemas/Organization"
+                  "properties": {
+                    "organization": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/Organization"
+                    }
+                  }
                 }
               }
             }
@@ -2718,6 +2723,73 @@
                     "type": "string",
                     "format": "email"
                   },
+                  "group_ids": {
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/users/invite/{user_id}": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Add an existing user by UUID",
+        "description": "",
+        "operationId": "inviteUserById",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "resource-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
                   "group_ids": {
                     "type": "array",
                     "minItems": 1,
