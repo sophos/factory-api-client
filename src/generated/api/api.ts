@@ -598,10 +598,10 @@ export interface InlineObject21 {
     project_ids?: Array<string>;
     /**
      * 
-     * @type {OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions}
+     * @type {OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptions}
      * @memberof InlineObject21
      */
-    runner_manager_options?: OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions;
+    runner_manager_options?: OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptions;
     /**
      * 
      * @type {OrganizationsOrganizationIdAgentsIdOptions}
@@ -1661,6 +1661,68 @@ export interface OrganizationsOrganizationIdAgentsIdOptionsEnv {
 /**
  * 
  * @export
+ * @interface OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptions
+ */
+export interface OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptions {
+    /**
+     * 
+     * @type {OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptionsScaling}
+     * @memberof OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptions
+     */
+    scaling?: OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptionsScaling;
+    /**
+     * 
+     * @type {OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsTimeoutConfig}
+     * @memberof OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptions
+     */
+    timeoutConfig?: OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsTimeoutConfig;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptionsScaling
+ */
+export interface OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptionsScaling {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptionsScaling
+     */
+    queueDepthThreshold?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptionsScaling
+     */
+    queueAverageTimeThresholdMs?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptionsScaling
+     */
+    scaleUpCooldownMs?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptionsScaling
+     */
+    scaleDownCooldownMs?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptionsScaling
+     */
+    scaleUpPercentage?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersIdRunnerManagerOptionsScaling
+     */
+    scaleDownPercentage?: number;
+}
+/**
+ * 
+ * @export
  * @interface OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions
  */
 export interface OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions {
@@ -1683,6 +1745,18 @@ export interface OrganizationsOrganizationIdRunnerManagersRunnerManagerOptions {
  * @interface OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsScaling
  */
 export interface OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsScaling {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsScaling
+     */
+    minClusterSize?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationsOrganizationIdRunnerManagersRunnerManagerOptionsScaling
+     */
+    maxClusterSize?: number;
     /**
      * 
      * @type {number}

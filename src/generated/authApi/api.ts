@@ -239,10 +239,10 @@ export interface InlineObject1 {
 export interface InlineObject10 {
     /**
      * 
-     * @type {string}
+     * @type {Set<string>}
      * @memberof InlineObject10
      */
-    email?: string;
+    group_ids?: Set<string>;
 }
 /**
  * 
@@ -252,10 +252,10 @@ export interface InlineObject10 {
 export interface InlineObject11 {
     /**
      * 
-     * @type {Set<string>}
+     * @type {string}
      * @memberof InlineObject11
      */
-    group_ids?: Set<string>;
+    email?: string;
 }
 /**
  * 
@@ -265,10 +265,10 @@ export interface InlineObject11 {
 export interface InlineObject12 {
     /**
      * 
-     * @type {string}
+     * @type {Set<string>}
      * @memberof InlineObject12
      */
-    email: string;
+    group_ids?: Set<string>;
 }
 /**
  * 
@@ -281,7 +281,7 @@ export interface InlineObject13 {
      * @type {string}
      * @memberof InlineObject13
      */
-    password: string;
+    email: string;
 }
 /**
  * 
@@ -294,7 +294,7 @@ export interface InlineObject14 {
      * @type {string}
      * @memberof InlineObject14
      */
-    name: string;
+    password: string;
 }
 /**
  * 
@@ -307,19 +307,7 @@ export interface InlineObject15 {
      * @type {string}
      * @memberof InlineObject15
      */
-    current_password: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject15
-     */
-    password: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject15
-     */
-    confirm_password: string;
+    name: string;
 }
 /**
  * 
@@ -332,7 +320,19 @@ export interface InlineObject16 {
      * @type {string}
      * @memberof InlineObject16
      */
-    email: string;
+    current_password: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject16
+     */
+    password: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject16
+     */
+    confirm_password: string;
 }
 /**
  * 
@@ -345,13 +345,7 @@ export interface InlineObject17 {
      * @type {string}
      * @memberof InlineObject17
      */
-    phone_number: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject17
-     */
-    country_code: string;
+    email: string;
 }
 /**
  * 
@@ -364,7 +358,13 @@ export interface InlineObject18 {
      * @type {string}
      * @memberof InlineObject18
      */
-    code: string;
+    phone_number: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject18
+     */
+    country_code: string;
 }
 /**
  * 
@@ -377,31 +377,8 @@ export interface InlineObject19 {
      * @type {string}
      * @memberof InlineObject19
      */
-    name: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject19
-     */
-    expire?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject19
-     */
-    expire_unit?: InlineObject19ExpireUnitEnum;
+    code: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject19ExpireUnitEnum {
-    Hours = 'hours',
-    Days = 'days',
-    Years = 'years'
-}
-
 /**
  * 
  * @export
@@ -421,6 +398,42 @@ export interface InlineObject2 {
      */
     password: string;
 }
+/**
+ * 
+ * @export
+ * @interface InlineObject20
+ */
+export interface InlineObject20 {
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject20
+     */
+    name: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject20
+     */
+    expire?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject20
+     */
+    expire_unit?: InlineObject20ExpireUnitEnum;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject20ExpireUnitEnum {
+    Hours = 'hours',
+    Days = 'days',
+    Years = 'years'
+}
+
 /**
  * 
  * @export
@@ -596,10 +609,10 @@ export interface InlineResponse2003 {
 export interface InlineResponse2004 {
     /**
      * 
-     * @type {Array<OrganizationInvite>}
+     * @type {Organization}
      * @memberof InlineResponse2004
      */
-    users?: Array<OrganizationInvite>;
+    organization?: Organization;
 }
 /**
  * 
@@ -609,8 +622,21 @@ export interface InlineResponse2004 {
 export interface InlineResponse2005 {
     /**
      * 
-     * @type {Array<Token>}
+     * @type {Array<OrganizationInvite>}
      * @memberof InlineResponse2005
+     */
+    users?: Array<OrganizationInvite>;
+}
+/**
+ * 
+ * @export
+ * @interface InlineResponse2006
+ */
+export interface InlineResponse2006 {
+    /**
+     * 
+     * @type {Array<Token>}
+     * @memberof InlineResponse2006
      */
     tokens?: Array<Token>;
 }
@@ -3621,7 +3647,7 @@ export const InvitesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async consumeInvite(token: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
+        async consumeInvite(token: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.consumeInvite(token, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3633,7 +3659,7 @@ export const InvitesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteInvite(organizationId: string, inviteId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
+        async deleteInvite(organizationId: string, inviteId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteInvite(organizationId, inviteId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3644,7 +3670,7 @@ export const InvitesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getInvites(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
+        async getInvites(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getInvites(organizationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3677,7 +3703,7 @@ export const InvitesApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        consumeInvite(token: string, options?: any): AxiosPromise<InlineResponse2004> {
+        consumeInvite(token: string, options?: any): AxiosPromise<InlineResponse2005> {
             return localVarFp.consumeInvite(token, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3688,7 +3714,7 @@ export const InvitesApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteInvite(organizationId: string, inviteId: string, options?: any): AxiosPromise<InlineResponse2004> {
+        deleteInvite(organizationId: string, inviteId: string, options?: any): AxiosPromise<InlineResponse2005> {
             return localVarFp.deleteInvite(organizationId, inviteId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3698,7 +3724,7 @@ export const InvitesApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getInvites(organizationId: string, options?: any): AxiosPromise<InlineResponse2004> {
+        getInvites(organizationId: string, options?: any): AxiosPromise<InlineResponse2005> {
             return localVarFp.getInvites(organizationId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4617,7 +4643,7 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async consumeInvite(token: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
+        async consumeInvite(token: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.consumeInvite(token, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -4628,7 +4654,7 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createOrganization(organization: Organization, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Organization>> {
+        async createOrganization(organization: Organization, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createOrganization(organization, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -4640,7 +4666,7 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteInvite(organizationId: string, inviteId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
+        async deleteInvite(organizationId: string, inviteId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteInvite(organizationId, inviteId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -4662,7 +4688,7 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getInvites(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
+        async getInvites(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getInvites(organizationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -4854,7 +4880,7 @@ export const OrganizationsApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        consumeInvite(token: string, options?: any): AxiosPromise<InlineResponse2004> {
+        consumeInvite(token: string, options?: any): AxiosPromise<InlineResponse2005> {
             return localVarFp.consumeInvite(token, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4864,7 +4890,7 @@ export const OrganizationsApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createOrganization(organization: Organization, options?: any): AxiosPromise<Organization> {
+        createOrganization(organization: Organization, options?: any): AxiosPromise<InlineResponse2004> {
             return localVarFp.createOrganization(organization, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4875,7 +4901,7 @@ export const OrganizationsApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteInvite(organizationId: string, inviteId: string, options?: any): AxiosPromise<InlineResponse2004> {
+        deleteInvite(organizationId: string, inviteId: string, options?: any): AxiosPromise<InlineResponse2005> {
             return localVarFp.deleteInvite(organizationId, inviteId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4895,7 +4921,7 @@ export const OrganizationsApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getInvites(organizationId: string, options?: any): AxiosPromise<InlineResponse2004> {
+        getInvites(organizationId: string, options?: any): AxiosPromise<InlineResponse2005> {
             return localVarFp.getInvites(organizationId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5314,15 +5340,15 @@ export const TokensApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary Create authorization token
          * @param {string} userId User ID
-         * @param {InlineObject19} inlineObject19 
+         * @param {InlineObject20} inlineObject20 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createToken: async (userId: string, inlineObject19: InlineObject19, options: any = {}): Promise<RequestArgs> => {
+        createToken: async (userId: string, inlineObject20: InlineObject20, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('createToken', 'userId', userId)
-            // verify required parameter 'inlineObject19' is not null or undefined
-            assertParamExists('createToken', 'inlineObject19', inlineObject19)
+            // verify required parameter 'inlineObject20' is not null or undefined
+            assertParamExists('createToken', 'inlineObject20', inlineObject20)
             const localVarPath = `/user/{user_id}/tokens`
                 .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -5347,7 +5373,7 @@ export const TokensApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject19, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject20, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5448,12 +5474,12 @@ export const TokensApiFp = function(configuration?: Configuration) {
          * 
          * @summary Create authorization token
          * @param {string} userId User ID
-         * @param {InlineObject19} inlineObject19 
+         * @param {InlineObject20} inlineObject20 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createToken(userId: string, inlineObject19: InlineObject19, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Token>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createToken(userId, inlineObject19, options);
+        async createToken(userId: string, inlineObject20: InlineObject20, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Token>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createToken(userId, inlineObject20, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -5475,7 +5501,7 @@ export const TokensApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listTokens(userId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+        async listTokens(userId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listTokens(userId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5493,12 +5519,12 @@ export const TokensApiFactory = function (configuration?: Configuration, basePat
          * 
          * @summary Create authorization token
          * @param {string} userId User ID
-         * @param {InlineObject19} inlineObject19 
+         * @param {InlineObject20} inlineObject20 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createToken(userId: string, inlineObject19: InlineObject19, options?: any): AxiosPromise<Token> {
-            return localVarFp.createToken(userId, inlineObject19, options).then((request) => request(axios, basePath));
+        createToken(userId: string, inlineObject20: InlineObject20, options?: any): AxiosPromise<Token> {
+            return localVarFp.createToken(userId, inlineObject20, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5518,7 +5544,7 @@ export const TokensApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listTokens(userId: string, options?: any): AxiosPromise<InlineResponse2005> {
+        listTokens(userId: string, options?: any): AxiosPromise<InlineResponse2006> {
             return localVarFp.listTokens(userId, options).then((request) => request(axios, basePath));
         },
     };
@@ -5535,13 +5561,13 @@ export class TokensApi extends BaseAPI {
      * 
      * @summary Create authorization token
      * @param {string} userId User ID
-     * @param {InlineObject19} inlineObject19 
+     * @param {InlineObject20} inlineObject20 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TokensApi
      */
-    public createToken(userId: string, inlineObject19: InlineObject19, options?: any) {
-        return TokensApiFp(this.configuration).createToken(userId, inlineObject19, options).then((request) => request(this.axios, this.basePath));
+    public createToken(userId: string, inlineObject20: InlineObject20, options?: any) {
+        return TokensApiFp(this.configuration).createToken(userId, inlineObject20, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5581,15 +5607,15 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary Initalizes user MFA configuration workflow
          * @param {string} userId User ID
-         * @param {InlineObject17} inlineObject17 
+         * @param {InlineObject18} inlineObject18 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        configureMfa: async (userId: string, inlineObject17: InlineObject17, options: any = {}): Promise<RequestArgs> => {
+        configureMfa: async (userId: string, inlineObject18: InlineObject18, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('configureMfa', 'userId', userId)
-            // verify required parameter 'inlineObject17' is not null or undefined
-            assertParamExists('configureMfa', 'inlineObject17', inlineObject17)
+            // verify required parameter 'inlineObject18' is not null or undefined
+            assertParamExists('configureMfa', 'inlineObject18', inlineObject18)
             const localVarPath = `/user/{user_id}/mfa`
                 .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -5614,7 +5640,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject17, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject18, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5625,15 +5651,15 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary Create authorization token
          * @param {string} userId User ID
-         * @param {InlineObject19} inlineObject19 
+         * @param {InlineObject20} inlineObject20 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createToken: async (userId: string, inlineObject19: InlineObject19, options: any = {}): Promise<RequestArgs> => {
+        createToken: async (userId: string, inlineObject20: InlineObject20, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('createToken', 'userId', userId)
-            // verify required parameter 'inlineObject19' is not null or undefined
-            assertParamExists('createToken', 'inlineObject19', inlineObject19)
+            // verify required parameter 'inlineObject20' is not null or undefined
+            assertParamExists('createToken', 'inlineObject20', inlineObject20)
             const localVarPath = `/user/{user_id}/tokens`
                 .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -5658,7 +5684,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject19, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject20, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5786,13 +5812,13 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * 
          * @summary Request reset password
-         * @param {InlineObject12} inlineObject12 
+         * @param {InlineObject13} inlineObject13 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        forgotPassword: async (inlineObject12: InlineObject12, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'inlineObject12' is not null or undefined
-            assertParamExists('forgotPassword', 'inlineObject12', inlineObject12)
+        forgotPassword: async (inlineObject13: InlineObject13, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'inlineObject13' is not null or undefined
+            assertParamExists('forgotPassword', 'inlineObject13', inlineObject13)
             const localVarPath = `/users/forgot`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5816,7 +5842,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject12, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject13, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5941,15 +5967,15 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary Validates an MFA configuration request
          * @param {string} userId User ID
-         * @param {InlineObject18} inlineObject18 
+         * @param {InlineObject19} inlineObject19 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        mfaVerify: async (userId: string, inlineObject18: InlineObject18, options: any = {}): Promise<RequestArgs> => {
+        mfaVerify: async (userId: string, inlineObject19: InlineObject19, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('mfaVerify', 'userId', userId)
-            // verify required parameter 'inlineObject18' is not null or undefined
-            assertParamExists('mfaVerify', 'inlineObject18', inlineObject18)
+            // verify required parameter 'inlineObject19' is not null or undefined
+            assertParamExists('mfaVerify', 'inlineObject19', inlineObject19)
             const localVarPath = `/user/{user_id}/mfa/verify`
                 .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -5974,7 +6000,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject18, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject19, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5985,15 +6011,15 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary Report User Activity
          * @param {string} userId User ID
-         * @param {InlineObject16} inlineObject16 
+         * @param {InlineObject17} inlineObject17 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        reportUserActivity: async (userId: string, inlineObject16: InlineObject16, options: any = {}): Promise<RequestArgs> => {
+        reportUserActivity: async (userId: string, inlineObject17: InlineObject17, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('reportUserActivity', 'userId', userId)
-            // verify required parameter 'inlineObject16' is not null or undefined
-            assertParamExists('reportUserActivity', 'inlineObject16', inlineObject16)
+            // verify required parameter 'inlineObject17' is not null or undefined
+            assertParamExists('reportUserActivity', 'inlineObject17', inlineObject17)
             const localVarPath = `/users/{user_id}/activity`
                 .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -6018,7 +6044,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject16, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject17, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6029,15 +6055,15 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary Request reset password using token
          * @param {string} token Reset token
-         * @param {InlineObject13} inlineObject13 
+         * @param {InlineObject14} inlineObject14 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        resetPassword: async (token: string, inlineObject13: InlineObject13, options: any = {}): Promise<RequestArgs> => {
+        resetPassword: async (token: string, inlineObject14: InlineObject14, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'token' is not null or undefined
             assertParamExists('resetPassword', 'token', token)
-            // verify required parameter 'inlineObject13' is not null or undefined
-            assertParamExists('resetPassword', 'inlineObject13', inlineObject13)
+            // verify required parameter 'inlineObject14' is not null or undefined
+            assertParamExists('resetPassword', 'inlineObject14', inlineObject14)
             const localVarPath = `/users/reset`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6065,7 +6091,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject13, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject14, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6162,16 +6188,60 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary Update user password
          * @param {string} userId User ID
+         * @param {InlineObject16} inlineObject16 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateUserPassword: async (userId: string, inlineObject16: InlineObject16, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('updateUserPassword', 'userId', userId)
+            // verify required parameter 'inlineObject16' is not null or undefined
+            assertParamExists('updateUserPassword', 'inlineObject16', inlineObject16)
+            const localVarPath = `/users/{user_id}/password`
+                .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject16, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update user profile name
+         * @param {string} userId User ID
          * @param {InlineObject15} inlineObject15 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUserPassword: async (userId: string, inlineObject15: InlineObject15, options: any = {}): Promise<RequestArgs> => {
+        updateUserProfile: async (userId: string, inlineObject15: InlineObject15, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
-            assertParamExists('updateUserPassword', 'userId', userId)
+            assertParamExists('updateUserProfile', 'userId', userId)
             // verify required parameter 'inlineObject15' is not null or undefined
-            assertParamExists('updateUserPassword', 'inlineObject15', inlineObject15)
-            const localVarPath = `/users/{user_id}/password`
+            assertParamExists('updateUserProfile', 'inlineObject15', inlineObject15)
+            const localVarPath = `/users/{user_id}/profile`
                 .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6202,50 +6272,6 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * 
-         * @summary Update user profile name
-         * @param {string} userId User ID
-         * @param {InlineObject14} inlineObject14 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateUserProfile: async (userId: string, inlineObject14: InlineObject14, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'userId' is not null or undefined
-            assertParamExists('updateUserProfile', 'userId', userId)
-            // verify required parameter 'inlineObject14' is not null or undefined
-            assertParamExists('updateUserProfile', 'inlineObject14', inlineObject14)
-            const localVarPath = `/users/{user_id}/profile`
-                .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject14, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -6260,24 +6286,24 @@ export const UserApiFp = function(configuration?: Configuration) {
          * 
          * @summary Initalizes user MFA configuration workflow
          * @param {string} userId User ID
-         * @param {InlineObject17} inlineObject17 
+         * @param {InlineObject18} inlineObject18 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async configureMfa(userId: string, inlineObject17: InlineObject17, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.configureMfa(userId, inlineObject17, options);
+        async configureMfa(userId: string, inlineObject18: InlineObject18, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.configureMfa(userId, inlineObject18, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary Create authorization token
          * @param {string} userId User ID
-         * @param {InlineObject19} inlineObject19 
+         * @param {InlineObject20} inlineObject20 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createToken(userId: string, inlineObject19: InlineObject19, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Token>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createToken(userId, inlineObject19, options);
+        async createToken(userId: string, inlineObject20: InlineObject20, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Token>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createToken(userId, inlineObject20, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -6317,12 +6343,12 @@ export const UserApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Request reset password
-         * @param {InlineObject12} inlineObject12 
+         * @param {InlineObject13} inlineObject13 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async forgotPassword(inlineObject12: InlineObject12, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.forgotPassword(inlineObject12, options);
+        async forgotPassword(inlineObject13: InlineObject13, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.forgotPassword(inlineObject13, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -6343,7 +6369,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listTokens(userId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+        async listTokens(userId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listTokens(userId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6362,36 +6388,36 @@ export const UserApiFp = function(configuration?: Configuration) {
          * 
          * @summary Validates an MFA configuration request
          * @param {string} userId User ID
-         * @param {InlineObject18} inlineObject18 
+         * @param {InlineObject19} inlineObject19 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async mfaVerify(userId: string, inlineObject18: InlineObject18, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.mfaVerify(userId, inlineObject18, options);
+        async mfaVerify(userId: string, inlineObject19: InlineObject19, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.mfaVerify(userId, inlineObject19, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary Report User Activity
          * @param {string} userId User ID
-         * @param {InlineObject16} inlineObject16 
+         * @param {InlineObject17} inlineObject17 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async reportUserActivity(userId: string, inlineObject16: InlineObject16, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.reportUserActivity(userId, inlineObject16, options);
+        async reportUserActivity(userId: string, inlineObject17: InlineObject17, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.reportUserActivity(userId, inlineObject17, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary Request reset password using token
          * @param {string} token Reset token
-         * @param {InlineObject13} inlineObject13 
+         * @param {InlineObject14} inlineObject14 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async resetPassword(token: string, inlineObject13: InlineObject13, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.resetPassword(token, inlineObject13, options);
+        async resetPassword(token: string, inlineObject14: InlineObject14, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resetPassword(token, inlineObject14, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -6422,24 +6448,24 @@ export const UserApiFp = function(configuration?: Configuration) {
          * 
          * @summary Update user password
          * @param {string} userId User ID
-         * @param {InlineObject15} inlineObject15 
+         * @param {InlineObject16} inlineObject16 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateUserPassword(userId: string, inlineObject15: InlineObject15, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUserPassword(userId, inlineObject15, options);
+        async updateUserPassword(userId: string, inlineObject16: InlineObject16, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUserPassword(userId, inlineObject16, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary Update user profile name
          * @param {string} userId User ID
-         * @param {InlineObject14} inlineObject14 
+         * @param {InlineObject15} inlineObject15 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateUserProfile(userId: string, inlineObject14: InlineObject14, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUserProfile(userId, inlineObject14, options);
+        async updateUserProfile(userId: string, inlineObject15: InlineObject15, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUserProfile(userId, inlineObject15, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -6456,23 +6482,23 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * 
          * @summary Initalizes user MFA configuration workflow
          * @param {string} userId User ID
-         * @param {InlineObject17} inlineObject17 
+         * @param {InlineObject18} inlineObject18 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        configureMfa(userId: string, inlineObject17: InlineObject17, options?: any): AxiosPromise<void> {
-            return localVarFp.configureMfa(userId, inlineObject17, options).then((request) => request(axios, basePath));
+        configureMfa(userId: string, inlineObject18: InlineObject18, options?: any): AxiosPromise<void> {
+            return localVarFp.configureMfa(userId, inlineObject18, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Create authorization token
          * @param {string} userId User ID
-         * @param {InlineObject19} inlineObject19 
+         * @param {InlineObject20} inlineObject20 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createToken(userId: string, inlineObject19: InlineObject19, options?: any): AxiosPromise<Token> {
-            return localVarFp.createToken(userId, inlineObject19, options).then((request) => request(axios, basePath));
+        createToken(userId: string, inlineObject20: InlineObject20, options?: any): AxiosPromise<Token> {
+            return localVarFp.createToken(userId, inlineObject20, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6508,12 +6534,12 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
         /**
          * 
          * @summary Request reset password
-         * @param {InlineObject12} inlineObject12 
+         * @param {InlineObject13} inlineObject13 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        forgotPassword(inlineObject12: InlineObject12, options?: any): AxiosPromise<void> {
-            return localVarFp.forgotPassword(inlineObject12, options).then((request) => request(axios, basePath));
+        forgotPassword(inlineObject13: InlineObject13, options?: any): AxiosPromise<void> {
+            return localVarFp.forgotPassword(inlineObject13, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6532,7 +6558,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listTokens(userId: string, options?: any): AxiosPromise<InlineResponse2005> {
+        listTokens(userId: string, options?: any): AxiosPromise<InlineResponse2006> {
             return localVarFp.listTokens(userId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6549,34 +6575,34 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * 
          * @summary Validates an MFA configuration request
          * @param {string} userId User ID
-         * @param {InlineObject18} inlineObject18 
+         * @param {InlineObject19} inlineObject19 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        mfaVerify(userId: string, inlineObject18: InlineObject18, options?: any): AxiosPromise<void> {
-            return localVarFp.mfaVerify(userId, inlineObject18, options).then((request) => request(axios, basePath));
+        mfaVerify(userId: string, inlineObject19: InlineObject19, options?: any): AxiosPromise<void> {
+            return localVarFp.mfaVerify(userId, inlineObject19, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Report User Activity
          * @param {string} userId User ID
-         * @param {InlineObject16} inlineObject16 
+         * @param {InlineObject17} inlineObject17 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        reportUserActivity(userId: string, inlineObject16: InlineObject16, options?: any): AxiosPromise<User> {
-            return localVarFp.reportUserActivity(userId, inlineObject16, options).then((request) => request(axios, basePath));
+        reportUserActivity(userId: string, inlineObject17: InlineObject17, options?: any): AxiosPromise<User> {
+            return localVarFp.reportUserActivity(userId, inlineObject17, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Request reset password using token
          * @param {string} token Reset token
-         * @param {InlineObject13} inlineObject13 
+         * @param {InlineObject14} inlineObject14 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        resetPassword(token: string, inlineObject13: InlineObject13, options?: any): AxiosPromise<void> {
-            return localVarFp.resetPassword(token, inlineObject13, options).then((request) => request(axios, basePath));
+        resetPassword(token: string, inlineObject14: InlineObject14, options?: any): AxiosPromise<void> {
+            return localVarFp.resetPassword(token, inlineObject14, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6604,23 +6630,23 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * 
          * @summary Update user password
          * @param {string} userId User ID
-         * @param {InlineObject15} inlineObject15 
+         * @param {InlineObject16} inlineObject16 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUserPassword(userId: string, inlineObject15: InlineObject15, options?: any): AxiosPromise<void> {
-            return localVarFp.updateUserPassword(userId, inlineObject15, options).then((request) => request(axios, basePath));
+        updateUserPassword(userId: string, inlineObject16: InlineObject16, options?: any): AxiosPromise<void> {
+            return localVarFp.updateUserPassword(userId, inlineObject16, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Update user profile name
          * @param {string} userId User ID
-         * @param {InlineObject14} inlineObject14 
+         * @param {InlineObject15} inlineObject15 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUserProfile(userId: string, inlineObject14: InlineObject14, options?: any): AxiosPromise<User> {
-            return localVarFp.updateUserProfile(userId, inlineObject14, options).then((request) => request(axios, basePath));
+        updateUserProfile(userId: string, inlineObject15: InlineObject15, options?: any): AxiosPromise<User> {
+            return localVarFp.updateUserProfile(userId, inlineObject15, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -6636,26 +6662,26 @@ export class UserApi extends BaseAPI {
      * 
      * @summary Initalizes user MFA configuration workflow
      * @param {string} userId User ID
-     * @param {InlineObject17} inlineObject17 
+     * @param {InlineObject18} inlineObject18 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public configureMfa(userId: string, inlineObject17: InlineObject17, options?: any) {
-        return UserApiFp(this.configuration).configureMfa(userId, inlineObject17, options).then((request) => request(this.axios, this.basePath));
+    public configureMfa(userId: string, inlineObject18: InlineObject18, options?: any) {
+        return UserApiFp(this.configuration).configureMfa(userId, inlineObject18, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Create authorization token
      * @param {string} userId User ID
-     * @param {InlineObject19} inlineObject19 
+     * @param {InlineObject20} inlineObject20 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public createToken(userId: string, inlineObject19: InlineObject19, options?: any) {
-        return UserApiFp(this.configuration).createToken(userId, inlineObject19, options).then((request) => request(this.axios, this.basePath));
+    public createToken(userId: string, inlineObject20: InlineObject20, options?: any) {
+        return UserApiFp(this.configuration).createToken(userId, inlineObject20, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6698,13 +6724,13 @@ export class UserApi extends BaseAPI {
     /**
      * 
      * @summary Request reset password
-     * @param {InlineObject12} inlineObject12 
+     * @param {InlineObject13} inlineObject13 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public forgotPassword(inlineObject12: InlineObject12, options?: any) {
-        return UserApiFp(this.configuration).forgotPassword(inlineObject12, options).then((request) => request(this.axios, this.basePath));
+    public forgotPassword(inlineObject13: InlineObject13, options?: any) {
+        return UserApiFp(this.configuration).forgotPassword(inlineObject13, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6747,39 +6773,39 @@ export class UserApi extends BaseAPI {
      * 
      * @summary Validates an MFA configuration request
      * @param {string} userId User ID
-     * @param {InlineObject18} inlineObject18 
+     * @param {InlineObject19} inlineObject19 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public mfaVerify(userId: string, inlineObject18: InlineObject18, options?: any) {
-        return UserApiFp(this.configuration).mfaVerify(userId, inlineObject18, options).then((request) => request(this.axios, this.basePath));
+    public mfaVerify(userId: string, inlineObject19: InlineObject19, options?: any) {
+        return UserApiFp(this.configuration).mfaVerify(userId, inlineObject19, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Report User Activity
      * @param {string} userId User ID
-     * @param {InlineObject16} inlineObject16 
+     * @param {InlineObject17} inlineObject17 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public reportUserActivity(userId: string, inlineObject16: InlineObject16, options?: any) {
-        return UserApiFp(this.configuration).reportUserActivity(userId, inlineObject16, options).then((request) => request(this.axios, this.basePath));
+    public reportUserActivity(userId: string, inlineObject17: InlineObject17, options?: any) {
+        return UserApiFp(this.configuration).reportUserActivity(userId, inlineObject17, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Request reset password using token
      * @param {string} token Reset token
-     * @param {InlineObject13} inlineObject13 
+     * @param {InlineObject14} inlineObject14 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public resetPassword(token: string, inlineObject13: InlineObject13, options?: any) {
-        return UserApiFp(this.configuration).resetPassword(token, inlineObject13, options).then((request) => request(this.axios, this.basePath));
+    public resetPassword(token: string, inlineObject14: InlineObject14, options?: any) {
+        return UserApiFp(this.configuration).resetPassword(token, inlineObject14, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6812,26 +6838,26 @@ export class UserApi extends BaseAPI {
      * 
      * @summary Update user password
      * @param {string} userId User ID
-     * @param {InlineObject15} inlineObject15 
+     * @param {InlineObject16} inlineObject16 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public updateUserPassword(userId: string, inlineObject15: InlineObject15, options?: any) {
-        return UserApiFp(this.configuration).updateUserPassword(userId, inlineObject15, options).then((request) => request(this.axios, this.basePath));
+    public updateUserPassword(userId: string, inlineObject16: InlineObject16, options?: any) {
+        return UserApiFp(this.configuration).updateUserPassword(userId, inlineObject16, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Update user profile name
      * @param {string} userId User ID
-     * @param {InlineObject14} inlineObject14 
+     * @param {InlineObject15} inlineObject15 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public updateUserProfile(userId: string, inlineObject14: InlineObject14, options?: any) {
-        return UserApiFp(this.configuration).updateUserProfile(userId, inlineObject14, options).then((request) => request(this.axios, this.basePath));
+    public updateUserProfile(userId: string, inlineObject15: InlineObject15, options?: any) {
+        return UserApiFp(this.configuration).updateUserProfile(userId, inlineObject15, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -7018,15 +7044,15 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
          * 
          * @summary Find an organization user by email
          * @param {string} organizationId Organization ID
-         * @param {InlineObject10} inlineObject10 
+         * @param {InlineObject11} inlineObject11 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findOrganizationUserByEmail: async (organizationId: string, inlineObject10: InlineObject10, options: any = {}): Promise<RequestArgs> => {
+        findOrganizationUserByEmail: async (organizationId: string, inlineObject11: InlineObject11, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationId' is not null or undefined
             assertParamExists('findOrganizationUserByEmail', 'organizationId', organizationId)
-            // verify required parameter 'inlineObject10' is not null or undefined
-            assertParamExists('findOrganizationUserByEmail', 'inlineObject10', inlineObject10)
+            // verify required parameter 'inlineObject11' is not null or undefined
+            assertParamExists('findOrganizationUserByEmail', 'inlineObject11', inlineObject11)
             const localVarPath = `/organizations/{organization_id}/users/find`
                 .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -7051,7 +7077,7 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject10, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject11, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -7176,6 +7202,54 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Add an existing user by UUID
+         * @param {string} organizationId Organization ID
+         * @param {string} userId User ID
+         * @param {InlineObject10} inlineObject10 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        inviteUserById: async (organizationId: string, userId: string, inlineObject10: InlineObject10, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            assertParamExists('inviteUserById', 'organizationId', organizationId)
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('inviteUserById', 'userId', userId)
+            // verify required parameter 'inlineObject10' is not null or undefined
+            assertParamExists('inviteUserById', 'inlineObject10', inlineObject10)
+            const localVarPath = `/organizations/{organization_id}/users/invite/{user_id}`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
+                .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject10, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -7317,17 +7391,17 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
          * @summary Update organization user
          * @param {string} organizationId Organization ID
          * @param {string} userId User ID
-         * @param {InlineObject11} inlineObject11 
+         * @param {InlineObject12} inlineObject12 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateOrganizationUser: async (organizationId: string, userId: string, inlineObject11: InlineObject11, options: any = {}): Promise<RequestArgs> => {
+        updateOrganizationUser: async (organizationId: string, userId: string, inlineObject12: InlineObject12, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationId' is not null or undefined
             assertParamExists('updateOrganizationUser', 'organizationId', organizationId)
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('updateOrganizationUser', 'userId', userId)
-            // verify required parameter 'inlineObject11' is not null or undefined
-            assertParamExists('updateOrganizationUser', 'inlineObject11', inlineObject11)
+            // verify required parameter 'inlineObject12' is not null or undefined
+            assertParamExists('updateOrganizationUser', 'inlineObject12', inlineObject12)
             const localVarPath = `/organizations/{organization_id}/users/{user_id}`
                 .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
                 .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
@@ -7353,7 +7427,7 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject11, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject12, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -7422,12 +7496,12 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * 
          * @summary Find an organization user by email
          * @param {string} organizationId Organization ID
-         * @param {InlineObject10} inlineObject10 
+         * @param {InlineObject11} inlineObject11 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findOrganizationUserByEmail(organizationId: string, inlineObject10: InlineObject10, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.findOrganizationUserByEmail(organizationId, inlineObject10, options);
+        async findOrganizationUserByEmail(organizationId: string, inlineObject11: InlineObject11, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findOrganizationUserByEmail(organizationId, inlineObject11, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -7463,6 +7537,19 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         async getOrganizationUsers(organizationId: string, offset?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2001>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOrganizationUsers(organizationId, offset, limit, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Add an existing user by UUID
+         * @param {string} organizationId Organization ID
+         * @param {string} userId User ID
+         * @param {InlineObject10} inlineObject10 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async inviteUserById(organizationId: string, userId: string, inlineObject10: InlineObject10, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.inviteUserById(organizationId, userId, inlineObject10, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -7506,12 +7593,12 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @summary Update organization user
          * @param {string} organizationId Organization ID
          * @param {string} userId User ID
-         * @param {InlineObject11} inlineObject11 
+         * @param {InlineObject12} inlineObject12 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateOrganizationUser(organizationId: string, userId: string, inlineObject11: InlineObject11, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOrganizationUser(organizationId, userId, inlineObject11, options);
+        async updateOrganizationUser(organizationId: string, userId: string, inlineObject12: InlineObject12, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOrganizationUser(organizationId, userId, inlineObject12, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -7572,12 +7659,12 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * 
          * @summary Find an organization user by email
          * @param {string} organizationId Organization ID
-         * @param {InlineObject10} inlineObject10 
+         * @param {InlineObject11} inlineObject11 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findOrganizationUserByEmail(organizationId: string, inlineObject10: InlineObject10, options?: any): AxiosPromise<void> {
-            return localVarFp.findOrganizationUserByEmail(organizationId, inlineObject10, options).then((request) => request(axios, basePath));
+        findOrganizationUserByEmail(organizationId: string, inlineObject11: InlineObject11, options?: any): AxiosPromise<void> {
+            return localVarFp.findOrganizationUserByEmail(organizationId, inlineObject11, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7610,6 +7697,18 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          */
         getOrganizationUsers(organizationId: string, offset?: number, limit?: number, options?: any): AxiosPromise<InlineResponse2001> {
             return localVarFp.getOrganizationUsers(organizationId, offset, limit, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Add an existing user by UUID
+         * @param {string} organizationId Organization ID
+         * @param {string} userId User ID
+         * @param {InlineObject10} inlineObject10 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        inviteUserById(organizationId: string, userId: string, inlineObject10: InlineObject10, options?: any): AxiosPromise<void> {
+            return localVarFp.inviteUserById(organizationId, userId, inlineObject10, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7649,12 +7748,12 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @summary Update organization user
          * @param {string} organizationId Organization ID
          * @param {string} userId User ID
-         * @param {InlineObject11} inlineObject11 
+         * @param {InlineObject12} inlineObject12 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateOrganizationUser(organizationId: string, userId: string, inlineObject11: InlineObject11, options?: any): AxiosPromise<void> {
-            return localVarFp.updateOrganizationUser(organizationId, userId, inlineObject11, options).then((request) => request(axios, basePath));
+        updateOrganizationUser(organizationId: string, userId: string, inlineObject12: InlineObject12, options?: any): AxiosPromise<void> {
+            return localVarFp.updateOrganizationUser(organizationId, userId, inlineObject12, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -7722,13 +7821,13 @@ export class UsersApi extends BaseAPI {
      * 
      * @summary Find an organization user by email
      * @param {string} organizationId Organization ID
-     * @param {InlineObject10} inlineObject10 
+     * @param {InlineObject11} inlineObject11 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public findOrganizationUserByEmail(organizationId: string, inlineObject10: InlineObject10, options?: any) {
-        return UsersApiFp(this.configuration).findOrganizationUserByEmail(organizationId, inlineObject10, options).then((request) => request(this.axios, this.basePath));
+    public findOrganizationUserByEmail(organizationId: string, inlineObject11: InlineObject11, options?: any) {
+        return UsersApiFp(this.configuration).findOrganizationUserByEmail(organizationId, inlineObject11, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7767,6 +7866,20 @@ export class UsersApi extends BaseAPI {
      */
     public getOrganizationUsers(organizationId: string, offset?: number, limit?: number, options?: any) {
         return UsersApiFp(this.configuration).getOrganizationUsers(organizationId, offset, limit, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Add an existing user by UUID
+     * @param {string} organizationId Organization ID
+     * @param {string} userId User ID
+     * @param {InlineObject10} inlineObject10 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public inviteUserById(organizationId: string, userId: string, inlineObject10: InlineObject10, options?: any) {
+        return UsersApiFp(this.configuration).inviteUserById(organizationId, userId, inlineObject10, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7813,13 +7926,13 @@ export class UsersApi extends BaseAPI {
      * @summary Update organization user
      * @param {string} organizationId Organization ID
      * @param {string} userId User ID
-     * @param {InlineObject11} inlineObject11 
+     * @param {InlineObject12} inlineObject12 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public updateOrganizationUser(organizationId: string, userId: string, inlineObject11: InlineObject11, options?: any) {
-        return UsersApiFp(this.configuration).updateOrganizationUser(organizationId, userId, inlineObject11, options).then((request) => request(this.axios, this.basePath));
+    public updateOrganizationUser(organizationId: string, userId: string, inlineObject12: InlineObject12, options?: any) {
+        return UsersApiFp(this.configuration).updateOrganizationUser(organizationId, userId, inlineObject12, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
