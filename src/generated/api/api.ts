@@ -1954,6 +1954,12 @@ export interface PipelineRevision {
     comment?: string;
     /**
      * 
+     * @type {object}
+     * @memberof PipelineRevision
+     */
+    metadata?: object;
+    /**
+     * 
      * @type {Array<PipelineRevisionSteps>}
      * @memberof PipelineRevision
      */
