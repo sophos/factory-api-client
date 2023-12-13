@@ -6788,6 +6788,9 @@
           "comment": {
             "type": "string"
           },
+          "metadata": {
+            "type": "object"
+          },
           "steps": {
             "type": "array",
             "items": {
