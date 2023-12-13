@@ -56,7 +56,7 @@ jobs:
       - name: Installing Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 20.x
 
       - name: Install OpenAPI generator
         run: npm install @openapitools/openapi-generator-cli@^2 -g
@@ -78,5 +78,5 @@ jobs:
           title: Update client
           body: |
             This is an automatically generated PR for updating the specification schema. (`gen.yml`)
-          assignees: sophos-rickc, sophos-daniels, marcfieser
-          reviewers: sophos-rickc, sophos-daniels, marcfieser
+          assignees: sophos-rickc, marcfieser
+          reviewers: sophos-rickc, marcfieser
