@@ -1,6 +1,6 @@
 {
   "name": "@sophos-factory/api-client",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "Official Sophos Factory API client library for JavaScript.",
   "keywords": [
     "Sophos",
