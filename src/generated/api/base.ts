@@ -18,7 +18,7 @@ import { Configuration } from "./configuration";
 // @ts-ignore
 import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 
-export const BASE_PATH = "https://api.dev.factory.sophos.com/v1".replace(/\/+$/, "");
+export const BASE_PATH = "https://api.us-west-2.factory.sophos.com/v1".replace(/\/+$/, "");
 
 /**
  *
