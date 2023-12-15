@@ -957,7 +957,7 @@ export interface InlineResponse2005 {
      * @type {string}
      * @memberof InlineResponse2005
      */
-    id?: string;
+    _id?: string;
     /**
      * 
      * @type {number}

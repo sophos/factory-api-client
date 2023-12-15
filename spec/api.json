@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://api.us-west-2.factory.sophos.com/v1",
+      "url": "https://api.dev.factory.sophos.com/v1",
       "description": "Sophos Factory API v1"
     }
   ],
@@ -1503,7 +1503,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "id": {
+                    "_id": {
                       "type": "string"
                     },
                     "revision": {
