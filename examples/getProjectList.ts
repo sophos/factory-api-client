@@ -2,7 +2,7 @@
 import { factoryApi } from '@sophos-factory/api-client';
 
 const accessToken = '<your api token here>';
-const basePath = 'https://api.factory.sophos.com/v1';
+const basePath = 'https://api.us-west-2.factory.sophos.com/v1';
 
 const config = new factoryApi.Configuration({
 	accessToken: accessToken,

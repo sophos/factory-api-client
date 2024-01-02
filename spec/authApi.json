@@ -140,6 +140,50 @@
           }
         }
       },
+      "OrganizationCreate": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string"
+          },
+          "contact_name": {
+            "type": "string"
+          },
+          "contact_email": {
+            "type": "string"
+          },
+          "admin_email": {
+            "type": "string"
+          },
+          "plan": {
+            "type": "string"
+          },
+          "tenant": {
+            "type": "object",
+            "properties": {
+              "region": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
       "OrganizationInvite": {
         "type": "object",
         "additionalProperties": false,
@@ -1681,7 +1725,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Organization"
+                "$ref": "#/components/schemas/OrganizationCreate"
               }
             }
           }

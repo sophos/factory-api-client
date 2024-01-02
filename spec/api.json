@@ -1503,7 +1503,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "id": {
+                    "_id": {
                       "type": "string"
                     },
                     "revision": {
@@ -6787,6 +6787,9 @@
           },
           "comment": {
             "type": "string"
+          },
+          "metadata": {
+            "type": "object"
           },
           "steps": {
             "type": "array",
